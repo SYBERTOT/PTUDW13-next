@@ -30,11 +30,11 @@
       // Data for the markers consisting of a name, a LatLng and a zIndex for the
       // order in which these markers should display on top of each other.
       const places = [
-        ["225 Nguyen Van Cu, Phuong 4, Quan 5",],
-        ["280 An Duong Vuong, Phuong 4, Quan 5"],
-        ["764 Vo Van Kiet, Phuong 1, Quan 5"],
-        ["498 Hoa Hao, Phuong 5, Quan 10"],
-        ["118 Banh Van Tran, Phuong 7, Tan Binh"],
+        ["227 Nguyen Van Cu, Phuong 4, Quan 5",10.762726906159159, 106.68233718352876],
+        ["280 An Duong Vuong, Phuong 4, Quan 5",10.761567492427426, 106.6821440644786],
+        ["764 Vo Van Kiet, Phuong 1, Quan 5",10.752835510924182, 106.67892356192823],
+        ["498 Hoa Hao, Phuong 5, Quan 10",10.761487732567485, 106.66533483877387],
+        ["118 Banh Van Tran, Phuong 7, Tan Binh",10.789805233394759, 106.6566224369221],
       ];
 
       function setMarkers(map) {
@@ -62,21 +62,16 @@
 
         for (let i = 0; i < places.length; i++) {
           const place = places[i];
-          geocoder.geocode({'address': place[0]}, function(results,status){
-            if(status === 'OK'){
-              new google.maps.Marker({
-              position: results[0].geometry.location,
-              map,
-              icon: image,
-              shape: shape,
-              title: place[0],
+            new google.maps.Marker({
+            position: {lat: place[1], lng: place[2]},
+            map,
+            icon: image,
+            shape: shape,
+            title: place[0],
             });
-          }else{
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-          });
+          };
         }
-      }
+
       window.initMap = initMap;
     </script>
     <style>
@@ -109,8 +104,10 @@
   <body>
     <div id="map"></div>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoIjU7Hncw8r7kU1C0c5huN-Idj_jG6sI&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDltp51dVqMzgX8fKTDoHDISu0N_zfeuCg&callback=initMap&v=weekly"
       defer
     ></script>
   </body>
 </html>
+
+
