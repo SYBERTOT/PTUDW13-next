@@ -13,7 +13,7 @@
       var map;
       var geocoder;
       var markers = [];
-
+      var infowindows = [];
 
       const places = [
         ["227 Nguyễn Văn Cừ, Phường 4, Quận 5",10.762726906159159, 106.68233718352876,"Phường 4, Quận 5","Đất công","Quảng cáo thương mại","ĐÃ QUY HOẠCH"],
@@ -35,7 +35,7 @@
       // Data for the markers consisting of a name, a LatLng and a zIndex for the
       // order in which these markers should display on top of each other.
       
-      function geocodeAddress(address) { // add map as a parameter
+      function geocodeAddress(address, map) { // add map as a parameter
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
             map.setCenter(results[0].geometry.location);
@@ -61,7 +61,22 @@
             title: place[0],
             });
             markers.push(marker);
-          };
+
+            var infowindow = new google.maps.InfoWindow({
+                    content: place[0] + '<br>' +
+                             place[3] + '<br>' +
+                             place[4] + '<br>' +
+                             place[5] + '<br>' +
+                             place[6]
+                });
+                infowindows.push(infowindow);
+
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        infowindows[i].open(map, marker);
+                    }
+                })(marker, i));
+            }
         }
       
       function clearMarkers(){
@@ -94,7 +109,8 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE&callback=initMap&v=weekly"
       defer
     ></script>
-    <button onclick="geocodeAddress('350 Lê Đức Thọ, Phường 6, Quận Gò Vấp', map)">Show Address on Map</button> <!-- pass the map variable to the function -->
+    <input id ="address" type ="text" placeholder="Địa chỉ bạn muốn tìm">
+    <button onclick="geocodeAddress(document.getElementById('address').value, map)">Show Address on Map</button> <!-- pass the map variable to the function -->
     <button onclick="setMarkers(map)">Remark</button>
   </body>
 </html>
