@@ -69,13 +69,31 @@
                              place[5] + '<br>' +
                              place[6]
                 });
-                infowindows.push(infowindow);
+            infowindows.push(infowindow);
 
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
-                        infowindows[i].open(map, marker);
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindows[i].open(map, marker);
+                }
+            })(marker, i));
+
+                // google.maps.event.addListener(marker, 'dblclick', (function(marker, i) {
+                //     return function() {
+                //         infowindows[i].open(map, marker);
+                //     }
+                // })(marker, i));
+
+                google.maps.event.addListener(marker,'dblclick',function() {
+                  // const sidebarID = toggle.dataset.toggleSidebar;
+                    const sidebarElement = "sidebar1" ? document.getElementById("sidebar1") : undefined;
+                    if (sidebarElement) {
+                        let sidebarState = sidebarElement.getAttribute('aria-hidden');
+                        sidebarElement.setAttribute('aria-hidden', sidebarState == 'true' ? false : true); 
                     }
-                })(marker, i));
+                });
+
+
+                
             }
         }
       
@@ -87,21 +105,22 @@
       }
 
       window.initMap = initMap;
-        </script>
-        <style>
-        #map {
-            height: 100%;
-        }
+    </script>
 
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        
-        }
-        </style>
+    <style>
+      #map {
+        height: 100%;
+      }
+
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      
+      }
+    </style>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -109,18 +128,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="styles.css">
     </head>
-    <body class="vh-100 overflow-hidden">
+    <body>
         <!--header-->
-        <!-- <div class="navbar">
-            <nav>
-                <a class="logo" href="index.html">PTUDW-13</a>
-                <ul>
-                    <li><a class="active" href="index.html">Trang chủ</a></li>
-                    <li><a href="list-report.html">Báo cáo đã gửi</a></li>
-                </ul>
-                <button type="button">Login</button>
-            </nav>
-        </div> -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
             <div class="container">
               <!-- Logo -->
@@ -155,19 +164,51 @@
             </div>
         </nav>
         <!--/header-->
-        <!-- <main>
-          <section>
-            
-          </section>
-        </main> -->
-
+        <!--container-->
+          <!-- <form action="" method="GET"> -->
+          <div class="input-group">
+              <input class="col-md-4 form-control" id="address" type="text" placeholder="Tìm kiếm theo địa chỉ" style="margin-left:auto;">
+              <button class="bi bi-search border-0 rounded-1 fs-4 mx-1" onclick="geocodeAddress(document.getElementById('address').value, map)"></button>
+              <button class="bi bi-arrow-clockwise border-0 rounded-1 fs-4" onclick="setMarkers(map)"></button>
+          </div>
+          <!-- </form> -->
         <div id="map"></div>
         <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE&callback=initMap&v=weekly"
-        defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE&callback=initMap&v=weekly"
+          defer
         ></script>
-        <input id ="address" type ="text" placeholder="Địa chỉ bạn muốn tìm">
-        <button onclick="geocodeAddress(document.getElementById('address').value, map)">Show Address on Map</button> <!-- pass the map variable to the function -->
-        <button onclick="setMarkers(map)">Remark</button>
+        <!--/container-->
+
+        <!--sidepanel-->
+        <div id="sidebar1" class="sidebar" aria-label="Main sidebar containing navigation links and some information" aria-hidden="true">
+          <div class="sidebar__content">
+            <div class="row">
+              <!-- <div class="col-md-12"> -->
+              
+                <img src="./images/227nvc.jpg" alt="227 Nguyễn Văn Cừ">
+              <!-- </div> -->
+              <div class="col-md-12">
+                  <div class="card">
+                      <div class="card-body">
+                          <!-- <div class="col-md-4" style="margin-left:auto;">
+                              <form action="" method="GET">
+                                  <div class="input-group mb-3">
+                                      <button type="submit" class="bi bi-search border-0 rounded-1 fs-4"></button>
+                                      <input type="text" name="search" value="" class="form-control" placeholder="Search">
+                                  </div>
+                              </form>
+                          </div> -->
+                          <p>
+                            <h3 class="fw-bold">Trụ, cụm pano</h3>
+                            <h5>227 Nguyễn Văn Cừ</h5>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </div>
+        </div>
+        <!--/sidepanel-->
+
     </body>
 </html>

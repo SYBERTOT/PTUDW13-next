@@ -4,6 +4,10 @@
     }
 }
 
+body{
+    font-family: sans-serif!important;
+}
+
 .with-line-navbar{
     border-bottom: 1px solid #F5F5F5;
 }
@@ -39,6 +43,47 @@ nav div div div ul li a:hover{
     color: #3563E9!important;
 }
 
+.solved-status{
+    background-color: #FFF6ED;
+    color: #027A48;
+}
+
+.handling-status{
+    background-color: #FFF6ED;
+    color: #C4320A;
+}
+
+.report-category{
+    background-color: #EFF8FF;
+    color: #175CD3;
+}
+
+/* SIDEBAR POSITION */
+.sidebar {
+    background-color: #f1f1f1;
+    height: 944px;
+    width: 683px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    min-width: 300px;
+    float:left;
+  }
+  .sidebar__content {
+    padding: 8px;
+    float:left;
+  }
+  /* SIDEBAR HIDDEN STATE */
+  .sidebar[aria-hidden="true"] {
+    transition: 200ms;
+    transform: translateX(100%);
+  }
+  /* SIDEBAR VISIBLE STATE */
+  .sidebar:not([aria-hidden]),
+  .sidebar[aria-hidden="false"] {
+    transition: 200ms;
+    transform: translateX(0);
+  }
 /* body{
     margin: 0;
     padding: 0;
