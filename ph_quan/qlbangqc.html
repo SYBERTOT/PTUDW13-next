@@ -19,7 +19,7 @@
 		<!-- place navbar here -->
 		<nav class="navbar navbar-expand-sm navbar-dark container">
 			  <div class="container">
-				<a class="navbar-brand" href="#"><i class="fs-3 align-center"></i>PTUDW-13</a>
+				<a class="navbar-brand" href="/index.html"><i class="fs-3 align-center"></i>PTUDW-13</a>
 				<button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
 					aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -57,7 +57,7 @@
 	<div class="container-fluid">
 		<!--title-->
 		<div class="pagetitle">
-			<h2>Quản lý điểm đặt quảng cáo</h2>
+			<h2>Quản lý bảng quảng cáo</h2>
 		</div>
 		<!--title-->
 		<!--button bar-->
@@ -92,49 +92,14 @@
 						<div class="col-md-8">
 							<div class="card-body">
 								<div>
-									<span class="badge rounded-pill bg-warning">Quảng cáo thương mại</span>
-								</div>
-								<div>
+									<h5 class="card-text">TRỤ/CỤM PANO</h5>
 									<h6 class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></h6>
 									<h6 class="card-text">Khu vực: <small class="text-muted">Phường 4, Quận 5</small></h6>
-									<h6 class="card-text">Phân loại: <small class="text-muted">Đất tư nhân/Nhà ở riêng lẻ</small></h6>
-								</div>
-								<div>
-									<span class="badge bg-success">ĐÃ QUY HOẠCH</span>
+									<h6 class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></h6>
+									<h6 class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></h6>
 								</div>
 								<div class="text-end">
 									<div class="btn-group" role="group">
-										<button type="button" class="btn bg-transparent"><i class="bi bi-info-circle-fill"></i></button>
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									  </div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="card mb-3">
-					<div class="row g-0">
-						<div class="col-md-4">
-							<img src="..." class="img-fluid rounded-start" alt = "Image">
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<div>
-									<span class="badge rounded-pill bg-warning">Quảng cáo thương mại</span>
-								</div>
-								<div>
-									<h6 class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></h6>
-									<h6 class="card-text">Khu vực: <small class="text-muted">Phường 4, Quận 5</small></h6>
-									<h6 class="card-text">Phân loại: <small class="text-muted">Đất tư nhân/Nhà ở riêng lẻ</small></h6>
-								</div>
-								<div>
-									<span class="badge bg-success">ĐÃ QUY HOẠCH</span>
-								</div>
-								<div class="text-end">
-									<div class="btn-group" role="group">
-										<button type="button" class="btn bg-transparent"><i class="bi bi-info-circle-fill"></i></button>
 										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
 									  </div>
 								</div>
@@ -166,7 +131,7 @@
 	<div class="modal-dialog">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa thông tin điểm đặt quảng cáo</h1>
+		  <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa thông tin bảng quảng cáo</h1>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
@@ -175,7 +140,7 @@
 					<h6>Thông tin chỉnh sửa</h6>
 					<div class="row">
 						<div>
-							<label for="adaddress" class="form-label">Địa chỉ</label>
+							<label for="adaddress" class="form-label">Điểm đặt</label>
 							<input type="text" class="form-control" id="adaddress" placeholder="227 Nguyễn Văn Cừ, phường 4, quận 5">
 						</div>
 						<!--<button type="button" class="btn btn-primary btn-sm">Chọn từ bản đồ</button>-->
@@ -184,7 +149,7 @@
 						<div class="col-md-8">
 							<div class="row">
 								<div>
-									<label for="addresstype" class="form-label">Loại vị trí</label>
+									<label for="addresstype" class="form-label">Loại bảng quảng cáo</label>
 									<select class="form-select" aria-label="Default select example">
 										<option selected>Open this select menu</option>
 										<option value="1">One</option>
@@ -195,13 +160,8 @@
 							</div>
 							<div class="row">
 								<div>
-									<label for="adtype" class="form-label">Hình thức quảng cáo</label>
-									<select class="form-select" aria-label="Default select example">
-											<option selected>Open this select menu</option>
-											<option value="1">One</option>
-											<option value="2">Two</option>
-											<option value="3">Three</option>
-									</select>
+									<label for="adtype" class="form-label">Kích thước</label>
+									<input type="text" id="kichthuoc" class="form-control" placeholder="Nhập kích thước">
 								</div>
 							</div>
 						</div>
