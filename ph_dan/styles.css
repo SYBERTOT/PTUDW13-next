@@ -59,7 +59,18 @@ nav div div div ul li a:hover{
 }
 
 /* SIDEBAR POSITION */
-.sidebar {
+.sidebar1 {
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 30%;
+    position: fixed;
+    top: 0;
+    /* right: 0; */
+    left: 0;
+}
+.sidebar2 {
     background-color: white;
     overflow-y: auto;
     overflow-x: hidden;

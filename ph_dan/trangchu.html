@@ -77,20 +77,13 @@
                 }
             })(marker, i));
 
-                // google.maps.event.addListener(marker, 'dblclick', (function(marker, i) {
-                //     return function() {
-                //         infowindows[i].open(map, marker);
-                //     }
-                // })(marker, i));
-
-                google.maps.event.addListener(marker,'dblclick',function() {
-                  // const sidebarID = toggle.dataset.toggleSidebar;
-                    const sidebarElement = "sidebar1" ? document.getElementById("sidebar1") : undefined;
-                    if (sidebarElement) {
-                        let sidebarState = sidebarElement.getAttribute('aria-hidden');
-                        sidebarElement.setAttribute('aria-hidden', sidebarState == 'true' ? false : true); 
-                    }
-                });
+            google.maps.event.addListener(marker,'dblclick',function() {
+                const sidebarElement = "sidebar1" ? document.getElementById("sidebar1") : undefined;
+                if (sidebarElement) {
+                    let sidebarState = sidebarElement.getAttribute('aria-hidden');
+                    sidebarElement.setAttribute('aria-hidden', sidebarState == 'true' ? false : true); 
+                }
+            });
 
 
                 
@@ -188,8 +181,83 @@
         ></script>
         <!--/container-->
 
-        <!--sidepanel-->
-        <div id="sidebar1" class="sidebar" aria-label="Main sidebar containing navigation links and some information" aria-hidden="true">
+        <!--sidepanel1-->
+        <div id="sidebar1" class="sidebar sidebar1" aria-label="Main sidebar containing navigation links and some information" aria-hidden="true">
+          <div class="sidebar__content">
+            <div class="row">              
+              <div class="col-md-12">
+                  <div class="card border-0 fs-1" style="background-color: #E8F8EE;">
+                      <div class="card-body">
+                          <!-- <p> -->
+                            <h3 class="bi bi-geo-alt" style="font-size: 16px; font-weight: 700; color: #003220;"> Thông tin địa điểm</h3>
+                            <h3 style="font-size: 15px; font-weight: 700; color: #003220; padding-left: 20px;">Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia Thành phố Hồ Chí Minh</h3>
+                            <h5 style="font-size: 15px; padding-left: 20px;">227 Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh</h5>
+                            <div>
+                              <a class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;" href="guibaocao.html"> BÁO CÁO VI PHẠM</a>
+                            </div>
+                          <!-- </p> -->
+                      </div>
+                  </div>
+
+                  <div class="card border-0 fs-1 my-2" style="background-color: #B4DBFF;">
+                    <div class="card-body">
+                        <!-- <p> -->
+                          <h3 class="bi bi-info-circle" style="font-size: 16px; font-weight: 700; color: #003220; background-color: #B4DBFF;"> Thông tin bảng quảng cáo</h3>
+                          
+                          <div class="card border-0 fs-1" style="background-color: white;">
+                            <div class="card-body">
+                            <div>
+                              <h3 style="font-size: 18px; font-weight: 700; color: black;">Trụ, cụm pano</h3>
+                              <h3 style="font-size: 15px; font-weight: 600; color: black;">227 Nguyễn Văn Cừ (Trường Đại học Khoa học Tự nhiên), Phường 4, Quận 5, Thành phố Hồ Chí Minh</h3>
+                              <p style="font-size: 15px;">Kích thước: 2.5mx10m </br> Số lượng: 1 trụ/bảng </br> Hình thức: Cổ động chính trị </br> Phân loại: Đất công/Công viên/Hành lang an toàn giao thông</p>
+                            
+                              <button type="button" class="bi bi-info-circle border-0 rounded-0" data-dismiss="modal" aria-label="Close" style="float: inline-start; font-size: 20px; background-color: white;" onclick="toggleSidePanel2()"></button>
+                              <a class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;" href="guibaocao.html"> BÁO CÁO VI PHẠM</a>
+                            </div>
+                            </div>
+                          </div>
+                        <!-- </p> -->
+                          <div class="card border-0 fs-1 my-2" style="background-color: white;">
+                            <div class="card-body">
+                            <div>
+                              <h3 style="font-size: 18px; font-weight: 700; color: black;">Trụ, cụm pano</h3>
+                              <h3 style="font-size: 15px; font-weight: 600; color: black;">227 Nguyễn Văn Cừ (Trường Đại học Khoa học Tự nhiên), Phường 4, Quận 5, Thành phố Hồ Chí Minh</h3>
+                              <p style="font-size: 15px;">Kích thước: 2.5mx10m </br> Số lượng: 1 trụ/bảng </br> Hình thức: Cổ động chính trị </br> Phân loại: Đất công/Công viên/Hành lang an toàn giao thông</p>
+                            
+                              <button type="button" class="bi bi-info-circle border-0 rounded-0" data-dismiss="modal" aria-label="Close" style="float: inline-start; font-size: 20px; background-color: white;" onclick="toggleSidePanel2()"></button>
+                              <a class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;" href="guibaocao.html"> BÁO CÁO VI PHẠM</a>
+                            </div>
+                            </div>
+                          </div>
+                        <!-- </p> -->
+                        <div class="card border-0 fs-1 my-2" style="background-color: white;">
+                          <div class="card-body">
+                          <div>
+                            <h3 style="font-size: 18px; font-weight: 700; color: black;">Trụ, cụm pano</h3>
+                            <h3 style="font-size: 15px; font-weight: 600; color: black;">227 Nguyễn Văn Cừ (Trường Đại học Khoa học Tự nhiên), Phường 4, Quận 5, Thành phố Hồ Chí Minh</h3>
+                            <p style="font-size: 15px;">Kích thước: 2.5mx10m </br> Số lượng: 1 trụ/bảng </br> Hình thức: Cổ động chính trị </br> Phân loại: Đất công/Công viên/Hành lang an toàn giao thông</p>
+                          
+                            <button type="button" class="bi bi-info-circle border-0 rounded-0" data-dismiss="modal" aria-label="Close" style="float: inline-start; font-size: 20px; background-color: white;" onclick="toggleSidePanel2()"></button>
+                            <a class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;" href="guibaocao.html"> BÁO CÁO VI PHẠM</a>
+                          </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
+              <div class="pt-3">
+                <button type="button" class="close border-0 rounded-0" data-dismiss="modal" aria-label="Close" style="float: inline-end;" onclick="toggleSidePanel1()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <!--sidepanel2-->
+        <div id="sidebar2" class="sidebar sidebar2" aria-label="Main sidebar containing navigation links and some information" aria-hidden="true">
+          
           <div class="sidebar__content">
             <div class="row">
               <img src="./images/227nvc.jpg" class="pb-1" alt="227 Nguyễn Văn Cừ">
@@ -226,15 +294,31 @@
                 </div>
               <div class="pt-3">
                 <a class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-2 fw-bold" style="border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none;" href="guibaocao.html"> BÁO CÁO VI PHẠM</a>
+                <button type="button" class="close border-0 rounded-0" data-dismiss="modal" aria-label="Close" style="float: inline-end;" onclick="toggleSidePanel2()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
             </div>
-
-            
-
           </div>
           </div>
         </div>
-        <!--/sidepanel-->
+        <!--/sidepanel2-->
+        <script>
+          function toggleSidePanel1(){
+            const sidebarElement = "sidebar1" ? document.getElementById("sidebar1") : undefined;
+            if (sidebarElement) {
+                let sidebarState = sidebarElement.getAttribute('aria-hidden');
+                sidebarElement.setAttribute('aria-hidden', sidebarState == 'true' ? false : true); 
+            }
+          }
+          function toggleSidePanel2(){
+            const sidebarElement = "sidebar2" ? document.getElementById("sidebar2") : undefined;
+            if (sidebarElement) {
+                let sidebarState = sidebarElement.getAttribute('aria-hidden');
+                sidebarElement.setAttribute('aria-hidden', sidebarState == 'true' ? false : true); 
+            }
+          }
+        </script>
 
     </body>
 </html>

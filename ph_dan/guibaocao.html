@@ -6,7 +6,7 @@
 -->
 <html>
     <head>
-        <title>PTUDW13</title>
+        <title>Gửi báo cáo về Sở VH-TT</title>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -62,16 +62,17 @@
                         <div class="card-body">
                             <div class="col-md-4" style="padding-left: 70px;">
                               <form action="" method="GET">
-
                                   <label for="hinhthuc">Hình thức báo cáo</label>
-                                  <br>
-                                  <select id="hinhthuc" name="hinhthuc">
+                                  <!-- <br> -->
+                                  <div class="input-group mb-3">
+                                  <select id="hinhthuc" name="hinhthuc" class="form-select" aria-label="Default select example">
+                                      <option selected>Chọn hình thức báo cáo</option>
                                       <option value="togiac">Tố giác sai phạm</option>
                                       <option value="dangky">Đăng ký nội dung</option>
                                       <option value="donggop">Đóng góp ý kiến</option>
                                       <option value="thacmac">Giải đáp thắc mắc</option>
                                   </select>
-                                  
+                                  </div>
 
 
                                   <label for="hoten">Họ tên người gửi báo cáo</label>
