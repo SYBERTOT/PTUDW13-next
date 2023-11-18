@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href ="style.css">
+</head>
+
+<body>
+	<header class="container-fluid">
+		<!-- place navbar here -->
+		<nav class="navbar navbar-expand-lg navbar bg-white">
+			  <div class="container">
+				<a class="navbar-brand" href="/index.html">PTUDW-13</a>
+				<button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="collapsibleNavId">
+					<div class="justify-content-start align-items-center fs-5 flex-grow-1 pe-3">
+						<ul class="navbar-nav">
+							<li class="nav-item mx-2">
+								<a class="nav-link active" href="/ph_phuong/home.html" aria-current="page">Trang chủ<span class="visually-hidden">(current)</span></a>
+							</li>
+							<li class="nav-item dropdown mx-2">
+								<a class="nav-link dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quản lý</a>
+								<div class="dropdown-menu" aria-labelledby="dropdownId">
+									<a class="dropdown-item" href="/ph_phuong/qldiemdat.html">Điểm đặt quảng cáo</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/ph_phuong/qlbangqc.html">Bảng quảng cáo</a>
+								</div>
+							</li>
+							<li class="nav-item dropdown mx-2">
+								<a class="nav-link dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Xử lý</a>
+								<div class="dropdown-menu" aria-labelledby="dropdownId">
+									<a class="dropdown-item" href="/ph_phuong/xlbaocao.html">Báo cáo</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/ph_phuong/xlcapphep.html">Cấp phép quảng cáo</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="nav-item mx-2 flex-end">
+						<a class="nav-link" href="#"><i class="bi bi-person-circle fs-5"></i></a>
+					</div>
+		  		</div>
+		  	  </div>	
+		</nav>
+	</header>
+
+	<!--container-->
+          <!-- <form action="" method="GET"> -->
+			<div class="input-group pb-1" style="padding-left: 15px; padding-right: 15px;">
+				<input class="col-md-4 form-control" id="address" type="text" placeholder="Tìm kiếm theo địa chỉ" style="margin-left:auto;">
+				<button class="bi bi-search border-0 rounded-1 fs-4 mx-1" onclick="geocodeAddress(document.getElementById('address').value, map)"></button>
+				<button class="bi bi-arrow-clockwise border-0 rounded-1 fs-4" onclick="setMarkers(map)"></button>
+			</div>
+			<!-- </form> -->
+		  <div id="map"></div>
+		  
+	<!--/container-->
+  <footer>
+	<!-- place footer here -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+	integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script>
+  
+  var map;
+  var geocoder;
+  var markers = [];
+  var infowindows = [];
+
+  const places = [
+	["227 Nguyễn Văn Cừ, Phường 4, Quận 5",10.762726906159159, 106.68233718352876,"Phường 4, Quận 5","Đất công","Quảng cáo thương mại","ĐÃ QUY HOẠCH"],
+	["280 An Dương Vương, Phường 4, Quận 5",10.761567492427426, 106.6821440644786,"Phường 4, Quận 5","Đất công","Quảng cáo thương mại","ĐÃ QUY HOẠCH"],
+	["764 Võ Văn Kiệt, Phường 1, Quận 5",10.752835510924182, 106.67892356192823,"Phường 1, Quận 5","Đất tư nhân","Xã hội hóa","ĐÃ QUY HOẠCH"],
+	["498 Hòa Hảo, Phường 5, Quận 10",10.761487732567485, 106.66533483877387,"Phường 5, Quận 10","Chợ","Cổ động chính trị","CHƯA QUY HOẠCH"],
+	["118 Bành Văn Trân, Phường 7, Quận Tân Bình",10.789805233394759, 106.6566224369221,"Phường 7, Quận Tân Bình","Đất công","Quảng cáo thương mại","ĐÃ QUY HOẠCH"],
+  ];
+
+  function initMap() {
+	map = new google.maps.Map(document.getElementById("map"), {
+	  zoom: 9,
+	  center: { lat: 10.7858, lng: 106.7085 },
+	});
+	geocoder = new google.maps.Geocoder();
+	setMarkers(map);
+  }
+
+  // Data for the markers consisting of a name, a LatLng and a zIndex for the
+  // order in which these markers should display on top of each other.
+  
+  function geocodeAddress(address, map) { // add map as a parameter
+	geocoder.geocode({'address': address}, function(results, status) {
+	  if (status === 'OK') {
+		map.setCenter(results[0].geometry.location);
+		clearMarkers();
+		var marker = new google.maps.Marker({
+		  map: map, 
+		  position: results[0].geometry.location
+		});
+		markers.push(marker);
+	  } else {
+		alert('Geocode was not successful for the following reason: ' + status);
+	  }
+	});
+  }
+
+  function setMarkers(map) {
+	clearMarkers();
+	for (let i = 0; i < places.length; i++) {
+	  const place = places[i];
+		var marker = new google.maps.Marker({
+		position: {lat: place[1], lng: place[2]},
+		map,
+		title: place[0],
+		});
+		markers.push(marker);
+
+		var infowindow = new google.maps.InfoWindow({
+				content: place[0] + '<br>' +
+						 place[3] + '<br>' +
+						 place[4] + '<br>' +
+						 place[5] + '<br>' +
+						 place[6]
+			});
+		infowindows.push(infowindow);
+
+		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {
+				infowindows[i].open(map, marker);
+			}
+		})(marker, i));
+
+			// google.maps.event.addListener(marker, 'dblclick', (function(marker, i) {
+			//     return function() {
+			//         infowindows[i].open(map, marker);
+			//     }
+			// })(marker, i));
+
+			google.maps.event.addListener(marker,'dblclick',function() {
+			  // const sidebarID = toggle.dataset.toggleSidebar;
+				const sidebarElement = "sidebar1" ? document.getElementById("sidebar1") : undefined;
+				if (sidebarElement) {
+					let sidebarState = sidebarElement.getAttribute('aria-hidden');
+					sidebarElement.setAttribute('aria-hidden', sidebarState == 'true' ? false : true); 
+				}
+			});
+
+
+			
+		}
+	}
+  
+  function clearMarkers(){
+	for (let i =0; i< markers.length; i++){
+	  markers[i].setMap(null);
+	}
+	markers = [];
+  }
+
+  window.initMap = initMap;
+</script>
+
+<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE&callback=initMap&v=weekly"	defer></script>
+</body>
+
+</html>
