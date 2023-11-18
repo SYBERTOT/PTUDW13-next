@@ -25,6 +25,12 @@ nav {
 .indigo{
     background-color: rgb(147, 55, 212);
 }
+.border-indigo {
+    background-color: white;
+    color: rgb(147, 55, 212);
+    border-style: solid;
+    border-color: rgb(147, 55, 212);
+}
 /* .card-img {
     width: 100%;
     object-fit: cover;
@@ -48,24 +54,63 @@ nav {
 .container > .row{
     margin: 10px 0;
 }
-/* .form-popup > .row > div {
-    padding: 0 10px;
-    margin: 7px;
-} */
-/* .form-popup > .row > .col> .btn {
-    ma: 70px;
-    background-color: aquamarine;
-} */
-.form-popup {
+#Update,#Add{
     display: none;
-    position: absolute;
-    top: 35%;
-    left: 25%;
-    /* bottom: 50%;
-    right: 50%; */
-    width: 50%;
+    padding: 15px;
+    position: fixed;
+    width: 560px;
+    height: 590px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-.popup-icon{
+#Addcb{
+    display: none;
+    padding: 15px;
+    position: fixed;
+    width: 510px;
+    height: 550px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#Edit{
+    display: none;
+    padding: 15px;
+    position: fixed;
+    width: 400px;
+    height: 400px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.update-icon{
     color: rgb(137, 43, 226);
     background-color: rgba(137, 43, 226, 0.208);
 }
+#Del {
+    display: none;
+    padding: 15px;
+    position: fixed;
+    width: 360px;
+    height: 220px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);    
+}
+.del-icon {
+    color:  rgb(122, 0, 0);
+    background-color: rgba(255, 106, 106, 0.25);
+}
+.scarlet {
+    background-color: rgb(195, 0, 0);
+}
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
