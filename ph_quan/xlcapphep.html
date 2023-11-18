@@ -15,123 +15,340 @@
 </head>
 
 <body>
-	<header class="container-fluid bg-primary">
+	<header class="container-fluid">
 		<!-- place navbar here -->
-		<nav class="navbar navbar-expand-sm navbar-dark container">
-			  <div class="container">
-				<a class="navbar-brand" href="/index.html"><i class="fs-3 align-center"></i>PTUDW-13</a>
-				<button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="collapsibleNavId">
-					<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-						<li class="nav-item">
-							<a class="nav-link" href="/ph_quan/home.html">Trang chủ</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-current="page">Quản lý<span class="visually-hidden">(current)</span></a>
-							<div class="dropdown-menu" aria-labelledby="dropdownId">
-								<a class="dropdown-item" href="/ph_quan/qldiemdat.html">Điểm đặt quảng cáo</a>
-								<div href="" class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/ph_quan/qlbangqc.html">Bảng quảng cáo</a>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link active dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Xử lý</a>
-							<div class="dropdown-menu" aria-labelledby="dropdownId">
-								<a class="dropdown-item" href="/ph_quan/xlbaocao.html">Báo cáo</a>
-								<div href="" class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/ph_quan/xlcapphep.html">Cấp phép quảng cáo</a>
-							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Tài khoản</a>
-						</li>
-					</ul>
-		  </div>
-		</nav>
-		
-	  </header>
-  <main>
-	<div class="container-fluid">
-		<!--title-->
-		<div class="pagetitle">
-			<h2>Cấp phép quảng cáo cho công ty</h2>
-		</div>
-		<!--title-->
-		<!--button bar-->
-		<div class="btn-toolbar mb-3 justify-content-between"" role="toolbar" aria-label="Toolbar">
-			<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-				<button type="button" class="btn btn-primary">View all</button>
-			  
-				<div class="btn-group" role="group">
-				  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-					Phường
-				  </button>
-				  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-					<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-					<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-				  </ul>
+		<nav class="navbar fixed-top navbar-expand-lg bg-white">
+			<div class="container">
+			  <a class="navbar-brand" href="/index.html">PTUDW-13</a>
+			  <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+				  aria-expanded="false" aria-label="Toggle navigation">
+				  <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="collapsibleNavId">
+				  <div class="justify-content-start align-items-center fs-5 flex-grow-1 pe-3">
+					  <ul class="navbar-nav">
+						  <li class="nav-item mx-2">
+							  <a class="nav-link" href="/ph_quan/home.html" aria-current="page">Trang chủ<span class="visually-hidden">(current)</span></a>
+						  </li>
+						  <li class="nav-item dropdown mx-2">
+							  <a class="nav-link dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quản lý</a>
+							  <div class="dropdown-menu" aria-labelledby="dropdownId">
+								  <a class="dropdown-item" href="/ph_quan/qldiemdat.html">Điểm đặt quảng cáo</a>
+								  <div class="dropdown-divider"></div>
+								  <a class="dropdown-item" href="/ph_quan/qlbangqc.html">Bảng quảng cáo</a>
+							  </div>
+						  </li>
+						  <li class="nav-item dropdown mx-2">
+							  <a class="nav-link active dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Xử lý</a>
+							  <div class="dropdown-menu" aria-labelledby="dropdownId">
+								  <a class="dropdown-item" href="/ph_quan/xlbaocao.html">Báo cáo</a>
+								  <div class="dropdown-divider"></div>
+								  <a class="dropdown-item" href="/ph_quan/xlcapphep.html">Cấp phép quảng cáo</a>
+							  </div>
+						  </li>
+					  </ul>
+				  </div>
+				  <div class="nav-item mx-2 flex-end">
+					  <a class="nav-link" href="#"><i class="bi bi-person-circle fs-5"></i></a>
+				  </div>
 				</div>
-			  </div>
-			<div class="input-group">
-				<span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-				<input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
-			  </div>
-		  </div>
+			  </div>	
+	   </nav>
+	</header>
+  <main>
+	<div class="container-fluid pt-5">
+		<!--title-->
+		<div class="row mb-3">
+			<div class="page-title">
+				Xử lý cấp phép quảng cáo cho công ty
+			</div>
+		</div>
+
 		<!--button bar-->
+		<div class="row">
+			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+				<div class="me-3">
+					<button type="button" class="btn btn-white border">View all</button>
+				</div>
+				<div class="dropdown me-3">
+					<button class="btn btn-white border dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+						Phường
+					</button>
+					<div class="dropdown-menu">
+						<div><label><input type="checkbox" value="P1"> Phường 1</label></div>
+						<div><label><input type="checkbox" value="P2"> Phường 2</label></div>
+						<div><label><input type="checkbox" value="P3"> Phường 3</label></div>
+						<div><label><input type="checkbox" value="P4"> Phường 4</label></div>
+						<div><label><input type="checkbox" value="P5"> Phường 5</label></div>
+						<div><label><input type="checkbox" value="P6"> Phường 6</label></div>
+						<div><button class="btn btn-primary btn-sm d-flex ms-auto" >Áp dụng</button></div>
+					  </div> 
+				</div>
+				<div class="input-group">
+					<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
+					<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
+				  </div>
+			</div>
+		</div>
 
 		<!--table-->
-		<table class="table align-middle table-striped table-bordered">
-			<colgroup>
-				<col style="width:5%">
-				<col style="width:30%">
-				<col style="width:30%">
-				<col style="width:10%">
-				<col style="width:10%">
-				<col style="width:10%">
-				<col style="width:5%">
-			  </colgroup>
-			<thead>
-			  <tr>
-				<th scope="col">STT</th>
-				<th scope="col">Địa điểm</th>
-				<th scope="col">Thông tin công ty</th>
-				<th scope="col">Ngày bắt đầu</th>
-				<th scope="col">Ngày kết thúc</th>
-				<th scope="col">Tình trạng</th>
-				<th scope="col"></th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr>
-				<th scope="row">1</th>
-				<td>
-					<h6>Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></h6> 
-					<h6>Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></h6> 
-				</td>
-				<td>
-					<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
-					<br>
-					<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-					<br>
-					<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-				</td>
-				<td>dd/mm/yyyy</td>
-				<td>dd/mm/yyyy</td>
-				<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
-				<td>
-					<div class="btn-group" role="group">
-						<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
-						<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
-					  </div>
-				</td>
-			  </tr>
-			</tbody>
-		</table>
-		<!--table-->
-		
+		<div class="row mx-1">
+			<table class="table align-middle table-striped table-bordered">
+				<colgroup>
+					<col style="width:5%">
+					<col style="width:30%">
+					<col style="width:30%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:10%">
+					<col style="width:5%">
+				</colgroup>
+				<thead>
+				  <tr>
+					<th scope="col">STT</th>
+					<th scope="col">Địa điểm</th>
+					<th scope="col">Thông tin công ty</th>
+					<th scope="col">Ngày bắt đầu</th>
+					<th scope="col">Ngày kết thúc</th>
+					<th scope="col">Tình trạng</th>
+					<th scope="col"></th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr>
+					<th scope="row">1</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">2</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">3</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">4</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">5</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">6</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">7</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">8</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">9</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				  <tr>
+					<th scope="row">10</th>
+					<td>
+						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
+						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
+					</td>
+					<td>
+						<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+						<br>
+						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+						<br>
+						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+					</td>
+					<td>dd/mm/yyyy</td>
+					<td>dd/mm/yyyy</td>
+					<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+						  </div>
+					</td>
+				  </tr>
+				</tbody>
+			</table>
+		</div>
+
 	
 	</div>
 
@@ -159,13 +376,13 @@
 		<div class="modal-body">
 			<div class="container-fluid">
 				<div class="row">
-					<h6>Hình ảnh minh họa</h6>
+					<p class="fw-bold m-0">Hình ảnh minh họa</p>
 					<div>
-						<img src="..." class="d-block w-100" alt="...">
+						<img src="./img/1.png" class="d-block w-100" alt="...">
 					</div>
 				</div>
 				<div class="row mt-2">
-					<h6>Nội dung quảng cáo</h6>
+					<p class="fw-bold m-0">Nội dung quảng cáo</p>
 					<div>
 						<textarea readonly class="form-control" name="" id="" rows="4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt vero tenetur voluptates ab natus sapiente molestiae unde nesciunt quisquam illum!</textarea>
 					  </div>
