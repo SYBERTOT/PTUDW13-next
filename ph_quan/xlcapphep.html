@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Cấp phép quảng cáo</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href ="style.css">
+</head>
+
+<body>
+	<header class="container-fluid bg-primary">
+		<!-- place navbar here -->
+		<nav class="navbar navbar-expand-sm navbar-dark container">
+			  <div class="container">
+				<a class="navbar-brand" href="/index.html"><i class="fs-3 align-center"></i>PTUDW-13</a>
+				<button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="collapsibleNavId">
+					<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="/ph_quan/home.html">Trang chủ</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-current="page">Quản lý<span class="visually-hidden">(current)</span></a>
+							<div class="dropdown-menu" aria-labelledby="dropdownId">
+								<a class="dropdown-item" href="/ph_quan/qldiemdat.html">Điểm đặt quảng cáo</a>
+								<div href="" class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/ph_quan/qlbangqc.html">Bảng quảng cáo</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link active dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Xử lý</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownId">
+								<a class="dropdown-item" href="/ph_quan/xlbaocao.html">Báo cáo</a>
+								<div href="" class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/ph_quan/xlcapphep.html">Cấp phép quảng cáo</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Tài khoản</a>
+						</li>
+					</ul>
+		  </div>
+		</nav>
+		
+	  </header>
+  <main>
+	<div class="container-fluid">
+		<!--title-->
+		<div class="pagetitle">
+			<h2>Cấp phép quảng cáo cho công ty</h2>
+		</div>
+		<!--title-->
+		<!--button bar-->
+		<div class="btn-toolbar mb-3 justify-content-between"" role="toolbar" aria-label="Toolbar">
+			<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+				<button type="button" class="btn btn-primary">View all</button>
+			  
+				<div class="btn-group" role="group">
+				  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					Phường
+				  </button>
+				  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+					<li><a class="dropdown-item" href="#">Dropdown link</a></li>
+					<li><a class="dropdown-item" href="#">Dropdown link</a></li>
+				  </ul>
+				</div>
+			  </div>
+			<div class="input-group">
+				<span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+				<input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
+			  </div>
+		  </div>
+		<!--button bar-->
+
+		<!--table-->
+		<table class="table align-middle table-striped table-bordered">
+			<colgroup>
+				<col style="width:5%">
+				<col style="width:30%">
+				<col style="width:30%">
+				<col style="width:10%">
+				<col style="width:10%">
+				<col style="width:10%">
+				<col style="width:5%">
+			  </colgroup>
+			<thead>
+			  <tr>
+				<th scope="col">STT</th>
+				<th scope="col">Địa điểm</th>
+				<th scope="col">Thông tin công ty</th>
+				<th scope="col">Ngày bắt đầu</th>
+				<th scope="col">Ngày kết thúc</th>
+				<th scope="col">Tình trạng</th>
+				<th scope="col"></th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<th scope="row">1</th>
+				<td>
+					<h6>Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></h6> 
+					<h6>Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></h6> 
+				</td>
+				<td>
+					<i class="bi bi-building-fill"></i>   Lorem ipsum dolor sit.
+					<br>
+					<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
+					<br>
+					<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
+				</td>
+				<td>dd/mm/yyyy</td>
+				<td>dd/mm/yyyy</td>
+				<td><span class="badge text-bg-secondary">Chờ duyệt</span></td>
+				<td>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietcapphep"><i class="bi bi-info-circle-fill"></i></button>
+						<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#huycapphep"><i class="bi bi-trash3-fill"></i></button>
+					  </div>
+				</td>
+			  </tr>
+			</tbody>
+		</table>
+		<!--table-->
+		
+	
+	</div>
+
+  </main>
+  <footer>
+	<!-- place footer here -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+	integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+<!--Modal chi tiết cấp phép-->
+<div class="modal fade" id="chitietcapphep" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết cấp phép</h1>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid">
+				<div class="row">
+					<h6>Hình ảnh minh họa</h6>
+					<div>
+						<img src="..." class="d-block w-100" alt="...">
+					</div>
+				</div>
+				<div class="row mt-2">
+					<h6>Nội dung quảng cáo</h6>
+					<div>
+						<textarea readonly class="form-control" name="" id="" rows="4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt vero tenetur voluptates ab natus sapiente molestiae unde nesciunt quisquam illum!</textarea>
+					  </div>
+				</div>
+			</div>
+  		</div>
+	  </div>
+    </div>
+</div>
+
+<!--Modal cách thức xử lý-->
+<div class="modal fade" id="huycapphep" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h1 class="modal-title fs-5" id="exampleModalLabel">Hủy cấp phép</h1>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<p>Bạn chắc chắn muốn hủy cấp phép này chứ? Hành động này không thể hoàn tác.</p>
+  		</div>
+		<div class="modal-footer mt-2">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy thao tác</button>
+			<button type="button" class="btn btn-primary">Xác nhận hủy</button>
+ 		 </div>
+	  </div>
+    </div>
+</div>
+</html>
