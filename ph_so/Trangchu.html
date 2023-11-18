@@ -50,14 +50,14 @@
   </header>
   <main>
 <!-- QUẢN LÝ ĐIỂM ĐẶT QUẢNG CÁO -->
-<div class="row m-2">
-  <div class="col d-flex align-self-center">Quản lý điểm đặt quảng cáo</div>
-  <div class="col d-flex justify-content-end"><button class="btn btn-secondary indigo" > + Thêm điểm đặt</button></div>
+<div class="row m-3">
+  <div class="col d-flex align-self-center tw-bold">Quản lý điểm đặt quảng cáo</div>
+  <div class="col d-flex justify-content-end"><button class="btn btn-secondary indigo"  onclick="openForm('Add')"> + Thêm điểm đặt</button></div>
 </div>
 <div class="row m-2">
   <div class="col d-flex ms-auto">
   <!-- d-flex justify-content-end -->
-  <button class="btn btn-secondary indigo d-flex ms-auto" >View all</button>
+  <button class="btn btn-light border d-flex ms-auto" >View all</button>
   <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"> Quận</button>
   <div class="dropdown-menu">
     <div><label><input type="checkbox" id="Q1" name="q1" value="Q1"> Quận 1</label></div>
@@ -98,18 +98,16 @@
             <span class="rounded rounded-pill pretty-red fw-bold" ><label> Quảng cáo thương mại </label></span>
             <div class="data">
               <p>Địa chỉ: 227 Nguyễn Văn Cừ (Trường Đại học Khoa học Tự nhiên - Đại học quốc gia TP. Hồ Chí Minh) <br>
-              Khu vực: Phường 4 <br>
+              Khu vực: Phường 43 <br>
               Phân loại: Đất tư nhân/Nhà ở riêng lẻ</p>
             </div>
             <span class="rounded rounded-pill pretty-green fw-bold" ><label> ĐÃ QUY HOẠCH </label></span>
             <div class="row">
               <div class="col py-2 d-flex justify-content-end"> 
-                <!-- >>>>???? -->
-                <button type="button" class="btn"><i class="bi bi-info-circle"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-pencil"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-trash"></i> </button>                
+                <a class="btn" href="BangQC.html" role="button"><i class="bi bi-info-circle"></i></a>
+                <button type="button" class="btn align-self-center" onclick="openForm('Update')" ><i class="bi bi-pencil"></i></button>
+                <button type="button" class="btn align-self-center" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>          
               </div>
-
             </div>
           </div>
           <div>
@@ -133,12 +131,66 @@
             <span class="rounded rounded-pill pretty-green fw-bold" ><label> ĐÃ QUY HOẠCH </label></span>
             <div class="row">
               <div class="col py-2 d-flex justify-content-end"> 
-                <!-- >>>>???? -->
-                <button type="button" class="btn"><i class="bi bi-info-circle"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-pencil"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-trash"></i> </button>                
+                <a class="btn" href="BangQC.html" role="button"><i class="bi bi-info-circle"></i></a>
+                <button type="button" class="btn align-self-center" onclick="openForm('Update')" ><i class="bi bi-pencil"></i></button>
+                <button type="button" class="btn align-self-center" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>                
               </div>
-
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card p-4 h-100" >
+        <div class="row">
+          <div class="col">
+            <img class="card-image img-fluid" src="image.png" class="img-fluid rounded-top" alt="">
+          </div>
+          <div class="col">
+            <span class="rounded rounded-pill pretty-red fw-bold" ><label> Quảng cáo thương mại </label></span>
+            <div class="data">
+              <p>Địa chỉ: 227 Nguyễn Văn Cừ (Trường Đại học Khoa học Tự nhiên - Đại học quốc gia TP. Hồ Chí Minh) <br>
+              Khu vực: Phường 4 <br>
+              Phân loại: Đất tư nhân/Nhà ở riêng lẻ</p>
+            </div>
+            <span class="rounded rounded-pill pretty-green fw-bold" ><label> ĐÃ QUY HOẠCH </label></span>
+            <div class="row">
+              <div class="col py-2  d-flex justify-content-end"> 
+                <a class="btn" href="BangQC.html" role="button"><i class="bi bi-info-circle"></i></a>
+                <button type="button" class="btn align-self-center" onclick="openForm('Update')" ><i class="bi bi-pencil"></i></button>
+                <button type="button" class="btn align-self-center" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>                
+              </div>
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card p-4 h-100" >
+        <div class="row">
+          <div class="col">
+            <img class="card-image img-fluid" src="image.png" class="img-fluid rounded-top" alt="">
+          </div>
+          <div class="col">
+            <span class="rounded rounded-pill pretty-red fw-bold" ><label> Quảng cáo thương mại </label></span>
+            <div class="data">
+              <p>Địa chỉ: 227 Nguyễn Văn Cừ (Trường Đại học Khoa học Tự nhiên - Đại học quốc gia TP. Hồ Chí Minh) <br>
+              Khu vực: Phường 4 <br>
+              Phân loại: Đất tư nhân/Nhà ở riêng lẻ</p>
+            </div>
+            <span class="rounded rounded-pill pretty-green fw-bold" ><label> ĐÃ QUY HOẠCH </label></span>
+            <div class="row">
+              <div class="col py-2 d-flex justify-content-end"> 
+                <a class="btn" href="BangQC.html" role="button"><i class="bi bi-info-circle"></i></a>
+                <button type="button" class="btn align-self-center" onclick="openForm('Update')" ><i class="bi bi-pencil"></i></button>
+                <button type="button" class="btn align-self-center" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>                
+              </div>
             </div>
           </div>
           <div>
@@ -164,12 +216,10 @@
             <span class="rounded rounded-pill pretty-green fw-bold" ><label> ĐÃ QUY HOẠCH </label></span>
             <div class="row">
               <div class="col py-2 d-flex justify-content-end"> 
-                <!-- >>>>???? -->
-                <button type="button" class="btn"><i class="bi bi-info-circle"></i> </button>
-                <button type="button" class="btn" onclick="openForm()"></button><i class="bi bi-pencil"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-trash"></i> </button>                
+                <a class="btn" href="BangQC.html" role="button"><i class="bi bi-info-circle"></i></a>
+                <button type="button" class="btn align-self-center" onclick="openForm('Update')" ><i class="bi bi-pencil"></i></button>
+                <button type="button" class="btn align-self-center" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>                
               </div>
-
             </div>
           </div>
           <div>
@@ -193,70 +243,9 @@
             <span class="rounded rounded-pill pretty-green fw-bold" ><label> ĐÃ QUY HOẠCH </label></span>
             <div class="row">
               <div class="col py-2 d-flex justify-content-end"> 
-                <!-- >>>>???? -->
-                <button type="button" class="btn"><i class="bi bi-info-circle"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-pencil"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-trash"></i> </button>                
-              </div>
-
-            </div>
-          </div>
-          <div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="card p-4 h-100" >
-        <div class="row">
-          <div class="col">
-            <img class="card-image img-fluid" src="image.png" class="img-fluid rounded-top" alt="">
-          </div>
-          <div class="col">
-            <span class="rounded rounded-pill pretty-red fw-bold" ><label> Quảng cáo thương mại </label></span>
-            <div class="data">
-              <p>Địa chỉ: 227 Nguyễn Văn Cừ (Trường Đại học Khoa học Tự nhiên - Đại học quốc gia TP. Hồ Chí Minh) <br>
-              Khu vực: Phường 4 <br>
-              Phân loại: Đất tư nhân/Nhà ở riêng lẻ</p>
-            </div>
-            <span class="rounded rounded-pill pretty-green fw-bold" ><label> ĐÃ QUY HOẠCH </label></span>
-            <div class="row">
-              <div class="col py-2 d-flex justify-content-end"> 
-                <!-- >>>>???? -->
-                <button type="button" class="btn"><i class="bi bi-info-circle"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-pencil"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-trash"></i> </button>                
-              </div>
-
-            </div>
-          </div>
-          <div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card p-4 h-100" >
-        <div class="row">
-          <div class="col">
-            <img class="card-image img-fluid" src="image.png" class="img-fluid rounded-top" alt="">
-          </div>
-          <div class="col">
-            <span class="rounded rounded-pill pretty-red fw-bold" ><label> Quảng cáo thương mại </label></span>
-            <div class="data">
-              <p>Địa chỉ: 227 Nguyễn Văn Cừ (Trường Đại học Khoa học Tự nhiên - Đại học quốc gia TP. Hồ Chí Minh) <br>
-              Khu vực: Phường 4 <br>
-              Phân loại: Đất tư nhân/Nhà ở riêng lẻ</p>
-            </div>
-            <span class="rounded rounded-pill pretty-green fw-bold" ><label> ĐÃ QUY HOẠCH </label></span>
-            <div class="row">
-              <div class="col py-2 d-flex justify-content-end"> 
-                <!-- >>>>???? -->
-                <button type="button" class="btn"><i class="bi bi-info-circle"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-pencil"></i> </button>
-                <button type="button" class="btn"></button><i class="bi bi-trash"></i> </button>                
+                <a class="btn" href="BangQC.html" role="button"><i class="bi bi-info-circle"></i></a>
+                <button type="button" class="btn align-self-center" onclick="openForm('Update')" ><i class="bi bi-pencil"></i></button>
+                <button type="button" class="btn align-self-center" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>                
               </div>
 
             </div>
@@ -271,16 +260,22 @@
   <!-- /QUẢN LÝ ĐIỂM ĐẶT QUẢNG CÁO -->
 
   <!-- POPUP WINDOWS -->
+  <div id="overlay"></div>
   <div class="card form-popup" id="Update">
     <div class="row">
-      <div class=" m-3"><i class="bi bi-envelope popup-icon rounded rounded-circle"></i></div>
+      <div class=" m-2"><i class="bi bi-envelope update-icon rounded rounded-circle"></i></div>
       <div class=" m-2">Cập nhật điểm đặt</div>
-      <div class=" m-2"><label for="addr">Địa chỉ</label></div>
-      <div class="rounded-5 m-2"><input type="text" placeholder="" name="addr" required></div>
-      <div class=" m-2"><button class="btn btn-secondary indigo" >Chọn từ bản đồ</button></div>
+      <div class="rounded-5 m-2">
+        <label for="addr">Địa chỉ</label> <br>
+        <input type="text" placeholder="" name="addr" size="64">
+      </div>
+      <div class=" ms-2"><button class="btn btn-secondary indigo" >Chọn từ bản đồ</button></div>
       <div class="row">
         <div class="col d-flex justify-content-center">
-          <button class="btn btn-light dropdown-toggle m-2" type="button" data-bs-toggle="dropdown"> Chọn loại vị trí</button>
+          <div class="row">
+            <div></div>
+          <div class=" ms-2"><label for="addr"> Loại vị trí</label> <br>
+          <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn loại vị trí</button>
           <div class="dropdown-menu">
             <div><label> Đất công/Công viên/Hành lang an toàn giao thông</label></div>
             <div><label> Đất tư nhân/Nhà ở riêng lẻ</label></div>
@@ -288,35 +283,114 @@
             <div><label> Chợ</label></div>
             <div><label> Cây xăng</label></div>
             <div><label> Nhà chờ xe buýt</label></div>
-          </div>  
-          <button class="btn btn-light dropdown-toggle m-2" type="button" data-bs-toggle="dropdown"> Chọn hình thức quảng cáo</button>
+          </div>  </div>
+          <div class=" ms-2"><label for="addr"> Hình thức quảng cáo</label> <br>
+          <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"> Chọn hình thức quảng cáo</button>
           <div class="dropdown-menu">
             <div><label> Cổ động chính trị</label></div>
             <div><label> Quảng cáo thương mại</label></div>
             <div><label> Xã hội hoá</label></div>
           </div>  
+        </div> 
+          <div></div>
+          </div>
         </div>      
-        <div class="col m-2">
-          <div class=" m-2">Hình ảnh</div>
-          <img class="image img-fluid" src="image.png" class="img-fluid rounded-top" alt="">
-          <div class=" m-2">Thêm Xóa Sửa</div>
-
+        <div class="col">
+          <div class="">Hình ảnh
+          <img class="image img-fluid me-2" src="image.png" class="img-fluid rounded-top" alt=""></div>
+          <div class=" m-2 d-flex mx-auto"> 
+          <button type="button" class="btn d-flex mx-auto">Thêm</button>
+          <button type="button" class="btn d-flex mx-auto">Xóa</button>
+          <button type="button" class="btn d-flex mx-auto">Sửa</button> 
+        </div>
         </div>   
       </div>   
       <div class="row ">
-        <div class="col d-flex justify-content-center mb-3">
-            <button type="button" class="btn btn-block btn-secondary cancel" onclick="closeForm(Update)">Hủy</button>          
+        <div class="col">
+            <button type="button" class="btn btn-block border w-100" onclick="closeForm('Update')">Hủy</button>          
         </div>      
-        <div class="col d-flex justify-content-center mb-3">
-          <button type="submit" class="btn btn-block btn-secondary indigo" onclick="closeForm(Update)">Cập nhật</button>
+        <div class="col">
+          <button type="submit" class="btn btn-block btn-secondary indigo w-100" onclick="closeForm('Update')">Cập nhật</button>
         </div>   
       </div>   
     </div>
-    <!-- <form action="#" class="form-container"> -->
-      <!-- <h1></h1> -->
     </form>
   </div>
-  </main>
+  <div class="card form-popup" id="Add">
+    <div class="row">
+      <div class=" m-2"><i class="bi bi-envelope update-icon rounded rounded-circle"></i></div>
+      <div class=" m-2">Thêm điểm đặt</div>
+      <div class="rounded-5 m-2">
+        <label for="addr">Địa chỉ</label> <br>
+        <input type="text" placeholder="" name="addr" size="64">
+      </div>
+      <div class=" ms-2"><button class="btn btn-secondary indigo" >Chọn từ bản đồ</button></div>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <div class="row">
+            <div></div>
+          <div class=" ms-2"><label for="addr"> Loại vị trí</label> <br>
+          <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn loại vị trí</button>
+          <div class="dropdown-menu">
+            <div><label> Đất công/Công viên/Hành lang an toàn giao thông</label></div>
+            <div><label> Đất tư nhân/Nhà ở riêng lẻ</label></div>
+            <div><label> Trung tâm thương mại</label></div>
+            <div><label> Chợ</label></div>
+            <div><label> Cây xăng</label></div>
+            <div><label> Nhà chờ xe buýt</label></div>
+          </div>  </div>
+          <div class=" ms-2"><label for="addr"> Hình thức quảng cáo</label> <br>
+          <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"> Chọn hình thức quảng cáo</button>
+          <div class="dropdown-menu">
+            <div><label> Cổ động chính trị</label></div>
+            <div><label> Quảng cáo thương mại</label></div>
+            <div><label> Xã hội hoá</label></div>
+          </div>  
+        </div> 
+          <div></div>
+          </div>
+        </div>      
+        <div class="col">
+          <div class="">Hình ảnh
+          <img class="image img-fluid me-2" src="image.png" class="img-fluid rounded-top" alt=""></div>
+          <div class=" m-2 d-flex mx-auto"> 
+          <button type="button" class="btn d-flex mx-auto">Thêm</button>
+          <button type="button" class="btn d-flex mx-auto">Xóa</button>
+          <button type="button" class="btn d-flex mx-auto">Sửa</button> 
+        </div>
+        </div>   
+      </div>   
+      <div class="row ">
+        <div class="col">
+            <button type="button" class="btn btn-block btn-secondary w-100" onclick="closeForm('Add')">Hủy</button>          
+        </div>      
+        <div class="col">
+          <button type="submit" class="btn btn-block btn-secondary indigo w-100" onclick="closeForm('Add')">Cập nhật</button>
+        </div>   
+      </div>   
+    </div>
+    </form>
+  </div>
+  <div class="card form-popup" id="Del">
+    <div class="row">
+      <div class=" m-2"><i class="bi bi-exclamation-circle del-icon rounded rounded-circle"></i></div>
+      <div class=" m-2 fw-bold">Xóa điểm đặt</div>
+      <div class="m-2">
+        <label for="addr">Bạn chắc chắn xóa điểm đặt này chứ? Hành động này không thể hoàn tác</label> <br>
+      </div>
+      <div class="row ">
+        <div class="col">
+            <button type="button" class="btn btn-block bor btn-light w-100" onclick="closeForm('Del')">Hủy</button>          
+        </div>      
+        <div class="col">
+          <button type="submit" class="btn btn-block btn-secondary scarlet w-100" onclick="closeForm('Del')">Xóa</button>
+        </div>   
+      </div>   
+    </div>
+    </form>
+  </div>  
+
+</main>
   <footer>
     <!-- place footer here -->
   </footer>
@@ -333,11 +407,13 @@
 <script>
   var triggerEl = document.querySelector('#navId a')
   bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
-    function openForm() {
-    document.getElementById("update").style.display = "block";
+    function openForm(id) {
+    document.getElementById(id).style.display = "block";
+    document.getElementById("overlay").style.display = "block";
   }
   function closeForm(id) {
     document.getElementById(id).style.display = "none";
+    document.getElementById("overlay").style.display = "none";
   }
 </script>
 </html>
