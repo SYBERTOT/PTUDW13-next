@@ -60,30 +60,49 @@ nav div div div ul li a:hover{
 
 /* SIDEBAR POSITION */
 .sidebar {
-    background-color: #f1f1f1;
-    height: 944px;
-    width: 683px;
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 45%;
     position: fixed;
     top: 0;
-    right: 0;
-    min-width: 300px;
-    float:left;
-  }
-  .sidebar__content {
+    /* right: 0; */
+    left: 0;
+}
+
+.sidebar__content {
     padding: 8px;
-    float:left;
-  }
-  /* SIDEBAR HIDDEN STATE */
-  .sidebar[aria-hidden="true"] {
+}
+
+/* SIDEBAR HIDDEN STATE */
+.sidebar[aria-hidden="true"] {
     transition: 200ms;
-    transform: translateX(100%);
-  }
-  /* SIDEBAR VISIBLE STATE */
-  .sidebar:not([aria-hidden]),
-  .sidebar[aria-hidden="false"] {
+    /* transform: translateX(100%); */ /*phai-trai*/
+    transform: translateX(-100%);
+}
+
+/* SIDEBAR VISIBLE STATE */
+.sidebar:not([aria-hidden]),
+.sidebar[aria-hidden="false"] {
     transition: 200ms;
+    /* transform: translateX(0); */ /*phai-trai*/
     transform: translateX(0);
-  }
+}
+
+.equal-column {
+	box-sizing: border-box;
+    float: left;
+    width: 50%;
+    padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+
+.equal-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 /* body{
     margin: 0;
     padding: 0;
