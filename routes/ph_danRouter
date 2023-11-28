@@ -1,0 +1,9 @@
+const express = require("express");
+const controller = require("../controllers/ph_danController");
+const router = express.Router();
+
+router.get("/", controller.show);
+router.get("/dsBaoCao", controller.dsBaoCao);
+router.get("/guiBaoCao", controller.formBaoCao);
+
+module.exports = router;

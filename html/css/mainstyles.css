@@ -1,0 +1,165 @@
+@media(max-width: 991px) {
+    .sidebar{
+        background-color: white;
+    }
+}
+
+body{
+    font-family: sans-serif!important;
+}
+
+#map {
+	height: 100%;
+}
+
+html,
+body {
+	height: 90%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+
+}
+
+.with-line-navbar{
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.navbar-brand{
+    color: black!important;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 0.2px;
+    text-decoration: none;
+}
+
+nav div a:hover{
+    color: black!important;
+    /* transition: 0.3s; */
+}
+
+nav div div div ul li a{
+    color: #424242!important;
+    text-decoration: none;
+    font-weight: 600!important;
+    font-size: 14px!important;
+    /* padding-left: 60px!important; */
+}
+
+nav div div div ul li a:hover{
+    color: #7F56D9!important;
+}
+
+.active{
+    color: #3563E9!important;
+}
+
+.solved-status{
+    background-color: #FFF6ED;
+    color: #027A48;
+}
+
+.handling-status{
+    background-color: #FFF6ED;
+    color: #C4320A;
+}
+
+.report-category{
+    background-color: #EFF8FF;
+    color: #175CD3;
+}
+
+/* SIDEBAR POSITION */
+.sidebar1 {
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 30%;
+    position: fixed;
+    top: 0;
+    /* right: 0; */
+    left: 0;
+}
+.sidebar2 {
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 45%;
+    position: fixed;
+    top: 0;
+    /* right: 0; */
+    left: 0;
+}
+
+.sidebar__content {
+    padding: 8px;
+}
+
+/* SIDEBAR HIDDEN STATE */
+.sidebar[aria-hidden="true"] {
+    transition: 200ms;
+    /* transform: translateX(100%); */ /*phai-trai*/
+    transform: translateX(-100%);
+}
+
+/* SIDEBAR VISIBLE STATE */
+.sidebar:not([aria-hidden]),
+.sidebar[aria-hidden="false"] {
+    transition: 200ms;
+    /* transform: translateX(0); */ /*phai-trai*/
+    transform: translateX(0);
+}
+
+.equal-column {
+	box-sizing: border-box;
+    float: left;
+    width: 50%;
+    padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+
+.equal-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/* body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+nav{
+    padding: 0px 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between!important;
+}
+
+
+
+nav ul li{
+    list-style-type: none;
+    display: inline-block;
+
+    padding-right: 180px;
+}
+
+nav ul li a{
+    color: #424242;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+
+button{
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+} */
