@@ -11,6 +11,9 @@ dependencies:
   express-handlebars:
     specifier: ^7.1.2
     version: 7.1.2
+  express-handlebars-paginate:
+    specifier: ^1.0.3
+    version: 1.0.3
 
 packages:
 
@@ -209,6 +212,10 @@ packages:
   /etag@1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /express-handlebars-paginate@1.0.3:
+    resolution: {integrity: sha512-dj1d8ntEfneIU+gs//7s8KYpn7w6RQxovQ0ThSqO5ziqbhhlMaGex+vQgVHqCLYxWFXNrN2EEoMmQjJS07lBgg==}
     dev: false
 
   /express-handlebars@7.1.2:

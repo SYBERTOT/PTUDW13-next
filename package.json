@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "express": "^4.18.2",
-    "express-handlebars": "^7.1.2"
+    "express-handlebars": "^7.1.2",
+    "express-handlebars-paginate": "^1.0.3"
   },
   "name": "ptudw13-next",
   "version": "1.0.0",
