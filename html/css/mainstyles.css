@@ -168,3 +168,117 @@ small.text-muted {
 	text-transform: uppercase;
 	font-weight: bolder;
 }
+
+.dropdown-menu > div{
+    padding: 2px;
+}
+.dropdown-menu {
+    box-sizing: border-box;
+    width: fit-content;
+    padding: 5px;
+    /* background-color: a; */
+}
+.input-group {
+    width: 20%;
+}
+.profile
+{
+    font-size: 3rem !important;
+    padding-right: 5px;
+}
+.btn:not(nav){
+    margin: 0 2px;
+    align-self: center;
+}
+.indigo{
+    background-color: rgb(147, 55, 212);
+}
+.border-indigo {
+    background-color: white;
+    color: rgb(147, 55, 212);
+    border-style: solid;
+    border-color: rgb(147, 55, 212);
+}
+/* .card-img {
+    width: 100%;
+    object-fit: cover;
+} */
+.rounded {
+    /* background-color: rgb(0, 0, 0); */
+    padding: 7px;
+
+}
+.pretty-green {
+    color: rgb(0, 122, 26);
+    background-color: rgba(106, 255, 148, 0.25);
+}
+.pretty-red {
+    color: rgb(122, 0, 0);
+    background-color: rgba(255, 106, 106, 0.25);
+}
+.data {
+    margin: 10px 0;    
+}
+.container > .row{
+    margin: 10px 0;
+}
+#Update,#Add{
+    display: none;
+    padding: 15px;
+    position: fixed;
+    width: 560px;
+    height: 590px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#Addcb{
+    display: none;
+    padding: 15px;
+    position: fixed;
+    width: 510px;
+    height: 550px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#Edit{
+    display: none;
+    padding: 15px;
+    position: fixed;
+    width: 400px;
+    height: 400px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.update-icon{
+    color: rgb(137, 43, 226);
+    background-color: rgba(137, 43, 226, 0.208);
+}
+#Del {
+    display: none;
+    padding: 15px;
+    position: fixed;
+    width: 360px;
+    height: 220px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);    
+}
+.del-icon {
+    color:  rgb(122, 0, 0);
+    background-color: rgba(255, 106, 106, 0.25);
+}
+.scarlet {
+    background-color: rgb(195, 0, 0);
+}
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }

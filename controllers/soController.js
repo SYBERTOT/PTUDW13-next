@@ -1,14 +1,28 @@
 const controller = {};
 
-controller.show = (req, res) => {
-	res.render('index', { title: "Trang chủ" , trangchu: true});
+controller.qldiemdat = (req, res) => {
+	res.render('qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutso"});
 }
 
-controller.dsBaoCao = (req, res) => {
-	res.render('dan_dsbaocao', { title: "Báo cáo đã gửi" , dsbaocao: true});
+controller.qlbangqc = (req, res) => {
+	res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});
 }
 
-controller.formBaoCao = (req, res) => {
-	res.render("dan_guibaocao")
+controller.qltaikhoan = (req, res) => {
+	res.render('qltaikhoan', { title: "Quản lý tài khoản" , quanly: true , layout: "layoutso"});
 }
+
+controller.qlquanphuong = (req, res) => {
+	res.render('qlbangqc', { title: "Quản lý quận, phường" , quanly: true , layout: "layoutso"});
+}
+
+controller.pheduyet = (req, res) => {
+	res.render('pheduyet', { title: "Phê duyệt" , pheduyet: true , layout: "layoutso"});
+}
+
+controller.thongke = (req, res) => {
+	res.render('thongke', { title: "Thống kê" , thongke: true , layout: "layoutso"});
+}
+
+
 module.exports = controller;
