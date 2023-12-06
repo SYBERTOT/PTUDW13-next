@@ -11,4 +11,9 @@ controller.dsBaoCao = (req, res) => {
 controller.formBaoCao = (req, res) => {
 	res.render("dan_guibaocao")
 }
+
+controller.dangnhap = (req, res) => {
+	res.render("dangnhap");
+}
+
 module.exports = controller;

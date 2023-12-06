@@ -5,5 +5,6 @@ const router = express.Router();
 router.get("/", controller.show);
 router.get("/dsBaoCao", controller.dsBaoCao);
 router.get("/guiBaoCao", controller.formBaoCao);
+router.get("/dangnhap", controller.dangnhap);
 
 module.exports = router;
