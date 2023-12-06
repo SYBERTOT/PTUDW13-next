@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 4000 || process.env.PORT;;
+const port = 4000 | process.env.PORT;;
 const expressHbs = require("express-handlebars");
 const paginate = require('express-handlebars-paginate');
 
@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+
 
 app.use(express.static(__dirname +"/html"));
 app.engine(
@@ -79,4 +81,10 @@ app.post('/trangchu/dangnhap', passport.authenticate('local', {
 // 	res.redirect('/');
 // });
 
+app.get('/sync', function(req,res){
+	let models = require('./models');
+	models.sequelize.sync().then(function(){
+		res.send('Database sync completed');
+	});
+});
 app.listen(port,() => console.log(`Example app listening on port ${port}`));
