@@ -9,26 +9,22 @@
             <div class="card border-0">
                 <div class="card-body">
                     <div class="col-md-4" style="padding-left: 70px;">
-                        <form action="" method="POST">
-
-                            {{!-- <label for="hoten">Họ tên người gửi báo cáo</label>
+                        <form action="/dangnhap" method="POST">
                             <div class="input-group mb-3">
-                                <input type="text" name="hoten" value="" class="form-control" placeholder="">
-                            </div> --}}
-
-                            <label for="username">Tên người dùng</label>
-                            <div class="input-group mb-3">
-                                <input type="text" name="username" value="" class="form-control" placeholder="">
+                                <label for="TenTaiKhoan">Tên người dùng</label>
+                                <input type="text" id="TenTaiKhoan" name="TenTaiKhoan" value="" class="form-control" placeholder="">
                             </div>
 
-                            <label for="password">Mật khẩu</label>
                             <div class="input-group mb-3">
-                                <input type="password" name="password" value="" class="form-control" placeholder="">
+                                <label for="MatKhau">Mật khẩu</label>
+                                <input type="password" id="MatKhau" name="MatKhau" value="" class="form-control" placeholder="">
                             </div>
                             
                             <a style="text-decoration: none; height: 30px; width: 150px; color: black;; background-color: white; border-radius: 8px; border-style: none;" href="/">Hủy</a>
-                            <input style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;" type="submit" value="Gửi báo cáo">
-                            
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-grid w-100" type="submit" tabindex="4">Đăng nhập</button>
+                            </div>
+                            <input type="hidden" name="reqUrl" value="{{reqUrl}}" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
                         </form>
                     </div>
 
