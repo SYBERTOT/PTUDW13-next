@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const axios = require("axios");
 const controller = require("../controllers/authController");
 const danController = require("../controllers/danController");
 const phuongController = require("../controllers/phuongController");
 const quanController = require("../controllers/quanController");
 const soController = require("../controllers/soController");
-
+const YOUR_RECAPTCHA_SECRET_KEY = '6Le4ZC8pAAAAAGJ2UkMgQm8AyeMrHrwmJYnwxtLg';
 
 router.get("/dangnhap", controller.hienDangNhap);
 
 router.use("/", require("./danRouter"));
+router.get("/trangchu", danController.show);
 
 router.get("/phuong", controller.phuongDaDangNhap, phuongController.show);
 router.get("/phuong/qldiemdat", controller.phuongDaDangNhap, phuongController.qldiemdat);
@@ -44,7 +46,7 @@ router.post("/dangnhap", async (req, res) => {
 
     // Verify reCAPTCHA response
     try {
-        const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${test}&response=${recaptchaResponse}`;
+        const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${YOUR_RECAPTCHA_SECRET_KEY}&response=${recaptchaResponse}`;
         const recaptchaVerification = await axios.post(verificationURL);
         
         if (recaptchaVerification.data.success) {
