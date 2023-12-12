@@ -5,11 +5,13 @@
             <h5 class="fw-bold bi bi-folder2 fs-4 ps-5"> Đăng nhập </h5>
 
         </div>
+        <p class="mb-4 {{#if message}}alert-danger danger p-3{{/if}}">{{#if message}}{{message}}{{else}}Vui lòng đăng nhập để thực hiện tác vụ trong phân quyền{{/if}}</p>
+
         <div class="col-md-12">
             <div class="card border-0">
                 <div class="card-body">
                     <div class="col-md-4" style="padding-left: 70px;">
-                        <form action="/dangnhap" method="POST">
+                        <form action="/dangnhap" method="POST" onsubmit="return validateRecaptcha()">
                             <div class="input-group mb-3">
                                 <label for="TenTaiKhoan">Tên người dùng</label>
                                 <input type="text" id="TenTaiKhoan" name="TenTaiKhoan" value="" class="form-control" placeholder="">
@@ -20,6 +22,10 @@
                                 <input type="password" id="MatKhau" name="MatKhau" value="" class="form-control" placeholder="">
                             </div>
                             
+                            <div class="mb-3">
+                                <div class="g-recaptcha" data-sitekey="6LcJFy8pAAAAAMgyq7i_3v-tLkyGYooFKp5-8k-7" data-action="LOGIN"></div>
+                            </div>
+
                             <a style="text-decoration: none; height: 30px; width: 150px; color: black;; background-color: white; border-radius: 8px; border-style: none;" href="/">Hủy</a>
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit" tabindex="4">Đăng nhập</button>

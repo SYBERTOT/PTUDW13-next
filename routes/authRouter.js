@@ -38,6 +38,25 @@ router.get("/so/qlquanphuong", controller.soDaDangNhap, soController.qlquanphuon
 // router.use("/", danController.show);
 
 
-router.post("/dangnhap", controller.dangNhap);
+// router.post("/dangnhap", controller.dangNhap);
+router.post("/dangnhap", async (req, res) => {
+    const recaptchaResponse = req.body['g-recaptcha-response'];
+
+    // Verify reCAPTCHA response
+    try {
+        const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${test}&response=${recaptchaResponse}`;
+        const recaptchaVerification = await axios.post(verificationURL);
+        
+        if (recaptchaVerification.data.success) {
+            controller.daDangNhap;
+        } else {
+            // Handle failed reCAPTCHA verification
+            res.status(403).send('Failed reCAPTCHA verification.');
+        }
+    } catch (error) {
+        console.error('Error verifying reCAPTCHA:', error);
+        res.status(500).send('Internal server error.');
+    }
+});
 
 module.exports = router;
