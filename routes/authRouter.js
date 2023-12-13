@@ -50,7 +50,7 @@ router.post("/dangnhap", async (req, res) => {
         const recaptchaVerification = await axios.post(verificationURL);
         
         if (recaptchaVerification.data.success) {
-            controller.daDangNhap;
+            await controller.dangNhap(req, res);
         } else {
             // Handle failed reCAPTCHA verification
             res.status(403).send('Failed reCAPTCHA verification.');
