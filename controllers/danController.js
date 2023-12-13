@@ -12,6 +12,11 @@ controller.formBaoCao = (req, res) => {
 	res.render("dan_guibaocao")
 }
 
+controller.testtest = (req, res) => {
+	console.log(req.body);
+	res.render("dan_guibaocao")
+}
+
 controller.dangnhap = (req, res) => {
 	res.render("dangnhap");
 }
