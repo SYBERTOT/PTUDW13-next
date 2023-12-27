@@ -9,9 +9,10 @@ const soController = require("../controllers/soController");
 const YOUR_RECAPTCHA_SECRET_KEY = '6Le4ZC8pAAAAAGJ2UkMgQm8AyeMrHrwmJYnwxtLg';
 
 router.get("/dangnhap", controller.hienDangNhap);
+router.get("/dangxuat", controller.dangXuat);
 
 router.use("/", require("./danRouter"));
-router.get("/trangchu", danController.show);
+// router.get("/trangchu", danController.show);
 
 router.get("/phuong", controller.phuongDaDangNhap, phuongController.show);
 router.get("/phuong/qldiemdat", controller.phuongDaDangNhap, phuongController.qldiemdat);
@@ -60,5 +61,7 @@ router.post("/dangnhap", async (req, res) => {
         res.status(500).send('Internal server error.');
     }
 });
+
+
 
 module.exports = router;

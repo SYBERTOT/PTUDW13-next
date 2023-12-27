@@ -95,4 +95,11 @@ controller.soDaDangNhap = async (req, res, next) => {
     res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`)
 };
 
+controller.dangXuat = async (req, res, next) => {
+    req.session.destroy(function(error) {
+        if (error) return next(error);
+        res.redirect("/dangnhap");
+    });
+};
+
 module.exports = controller;
