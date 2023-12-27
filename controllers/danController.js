@@ -18,7 +18,7 @@ controller.testtest = (req, res) => {
 }
 
 controller.dangnhap = (req, res) => {
-	res.render("dangnhap");
+	res.render('dangnhap', { title: "Đăng nhập" , dangnhap: true});
 }
 
 module.exports = controller;

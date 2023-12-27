@@ -9,6 +9,8 @@ controller.hienDangNhap = (req, res) => {
     }
     res.render("dangnhap", { 
         layout: "layoutdan",
+		title: "Đăng nhập" , 
+		dangnhap: true,
     reqUrl,
     });
 };

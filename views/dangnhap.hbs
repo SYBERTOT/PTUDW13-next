@@ -1,38 +1,34 @@
 <!--container-->
 <div class="container">
     <div class="row">
-        <div class="col-md-12 p-3">
-            <h5 class="fw-bold bi bi-folder2 fs-4 ps-5"> Đăng nhập </h5>
-
-        </div>
+		<h5 class="fw-bold bi bi-box-arrow-in-right fs-4 ps-5">   Đăng nhập</h5>
         <p class="mb-4 {{#if message}}alert-danger danger p-3{{/if}}">{{#if message}}{{message}}{{else}}Vui lòng đăng nhập để thực hiện tác vụ trong phân quyền{{/if}}</p>
 
-        <div class="col-md-12">
+        <div class="col-md-8 m-auto">
             <div class="card border-0">
-                <div class="card-body">
-                    <div class="col-md-4" style="padding-left: 70px;">
+                <div class="card-body m-3">
+                    
                         <form action="/dangnhap" method="POST" onsubmit="return validateRecaptcha()">
-                            <div class="input-group mb-3">
-                                <label for="TenTaiKhoan">Tên người dùng</label>
+                            <div class="mb-3">
+                                <label for="TenTaiKhoan" class="form-label">Tên người dùng</label>
                                 <input type="text" id="TenTaiKhoan" name="TenTaiKhoan" value="" class="form-control" placeholder="">
                             </div>
 
-                            <div class="input-group mb-3">
-                                <label for="MatKhau">Mật khẩu</label>
+                            <div class="mb-3">
+                                <label for="MatKhau" class="form-label">Mật khẩu</label>
                                 <input type="password" id="MatKhau" name="MatKhau" value="" class="form-control" placeholder="">
                             </div>
-                            
                             <div class="mb-3">
                                 <div class="g-recaptcha" data-sitekey="6Le4ZC8pAAAAABPs7kETfO2SWfFyf7PnXsl7TyiH"></div>
                             </div>
 
-                            <a style="text-decoration: none; height: 30px; width: 150px; color: black;; background-color: white; border-radius: 8px; border-style: none;" href="/">Hủy</a>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit" tabindex="4">Đăng nhập</button>
+                            	<a class="btn btn-secondary" href="/">Hủy</a>
+                                <button class="btn btn-primary" type="submit" tabindex="4">Đăng nhập</button>
                             </div>
                             <input type="hidden" name="reqUrl" value="{{reqUrl}}" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
                         </form>
-                    </div>
+                    
 
                 </div>
             </div>
