@@ -137,77 +137,79 @@
   <!--Modal gui bao cao-->
 <div class="modal fade" id="guiBaoCao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h1 class="modal-title fs-5" id="exampleModalLabel">Gửi báo cáo về Sở VH-TT</h1>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-			<div class="container-fluid">
-				<div class="row">
-					<p class="fw-bold m-0">Thông tin báo cáo</p>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="row">
-								<div>
-									<label for="hinhthuc" class="form-label">Hình thức báo cáo</label>
-									<select id="hinhthuc" name="hinhthuc" class="form-select" aria-label="Default select example">
-										<option selected>Chọn hình thức báo cáo</option>
-                    <option value="togiac">Tố giác sai phạm</option>
-                    <option value="dangky">Đăng ký nội dung</option>
-                    <option value="donggop">Đóng góp ý kiến</option>
-                    <option value="thacmac">Giải đáp thắc mắc</option>
-									</select>
-								</div>
-							</div>
+    <form action="/guiBaoCao" method="POST" onsubmit="return validateRecaptcha()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Gửi báo cáo về Sở VH-TT</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <p class="fw-bold m-0">Thông tin báo cáo</p>
 
               <div class="row">
-                <div>
-                  <label for="hoten" class="form-label">Họ tên người gửi báo cáo</label>
-                  <input type="text" class="form-control" id="hoten" placeholder="Họ tên">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div>
+                      <label for="hinhthuc" class="form-label">Hình thức báo cáo</label>
+                      <select id="hinhthuc" name="hinhthuc" class="form-select" aria-label="Default select example">
+                        <option selected>Chọn hình thức báo cáo</option>
+                        <option value="togiac">Tố giác sai phạm</option>
+                        <option value="dangky">Đăng ký nội dung</option>
+                        <option value="donggop">Đóng góp ý kiến</option>
+                        <option value="thacmac">Giải đáp thắc mắc</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div>
+                      <label for="hoten" class="form-label">Họ tên người gửi báo cáo</label>
+                      <input type="text" class="form-control" id="hoten" name="hoten" placeholder="Họ tên">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div>
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div>
+                      <label for="sdt" class="form-label">Điện thoại liên lạc</label>
+                      <input type="text" class="form-control" id="sdt" name="sdt" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div>
+                      <label for="noidung">Nội dung báo cáo</label>
+                      <textarea id="editor" class="rounded-2 border-secondary" name="noidung"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div>
+                      <div class="mb-3">
+                          <div class="g-recaptcha" data-sitekey="6Le4ZC8pAAAAABPs7kETfO2SWfFyf7PnXsl7TyiH"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div class="row">
-                <div>
-                  <label for="email" class="form-label">Email</label>
-                  <input type="text" class="form-control" id="email" placeholder="Email">
-                </div>
-              </div>
-
-              <div class="row">
-                <div>
-                  <label for="sdt" class="form-label">Điện thoại liên lạc</label>
-                  <input type="text" class="form-control" id="sdt" placeholder="">
-                </div>
-              </div>
-
-              <div class="row">
-                <div>
-                  <label for="noidung">Nội dung báo cáo</label>
-                  <textarea id="editor" class="rounded-2 border-secondary" name="baocao"></textarea>
-                </div>
-              </div>
-						</div>
-						<div class="col-md-4">
-							<div>
-								<label for="img">Hình ảnh</label>
-								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-								<div class="text-end pt-4">
-									<button class="btn btn-primary btn-sm" >Tải lên</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-  		</div>
-		</div>
-  		<div class="modal-footer mt-2">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-			<button type="button" class="btn btn-primary">Gửi yêu cầu</button>
- 		</div>
+          </div>
+        </div>
+        <div class="modal-footer mt-2">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+        </div>
       </div>
+    </form>
 	</div>
 </div>
 
