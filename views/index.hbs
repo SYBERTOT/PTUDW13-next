@@ -1,3 +1,82 @@
+<script>
+	var map;
+	var geocoder;
+	var markers = [];
+	var infowindows = [];
+	var diemdatsArray = {{{json diemdats}}};
+	function initMap() {
+		map = new google.maps.Map(document.getElementById("map"), {
+		zoom: 9,
+		center: { lat: 10.7858, lng: 106.7085 },
+		});
+		geocoder = new google.maps.Geocoder();
+		setMarkers(map);
+	}
+
+	// Data for the markers consisting of a name, a LatLng and a zIndex for the
+	// order in which these markers should display on top of each other.
+
+	function geocodeAddress(address, map) { // add map as a parameter
+		geocoder.geocode({'address': address}, function(results, status) {
+		if (status === 'OK') {
+			map.setCenter(results[0].geometry.location);
+			clearMarkers();
+			var marker = new google.maps.Marker({
+			map: map, 
+			position: results[0].geometry.location
+			});
+			markers.push(marker);
+		} else {
+			alert('Geocode was not successful for the following reason: ' + status);
+		}
+		});
+	}
+
+	function setMarkers(map) {
+		clearMarkers();
+		for (let i = 0; i < diemdatsArray.length; i++) {
+			const diemdat = diemdatsArray[i];
+			console.log(diemdat);
+			var marker = new google.maps.Marker({
+			position: {lat: parseFloat(diemdat.KinhDo), lng: parseFloat(diemdat.ViDo)},
+			map,
+			title: diemdat.DiaChi,
+			});
+			markers.push(marker);
+
+			var infowindow = new google.maps.InfoWindow({
+					content: diemdat.DiaChi + '<br>' +
+							diemdat.KhuVuc + '<br>' +
+							diemdat.LoaiDiemDatId + '<br>' +
+							diemdat.QuyHoach + '<br>'
+				});
+			infowindows.push(infowindow);
+
+			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+					infowindows[i].open(map, marker);
+				}
+			})(marker, i));
+
+			google.maps.event.addListener(marker,'dblclick',function() {
+				const sidebarElement = "sidebar1" ? document.getElementById("sidebar1") : undefined;
+				if (sidebarElement) {
+					let sidebarState = sidebarElement.getAttribute('aria-hidden');
+					sidebarElement.setAttribute('aria-hidden', sidebarState == 'true' ? false : true); 
+				}
+			});		
+		}
+		}
+
+	function clearMarkers(){
+		for (let i =0; i< markers.length; i++){
+		markers[i].setMap(null);
+		}
+		markers = [];
+	}
+
+	window.initMap = initMap;
+</script>
 <!--container-->
   <!-- <form action="" method="GET"> -->
     <div class="input-group pb-1" style="padding-left: 15px; padding-right: 15px;">

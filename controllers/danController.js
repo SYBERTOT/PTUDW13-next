@@ -1,8 +1,35 @@
 const controller = {};
+const models = require("../models");
 
-controller.show = (req, res) => {
+controller.show = async (req, res) => {
+	let diemdatsArray = []; // Initialize an empty array
+
+	// Fetch diemdats from the database
+	const diemdats = await models.DiemDat.findAll({
+		attributes: [
+		  "id",
+		  "DiaChi",
+		  "KinhDo",
+		  "ViDo",
+		  "KhuVuc",
+		  "DiaChiAnh",
+		  "QuyHoach",
+		  "LoaiDiemDatId"
+		],
+		include: [
+			{ model: models.LoaiDiemDat},
+		]
+	});
+
+	// Add each diemdat to the array
+	diemdats.forEach(diemdat => {
+		diemdatsArray.push(diemdat);
+	});
+
+	res.locals.diemdats = diemdatsArray; // Assign the array to res.locals.diemdats
 	res.render('index', { title: "Trang chủ" , trangchu: true});
 };
+
 
 controller.dsBaoCao = (req, res) => {
 	res.render('dan_dsbaocao', { title: "Báo cáo đã gửi" , dsbaocao: true});

@@ -27,6 +27,9 @@ app.engine(
 					});       
 				},    
 			paginateHelper: paginate.createPagination, 
+			json : (context) => {
+				return JSON.stringify(context);
+			}
 
 			},   
 		}),
