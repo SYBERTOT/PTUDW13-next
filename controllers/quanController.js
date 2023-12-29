@@ -19,4 +19,22 @@ controller.xlbaocao = (req, res) => {
 controller.xlcapphep = (req, res) => {
 	res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan"});
 }
+
+controller.CapNhatThongTin = async (req, res) =>{
+	let{id, HoTen, NgaySinh, Email, DienThoai} = req.body;
+	try {
+		await models.TaiKhoan.update({
+			HoTen,
+			NgaySinh,
+			Email,
+			DienThoai
+		}, {where:{id}});
+		res.send("Tài khoản đã được cập nhật");
+	} 	catch(error)
+	{
+		res.send("Không thể cập nhật tài khoản");
+		console.error(error);
+	}
+}
+
 module.exports = controller;
