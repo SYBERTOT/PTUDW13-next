@@ -79,6 +79,7 @@
             offcanvasElement.querySelector('#quyhoach').innerHTML = "CHƯA QUY HOẠCH";
           }
           offcanvasElement.querySelector('#diachianh').src = diemdat.DiaChiAnh;
+          offcanvasElement.querySelector('#iddiemdat').value = diemdat.id;
 
 
 					for (let j = 0; j < diemdat.BangQuangCaos.length; j++) {
@@ -89,7 +90,7 @@
                     		<p style="font-size: 15px;">Kích thước: ${diemdat.BangQuangCaos[j].KichThuoc}</br> Số lượng: 1 trụ/bảng </br> Hình thức: ${diemdat.HinhThucDiemDat.Ten} </br> Phân loại: ${diemdat.LoaiDiemDat.Ten}</p>
                     		<div class="btn-group" role="group">
 								<button type="button" class="bi bi-info-circle border-0 rounded-0" data-dismiss="modal" aria-label="Close" style="float: inline-start; font-size: 20px; background-color: white;" onclick="showdetails(${i},${j})"></button>
-                      		<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#guiBaoCao"><i class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;"> Báo cáo vi phạm</i></button>
+                      		<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#guiBaoCao" onclick="prepareBaoCaoBangQC(${diemdat.BangQuangCaos[j].id})"><i class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;"> Báo cáo vi phạm</i></button>
 							</div>
                       		
                     	</div>`;
@@ -177,8 +178,10 @@
         <h5 id="hinhthuc" style="font-size: 15px; padding-left: 20px;"></h5>
         <h5 id="quyhoach" style="font-size: 15px; padding-left: 20px; font-weight: bold; font-style: italic;"></h5>
         <img id="diachianh" src="" class="pb-1" alt="" width="325" style="padding-left: 20px;">
+        <input id="iddiemdat" type="hidden" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
+
 				<div>
-					<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#guiBaoCao"><i class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;"> Báo cáo vi phạm</i></button>
+					<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#guiBaoCao" onclick="prepareBaoCaoDiemDat()"><i class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;"> Báo cáo vi phạm</i></button>
 				</div>
           	</div>
         </div>
@@ -222,8 +225,7 @@
                     <div>
                       <label for="hinhthuc" class="form-label">Hình thức báo cáo</label>
                       <select id="hinhthuc" name="hinhthuc" class="form-select" aria-label="Default select example">
-                        <option selected>Chọn hình thức báo cáo</option>
-                        <option value="togiac">Tố giác sai phạm</option>
+                        <option value="togiac" selected>Tố giác sai phạm</option>
                         <option value="dangky">Đăng ký nội dung</option>
                         <option value="donggop">Đóng góp ý kiến</option>
                         <option value="thacmac">Giải đáp thắc mắc</option>
@@ -266,10 +268,11 @@
                       </div>
                     </div>
                   </div>
+                  <input type="hidden" id="laDiemDat" name="laDiemDat" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
+                  <input type="hidden" id="idBiBaoCao" name="idBiBaoCao" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
                 </div>
               </div>
             </div>
-
           </div>
         </div>
         <div class="modal-footer mt-2">
@@ -281,7 +284,22 @@
 	</div>
 </div>
 
-
+<script>
+  function prepareBaoCaoDiemDat() {
+    const guiBaoCaoModal = document.getElementById("guiBaoCao");
+		if (guiBaoCaoModal) {
+      guiBaoCaoModal.querySelector('#laDiemDat').value = "true";
+      guiBaoCaoModal.querySelector('#idBiBaoCao').value = document.querySelector('#iddiemdat').value;
+    }
+  }
+  function prepareBaoCaoBangQC(id) {
+    const guiBaoCaoModal = document.getElementById("guiBaoCao");
+		if (guiBaoCaoModal) {
+      guiBaoCaoModal.querySelector('#laDiemDat').value = "false";
+      guiBaoCaoModal.querySelector('#idBiBaoCao').value = id;
+    }
+  }
+</script>
         <!--/container-->
 {{!-- tinymce --}}
 <script src="https://cdn.tiny.cloud/1/vqxvddp1yo9we3090oejpm5byq3f9taeds999743y9ra4yk6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>

@@ -60,7 +60,7 @@ controller.dangnhap = (req, res) => {
 
 controller.guiBaoCao = async (req, res) => {
 	console.log(req.body);
-	let { hinhthuc, hoten, email, sdt, noidung} = req.body;
+	let { hinhthuc, hoten, email, sdt, noidung, laDiemDat, idBiBaoCao} = req.body;
 	// try {
 	// 	await models.?.create({
 	// 	});
