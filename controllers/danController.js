@@ -60,15 +60,36 @@ controller.dangnhap = (req, res) => {
 
 controller.guiBaoCao = async (req, res) => {
 	console.log(req.body);
-	let { hinhthuc, hoten, email, sdt, noidung, laDiemDat, idBiBaoCao} = req.body;
-	// try {
-	// 	await models.?.create({
-	// 	});
-	// 	res.redirect('/'); //thay vi render lai
-	// } catch (error) {
-	// 	res.send("Không thể tạo báo cáo!");
-	// 	console.error(error);
-	// }
+	let { NoiDung, HoTen, Email, DienThoai, laDiemDat, HinhThucBaoCaoId, DiemDatId, BangQuangCaoId} = req.body;
+	
+	laDiemDat = laDiemDat === 'true'; // Convert 'true' to boolean true
+
+    HinhThucBaoCaoId = parseInt(HinhThucBaoCaoId, 10);
+    DiemDatId = DiemDatId ? parseInt(DiemDatId, 10) : null;
+    BangQuangCaoId = BangQuangCaoId ? parseInt(BangQuangCaoId, 10) : null;
+
+	try {
+		await models.BaoCao.create({
+			NoiDung,
+			HoTen,
+			Email,
+			DienThoai,
+			laDiemDat,
+			HinhThucBaoCaoId,
+			DiemDatId,
+			BangQuangCaoId
+		});
+		res.send("Đã gửi báo cáo!");
+		// res.cookie("HinhThucBaoCaoId", HinhThucBaoCaoId, {
+		// 	maxAge: 60 * 60 * 1000,
+		// 	httpOnly: false,
+		// 	signed: true,
+		// });
+		// res.redirect('/'); //thay vi render lai
+	} catch (error) {
+		res.send("Không thể tạo báo cáo!");
+		console.error(error);
+	}
 };
 
 module.exports = controller;

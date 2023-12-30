@@ -4,6 +4,7 @@ const port = 4000 | process.env.PORT;;
 const expressHbs = require("express-handlebars");
 const paginate = require('express-handlebars-paginate');
 
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 app.use(express.static(__dirname +"/html"));
@@ -38,6 +39,8 @@ app.set("view engine","hbs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(cookieParser("COOKIE_SECRET"));
 
 app.use(
 	session({

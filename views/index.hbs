@@ -223,41 +223,41 @@
                 <div class="col-md-12">
                   <div class="row">
                     <div>
-                      <label for="hinhthuc" class="form-label">Hình thức báo cáo</label>
-                      <select id="hinhthuc" name="hinhthuc" class="form-select" aria-label="Default select example">
-                        <option value="togiac" selected>Tố giác sai phạm</option>
-                        <option value="dangky">Đăng ký nội dung</option>
-                        <option value="donggop">Đóng góp ý kiến</option>
-                        <option value="thacmac">Giải đáp thắc mắc</option>
+                      <label for="HinhThucBaoCaoId" class="form-label">Hình thức báo cáo</label>
+                      <select id="HinhThucBaoCaoId" name="HinhThucBaoCaoId" class="form-select" aria-label="Default select example">
+                        <option value=1 selected>Tố giác sai phạm</option>
+                        <option value=2>Đăng ký nội dung</option>
+                        <option value=3>Đóng góp ý kiến</option>
+                        <option value=4>Giải đáp thắc mắc</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="row">
                     <div>
-                      <label for="hoten" class="form-label">Họ tên người gửi báo cáo</label>
-                      <input type="text" class="form-control" id="hoten" name="hoten" placeholder="Họ tên">
+                      <label for="HoTen" class="form-label">Họ tên người gửi báo cáo</label>
+                      <input type="text" class="form-control" id="HoTen" name="HoTen" placeholder="Họ tên">
                     </div>
                   </div>
 
                   <div class="row">
                     <div>
-                      <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                      <label for="Email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="Email" name="Email" placeholder="Email">
                     </div>
                   </div>
 
                   <div class="row">
                     <div>
-                      <label for="sdt" class="form-label">Điện thoại liên lạc</label>
-                      <input type="text" class="form-control" id="sdt" name="sdt" placeholder="">
+                      <label for="DienThoai" class="form-label">Điện thoại liên lạc</label>
+                      <input type="text" class="form-control" id="DienThoai" name="DienThoai" placeholder="">
                     </div>
                   </div>
 
                   <div class="row">
                     <div>
-                      <label for="noidung">Nội dung báo cáo</label>
-                      <textarea id="editor" class="rounded-2 border-secondary" name="noidung"></textarea>
+                      <label for="NoiDung">Nội dung báo cáo</label>
+                      <textarea id="editor" class="rounded-2 border-secondary" name="NoiDung"></textarea>
                     </div>
                   </div>
 
@@ -269,7 +269,8 @@
                     </div>
                   </div>
                   <input type="hidden" id="laDiemDat" name="laDiemDat" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
-                  <input type="hidden" id="idBiBaoCao" name="idBiBaoCao" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
+                  <input type="hidden" id="DiemDatId" name="DiemDatId" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
+                  <input type="hidden" id="BangQuangCaoId" name="BangQuangCaoId" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
                 </div>
               </div>
             </div>
@@ -289,14 +290,14 @@
     const guiBaoCaoModal = document.getElementById("guiBaoCao");
 		if (guiBaoCaoModal) {
       guiBaoCaoModal.querySelector('#laDiemDat').value = "true";
-      guiBaoCaoModal.querySelector('#idBiBaoCao').value = document.querySelector('#iddiemdat').value;
+      guiBaoCaoModal.querySelector('#DiemDatId').value = document.querySelector('#iddiemdat').value;
     }
   }
   function prepareBaoCaoBangQC(id) {
     const guiBaoCaoModal = document.getElementById("guiBaoCao");
 		if (guiBaoCaoModal) {
       guiBaoCaoModal.querySelector('#laDiemDat').value = "false";
-      guiBaoCaoModal.querySelector('#idBiBaoCao').value = id;
+      guiBaoCaoModal.querySelector('#BangQuangCaoId').value = id;
     }
   }
 </script>
