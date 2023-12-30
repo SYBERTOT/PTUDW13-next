@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       BaoCao.belongsTo(models.HinhThucBaoCao);
     }
   }
-  BangQuangCao.init({
+  BaoCao.init({
     NoiDung: DataTypes.TEXT,
     HoTen: DataTypes.STRING,
     Email: DataTypes.STRING,
