@@ -4,6 +4,25 @@ const models = require("../models");
 controller.show = async (req, res) => {
 	let diemdatsArray = []; // Initialize an empty array
 
+	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
+		attributes: ["id", "Ten"]
+	});
+	res.locals.hinhthucdiemdats = await models.HinhThucDiemDat.findAll({
+		attributes: ["id", "Ten"]
+	});
+
+	res.locals.loaibangquangcaos = await models.LoaiBangQuangCao.findAll({
+		attributes: [ "id", "Ten"]
+	});
+
+	res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+		attributes: [ "id", "KichThuoc"],
+		include: [
+			{ model: models.LoaiBangQuangCao },
+			{ model: models.DiemDat}
+		]
+	})
+
 	// Fetch diemdats from the database
 	const diemdats = await models.DiemDat.findAll({
 		attributes: [
@@ -14,19 +33,19 @@ controller.show = async (req, res) => {
 		  "KhuVuc",
 		  "DiaChiAnh",
 		  "QuyHoach",
-		  "LoaiDiemDatId"
 		],
 		include: [
 			{ model: models.LoaiDiemDat},
+			{ model: models.HinhThucDiemDat},
+			{ model: models.BangQuangCao },
 		]
 	});
 
-	// Add each diemdat to the array
 	diemdats.forEach(diemdat => {
 		diemdatsArray.push(diemdat);
 	});
 
-	res.locals.diemdats = diemdatsArray; // Assign the array to res.locals.diemdats
+	res.locals.diemdats = diemdatsArray;
 	res.render('index', { title: "Trang chủ" , trangchu: true});
 };
 
