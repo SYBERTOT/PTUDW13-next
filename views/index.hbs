@@ -70,7 +70,17 @@
 				if (offcanvasElement) {
 					offcanvasElement.querySelector('#adsInfo').innerHTML = '';
 					offcanvasElement.querySelector('#diachi').innerHTML = diemdat.DiaChi;
-					offcanvasElement.querySelector('#khuvuc').innerHTML = diemdat.KhuVuc;
+					offcanvasElement.querySelector('#khuvuc').innerHTML = 'Khu vực: ' +  diemdat.KhuVuc;
+          offcanvasElement.querySelector('#loaivitri').innerHTML = 'Loại vị trí: ' +  diemdat.LoaiDiemDat.Ten;
+          offcanvasElement.querySelector('#hinhthuc').innerHTML = 'Hình thức quảng cáo: ' +  diemdat.HinhThucDiemDat.Ten;
+          if (diemdat.QuyHoach == true) {
+            offcanvasElement.querySelector('#quyhoach').innerHTML = "ĐÃ QUY HOẠCH";
+          } else {
+            offcanvasElement.querySelector('#quyhoach').innerHTML = "CHƯA QUY HOẠCH";
+          }
+          offcanvasElement.querySelector('#diachianh').src = diemdat.DiaChiAnh;
+
+
 					for (let j = 0; j < diemdat.BangQuangCaos.length; j++) {
 						offcanvasElement.querySelector('#adsInfo').innerHTML +=
 						`<div class="card-body mb-3">
@@ -160,9 +170,13 @@
   <div class="offcanvas-body">
         <div class="card border-0 fs-1" style="background-color: #E8F8EE;">
 			<div class="card-body">
-				<h3 class="bi bi-geo-alt" style="font-size: 16px; font-weight: 700; color: #003220;"> Thông tin địa điểm</h3>
-				<h3 style="font-size: 15px; font-weight: 700; color: #003220; padding-left: 20px;" id="diachi"></h3>
-				<h5 style="font-size: 15px; padding-left: 20px;" id="khuvuc"></h5>
+				<h3 class="bi bi-geo-alt" style="font-size: 16px; font-weight: 700; color: #003220;"> Thông tin điểm đặt</h3>
+				<h3 id="diachi" style="font-size: 15px; font-weight: 700; color: #003220; padding-left: 20px;"></h3>
+				<h5 id="khuvuc" style="font-size: 15px; padding-left: 20px;"></h5>
+        <h5 id="loaivitri" style="font-size: 15px; padding-left: 20px;"></h5>
+        <h5 id="hinhthuc" style="font-size: 15px; padding-left: 20px;"></h5>
+        <h5 id="quyhoach" style="font-size: 15px; padding-left: 20px; font-weight: bold; font-style: italic;"></h5>
+        <img id="diachianh" src="" class="pb-1" alt="" width="325" style="padding-left: 20px;">
 				<div>
 					<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#guiBaoCao"><i class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;"> Báo cáo vi phạm</i></button>
 				</div>
