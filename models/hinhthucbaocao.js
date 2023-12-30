@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       HinhThucBaoCao.hasMany(models.BaoCao);
     }
   }
-  HinhThucDiemDat.init({
+  HinhThucBaoCao.init({
     Ten: DataTypes.STRING
   }, {
     sequelize,
