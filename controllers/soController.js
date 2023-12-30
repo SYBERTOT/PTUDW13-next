@@ -1,4 +1,6 @@
 const controller = {};
+const models = require("../models");
+const { Op } = require('sequelize');
 
 controller.qldiemdat = (req, res) => {
 	res.render('qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutso"});
@@ -8,7 +10,35 @@ controller.qlbangqc = (req, res) => {
 	res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});
 }
 
-controller.qltaikhoan = (req, res) => {
+controller.qltaikhoan = async (req, res) => {
+	res.locals.loaitaikhoans = await models.LoaiTaiKhoan.findAll({
+		attributes: [ "id", "HoTen"],
+		where: {
+			id: {
+				[Op.ne]: 3
+			}
+		}
+	})
+	res.locals.taikhoans = await models.TaiKhoan.findAll({
+		attributes: [
+		  "id",
+		  "HoTen",
+		  "NgaySinh",
+		  "Email",
+		  "DienThoai",
+		  "KhuVuc",
+		  "LoaiTaiKhoanId",
+		],
+		order: [["createdAt", "DESC"]],
+		include: [
+			{ model: models.LoaiTaiKhoan}
+		],
+		where: {
+			LoaiTaiKhoanId: {
+				[Op.ne]: 3
+			}
+		}
+	  });
 	res.render('qltaikhoan', { title: "Quản lý tài khoản" , quanly: true , layout: "layoutso"});
 }
 
@@ -44,7 +74,7 @@ controller.xoaTaiKhoan  = async(req,res) => {
 	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
 	try
 	{
-		await models.Taikhoan.destroy({where: {id}});
+		await models.TaiKhoan.destroy({where: {id}});
 		res.send("Tài khoản đã bị xóa");
 	}	catch(error){
 		res.send("Không thể xóa tài khoản");

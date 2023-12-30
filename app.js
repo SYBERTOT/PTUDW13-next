@@ -30,7 +30,10 @@ app.engine(
 			paginateHelper: paginate.createPagination, 
 			json : (context) => {
 				return JSON.stringify(context);
-			}
+			},
+			inc: (value) => {
+				return parseInt(value) + 1;
+			},
 
 			},   
 		}),

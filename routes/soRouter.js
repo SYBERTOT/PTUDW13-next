@@ -10,6 +10,6 @@ router.get("/qlbangqc", controller.qlbangqc);
 router.get("/qltaikhoan", controller.qltaikhoan);
 router.get("/qlquanphuong", controller.qlquanphuong);
 router.post("/", controller.taoTaiKhoan);
-router.delete("/:id", controller.xoaTaiKhoan);
+router.delete("/qltaikhoan/:id", controller.xoaTaiKhoan);
 
 module.exports = router;
