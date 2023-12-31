@@ -55,19 +55,42 @@ controller.thongke = (req, res) => {
 }
 
 controller.taoTaiKhoan = async(req, res) => {
-	let {TenTaiKhoan, MatKhau, LoaiTaiKhoanId, KhuVuc} = req.body;
+	let { username, loaitk, khuvuc } = req.body;
 	try{
-		await models.Taikhoan.create({
-			TenTaiKhoan,
-			MatKhau,
-			LoaiTaiKhoanId,
-			KhuVuc
+		await models.TaiKhoan.create({
+			TenTaiKhoan: username, 
+			LoaiTaiKhoanId: loaitk,
+			KhuVuc: khuvuc,
+			MatKhau: "123",
 		});
+		res.redirect("/so/qltaikhoan");
 	}	catch(error)
 	{
 		res.send("Không thể tạo tài khoản!");
 		console.error(error);
 	}
+};
+
+controller.capnhatTaiKhoan = async (req, res) => {
+	let { id, name, dob, email, mobile, loaitk, khuvuc } = req.body;
+	try {
+		await models.TaiKhoan.update({
+			HoTen: name,
+			NgaySinh: dob,
+			Email: email,
+			DienThoai: mobile,
+			LoaiTaiKhoanId: loaitk,
+			KhuVuc: khuvuc
+		},
+		{
+			where: { id }
+		});
+		res.send("Tài khoản đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
 };
 
 controller.xoaTaiKhoan  = async(req,res) => {
