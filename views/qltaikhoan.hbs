@@ -66,52 +66,6 @@
 		</div>
 	</div>
 
-<div class="card form-popup" id="Addcb">
-  <div class="row">
-    <div class=" m-2"><i class="bi bi-envelope update-icon rounded rounded-circle"></i></div>
-    <div class="tw-bold m-2">Tạo tài khoản cán bộ</div>
-    <div class="rounded-5 m-2">
-      <label for="addr">Tên tài khoản</label> <br>
-      <input type="text" placeholder="" name="addr" size="50">
-    </div>
-    <div class="rounded-5 m-2">
-      <label for="addr">Email</label> <br>
-      <input type="text" placeholder="" name="addr" size="50">
-    </div>
-    <div class=" m-2"><label for="addr"> Loại cán bộ</label> <br>
-      <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn loại vị trí</button>
-      <div class="dropdown-menu">
-        <div><label>Cán bộ quận</label></div>
-        <div><label>Cán bộ phường</label></div>
-      </div>  
-    </div>
-    <div class=" m-2"><label for="addr"> Quận</label> <br>
-      <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn quận quản lý</button>
-      <div class="dropdown-menu">
-        <div><label>Quận ABC</label></div>
-        <div><label>Quận NVC</label></div>
-      </div>  
-    </div>
-    <div class=" m-2"><label for="addr"> Phường</label> <br>
-      <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn phường quản lý</button>
-      <div class="dropdown-menu">
-        <div><label>Phường NVC</label></div>
-        <div><label>Phường ABC</label></div>
-      </div>  
-    </div>
-    <div class="row mt-3">
-      <div class="col">
-          <button type="button" class="btn btn-block border w-100" onclick="closeForm('Addcb')">Hủy</button>          
-      </div>      
-      <div class="col">
-        <button type="submit" class="btn btn-block btn-secondary indigo w-100" onclick="closeForm('Addcb')">Tạo</button>
-      </div>   
-    </div>   
-
-
-  </div>
-</div>
-
   <div class="modal fade" id="editTaiKhoanModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <form action="" id="editTaiKhoanForm" onsubmit="editTaiKhoan(event)">

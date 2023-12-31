@@ -1,10 +1,93 @@
 const controller = {};
 const models = require("../models");
 const { Op } = require('sequelize');
+const axios = require('axios');
 
-controller.qldiemdat = (req, res) => {
+controller.qldiemdat = async (req, res) => {
+	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.hinhthucdiemdats = await models.HinhThucDiemDat.findAll({
+		attributes: [ "id", "Ten"]
+	})
+	res.locals.diemdats = await models.DiemDat.findAll({
+		attributes: [
+		  "id",
+		  "DiaChi",
+		  "KhuVuc",
+		  "DiaChiAnh",
+		  "QuyHoach",
+		  "HinhThucDiemDatId",
+		  "LoaiDiemDatId",
+		],
+		order: [["createdAt", "DESC"]],
+		include: [
+			{ model: models.LoaiDiemDat },
+			{ model: models.HinhThucDiemDat}
+		],
+	  });
 	res.render('qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutso"});
 }
+
+controller.taoDiemDat = async(req, res) => {
+	let { diachi, khuvuc, ploai, hthuc } = req.body;
+
+	try{
+		let response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+			params: {
+				address: diachi,
+				key: 'AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE' 
+			}
+		});
+		let location = response.data.results[0].geometry.location;
+		await models.DiemDat.create({
+			DiaChi: diachi, 
+			KhuVuc: khuvuc,
+			LoaiDiemDatId: ploai,
+			HinhThucDiemDatId: hthuc,
+			KinhDo: toString(location.lng),
+			ViDo: toString(location.lat)
+		});
+		res.redirect("/so/qldiemdat");
+	}	catch(error)
+	{
+		res.send("Không thể tạo điểm!");
+		console.error(error);
+	}
+};
+
+controller.capnhatDiemDat = async (req, res) => {
+	let { id, diachi, khuvuc, ploai, hthuc, quyhoach } = req.body;
+	try {
+		await models.DiemDat.update({
+			DiaChi: diachi,
+			KhuVuc: khuvuc,
+			LoaiDiemDatId: ploai,
+			HinhThucDiemDatId: hthuc,
+			QuyHoach: quyhoach ? true : false
+		},
+		{
+			where: { id }
+		});
+		res.send("Điểm đặt đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+};
+
+controller.xoaDiemDat  = async(req,res) => {
+	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
+	try
+	{
+		await models.DiemDat.destroy({where: {id}});
+		res.send("Điểm đặt đã bị xóa");
+	}	catch(error){
+		res.send("Không thể xóa tài khoản");
+		console.error(error);
+	}
+};
 
 controller.qlbangqc = (req, res) => {
 	res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});

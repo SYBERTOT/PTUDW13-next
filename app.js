@@ -34,6 +34,9 @@ app.engine(
 			inc: (value) => {
 				return parseInt(value) + 1;
 			},
+			eq: (a, b, opt) => {
+				return (a == b) ? opt.fn(this) : opt.inverse(this);
+			}
 
 			},   
 		}),
