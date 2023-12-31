@@ -38,13 +38,18 @@
 		for (let i = 0; i < diemdatsArray.length; i++) {
 			const diemdat = diemdatsArray[i];
 			var status = "CHƯA QUY HOẠCH";
+      var markerImgPath = "../img/marker-red.png";
 			if (diemdat.QuyHoach == true) {
-				status = "ĐÃ QUY HOẠCH"
+				status = "ĐÃ QUY HOẠCH";
+        markerImgPath = "../img/marker-green.png";
 			}
 			var marker = new google.maps.Marker({
 				position: {lat: parseFloat(diemdat.KinhDo), lng: parseFloat(diemdat.ViDo)},
 				map,
 				title: diemdat.DiaChi,
+        icon: {
+          url: markerImgPath
+        },
 			});
 			markers.push(marker);
 
