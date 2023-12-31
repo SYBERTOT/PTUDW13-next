@@ -27,7 +27,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">STT</th>
+                                        <th class="text-center">ID</th>
                                         <th>Thời gian gửi</th>
                                         <th>Hình ảnh</th>
                                         <th>Địa điểm</th>
@@ -36,46 +36,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each BaoCaoDaGuis}}
                                     <tr>
-                                        <td class="text-center">1</td>
-                                        <td>dd/MM/yyyy</td>
+                                        <td class="text-center">{{id}}</td>
+                                        <td>{{showDate date}}</td>
                                         <td class="bi bi-images fs-1 text-center"></td>
-                                        <td>227 Nguyễn Văn Cừ</td>
-                                        <td class="text-center"><p class="rounded-5 report-category">Tố giác sai phạm</p></td>
-                                        <td class="text-center"><p class="rounded-5 solved-status">Đã xử lý</p></td>
+                                        <td>{{TenDiemDat}} ({{TenBangQC}})</td>
+                                        <td class="text-center"><p class="rounded-5 report-category">{{HinhThucBaoCao}}</p></td>
+                                        <td class="text-center"><p class="rounded-5">Unknown</p></td>
+                                        {{!-- <td class="text-center"><p class="rounded-5 solved-status">Đã xử lý</p></td> --}}
+                                        {{!-- <td class="text-center"><p class="rounded-5 handling-status">Đang xử lý</p></td> --}}
                                     </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td>dd/MM/yyyy</td>
-                                        <td class="bi bi-images fs-1 text-center"></td>
-                                        <td>Đồng Khởi - Nguyễn Du</td>
-                                        <td class="text-center"><p class="rounded-5 report-category">Đóng góp ý kiến</p></td>
-                                        <td class="text-center"><p class="rounded-5 handling-status">Đang xử lý</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">3</td>
-                                        <td>dd/MM/yyyy</td>
-                                        <td class="bi bi-images fs-1 text-center"></td>
-                                        <td>227 Nguyễn Văn Cừ</td>
-                                        <td class="text-center"><p class="rounded-5 report-category">Giải đáp thắc mắc</p></td>
-                                        <td class="text-center"><p class="rounded-5 solved-status">Đã xử lý</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">4</td>
-                                        <td>dd/MM/yyyy</td>
-                                        <td class="bi bi-images fs-1 text-center"></td>
-                                        <td>227 Nguyễn Văn Cừ</td>
-                                        <td class="text-center"><p class="rounded-5 report-category">Giải đáp thắc mắc</p></td>
-                                        <td class="text-center"><p class="rounded-5 solved-status">Đã xử lý</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">5</td>
-                                        <td>dd/MM/yyyy</td>
-                                        <td class="bi bi-images fs-1 text-center"></td>
-                                        <td>Đồng Khởi - Nguyễn Du</td>
-                                        <td class="text-center"><p class="rounded-5 report-category">Tố giác sai phạm</p></td>
-                                        <td class="text-center"><p class="rounded-5 handling-status">Đang xử lý</p></td>
-                                    </tr>
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>

@@ -20,8 +20,8 @@ app.engine(
 		}, 
 		helpers: {       
 			showDate: (date) => {          
-				return date.toLocaleDateString(
-					'en-US', {           
+				return new Date(date).toLocaleDateString(
+					'vi-VN', {           
 						year: 'numeric',           
 						month: 'long',           
 						day: 'numeric',         
