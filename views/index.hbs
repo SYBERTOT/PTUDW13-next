@@ -11,8 +11,22 @@
 		center: { lat: 10.7858, lng: 106.7085 },
 		});
 		geocoder = new google.maps.Geocoder();
-    document.getElementById("show-markers").addEventListener("click", showMarkers);
-    document.getElementById("hide-markers").addEventListener("click", hideMarkers);
+    document.getElementById("toggle-chuaQH-markers").addEventListener("change", function() {
+        if (this.checked) {
+          showQuyHoachMarkers("toggle-chuaQH-markers", "../img/marker-green.png");
+        } else {
+          hideQuyHoachMarkers("toggle-chuaQH-markers", "../img/marker-green.png");
+        }
+    });
+
+    document.getElementById("toggle-daQH-markers").addEventListener("change", function() {
+        if (this.checked) {
+            showQuyHoachMarkers("toggle-daQH-markers", "../img/marker-red.png");
+        } else {
+            hideQuyHoachMarkers("toggle-daQH-markers", "../img/marker-red.png");
+        }
+    });
+
 		setMarkers(map);
 	}
 
@@ -22,14 +36,24 @@
     }
   }
 
-  // Removes the markers from the map, but keeps them in the array.
-  function hideMarkers() {
-    setMapOnAll(null);
+  function setMapQuyHoach(map, url) {
+    for (let i = 0; i < markers.length; i++) {
+      if (markers[i].icon.url == url) {
+        markers[i].setMap(map);
+      }
+    }
   }
 
-  // Shows any markers currently in the array.
-  function showMarkers() {
-    setMapOnAll(map);
+  // Removes the markers from the map, but keeps them in the array.
+  // Update the hideMarkers and showMarkers functions to check the checkbox state
+  function showQuyHoachMarkers(id, url) {
+      setMapQuyHoach(map, url);
+      document.getElementById(id).checked = true;
+  }
+
+  function hideQuyHoachMarkers(id, url) {
+      setMapQuyHoach(null, url);
+      document.getElementById(id).checked = false;
   }
 
 	// Data for the markers consisting of a name, a LatLng and a zIndex for the
@@ -178,14 +202,24 @@
       <input class="col-md-4 form-control" id="address" type="text" placeholder="Tìm kiếm theo địa chỉ" style="margin-left:auto;">
         <button class="bi bi-search border-0 rounded-1 fs-4 mx-1" onclick="geocodeAddress(document.getElementById('address').value, map)"></button>
         <button class="bi bi-arrow-clockwise border-0 rounded-1 fs-4 mx-1" onclick="setMarkers(map)"></button>
-        <input id="hide-markers" type="button" value="Ẩn điểm đặt" class="border-0 rounded-1 mx-1"/>
-        <input id="show-markers" type="button" value="Hiện điểm đặt" class="border-0 rounded-1 mx-1"/>
+
+        <div class="btn-group" role="group">
+          <label class="switch">
+            <input id="toggle-chuaQH-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
+            <span class="slider round"></span>
+          </label>
+          <p>Chưa quy hoạch</p>
+        </div>
+
+        <div class="btn-group" role="group">
+          <label class="switch">
+            <input id="toggle-daQH-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
+            <span class="slider round"></span>
+          </label>
+          <p>Đã quy hoạch</p>
+        </div>
     </div>
   <!-- </form> -->
-    {{!-- <div> --}}
-      {{!-- <input id="hide-markers" type="button" value="Ẩn điểm đặt" style="margin-right:auto;"/>
-      <input id="show-markers" type="button" value="Hiện điểm đặt" style="margin-right:auto;"/> --}}
-    {{!-- </div> --}}
         <div id="map"></div>
         <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE&callback=initMap&v=weekly"
