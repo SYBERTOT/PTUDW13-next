@@ -40,10 +40,35 @@ controller.dangNhap = async (req, res) => {
 
 controller.daDangNhap = async (req, res, next) => {
     if (req.session.taikhoan) {
-        res.locals.taikhoan = req.session.taikhoan;
-        return next();
+        const taikhoan = req.session.taikhoan;
+        res.locals.taikhoan = taikhoan;
+        if (taikhoan.LoaiTaiKhoanId) {
+            const phuong = await LoaiTaiKhoan.findOne({
+                where: { id: taikhoan.id, HoTen: "Phuong" },
+            });
+            if (phuong && taikhoan.LoaiTaiKhoanId === phuong.id) {
+                console.log(`/${taikhoan.LoaiTaiKhoan.HoTen.toLowerCase()}`);
+                return res.redirect(`/${taikhoan.LoaiTaiKhoan.HoTen.toLowerCase()}`);
+            }
+
+            const quan = await LoaiTaiKhoan.findOne({
+                where: { id: taikhoan.id, HoTen: "Quan" },
+            });
+            if (quan && taikhoan.LoaiTaiKhoanId === quan.id) {
+                console.log(`/${taikhoan.LoaiTaiKhoan.HoTen.toLowerCase()}`);
+                return res.redirect(`/${taikhoan.LoaiTaiKhoan.HoTen.toLowerCase()}`);
+            }
+
+            const so = await LoaiTaiKhoan.findOne({
+                where: { id: taikhoan.id, HoTen: "So" },
+            });
+            if (so && taikhoan.LoaiTaiKhoanId === so.id) {
+                console.log(`/${taikhoan.LoaiTaiKhoan.HoTen.toLowerCase()}`);
+                return res.redirect(`/${taikhoan.LoaiTaiKhoan.HoTen.toLowerCase()}`);
+            }            
+        }
     }
-    res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`)
+    return next();
 };
 
 controller.phuongDaDangNhap = async (req, res, next) => {

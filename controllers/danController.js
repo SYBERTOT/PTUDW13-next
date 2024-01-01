@@ -118,8 +118,10 @@ controller.guiBaoCao = async (req, res) => {
         const BaoCaoDaGuis = (mySignedCookie && JSON.parse(mySignedCookie)) || [];
 		BaoCaoDaGuis.push({ ...BaoCao, id: createdBaoCaoId, date: createdBaoCaoDate});
 
+		const expirationDate = new Date('2028-01-19T03:14:07');
 		res.cookie("mySignedCookie", JSON.stringify(BaoCaoDaGuis), {
-            maxAge: 60 * 60 * 1000,
+			expires: expirationDate,
+            // maxAge: 60 * 60 * 1000,
             httpOnly: true,
             signed: true,
         });
