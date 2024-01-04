@@ -11,6 +11,11 @@
 		<div class="row">
 			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
 				<div class="me-3">
+					<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themBangQCModal">
+							<i class="bi bi-plus"></i> Thêm bảng quảng cáo
+					</button>
+				</div>
+				<div class="me-3">
 					<button type="button" class="btn btn-white border">View all</button>
 				</div>
 				<div class="input-group">
@@ -22,334 +27,272 @@
 
 		<!--card set-->
 		<div class="row justify-content-center">
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/1.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
+			{{#each bangquangcaos}}
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="card mb-3">
+					<div class="row g-0">
+						<div class="col-md-4">
+							<img src="{{DiaChiAnh}}" class="img-fluid rounded-start h-100" alt = "{{DiemDat.DiaChi}}">
 						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/2.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
+						<div class="col-md-8">
+							<div class="card-body ms-2">
+								<div>
+									<p class="card-title">{{LoaiBangQuangCao.Ten}}</p>
+									<p class="card-text">Địa chỉ: <small class="text-muted">{{DiemDat.DiaChi}}</small></p>
+									<p class="card-text">Khu vực: <small class="text-muted">{{DiemDat.KhuVuc}}</small></p>
+									<p class="card-text">Kích thước: <small class="text-muted">{{KichThuoc}}</small></p>
+									<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">{{showDate NgayHetHan}}</small></p>
 								</div>
+								<div class="text-end">
+										<div class="btn-group" role="group">
+											<i role="button" class="bi bi-pen-fill me-3" data-bs-toggle="modal"
+												data-bs-target="#editBangQCModal" onclick="showEditBangQCModal(this)" 
+												data-id="{{id}}" data-diemdat="{{DiemDatId}}" data-ploai="{{LoaiBangQuangCaoId}}" data-kichthuoc="{{KichThuoc}}"
+												data-ngayhethan="{{showDate NgayHetHan}}"></i>
+											<i role="button" class="bi bi-trash delete-btn" data-id="{{id}}"></i>
+										</div>
+									</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/1.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/2.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/1.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/2.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/1.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/2.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/1.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="card mb-3">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/2.png" class="img-fluid rounded-start h-100" alt = "Image">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body ms-2">
-									<div>
-										<p class="card-title">Trụ/Cụm pano</p>
-										<p class="card-text">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ</small></p>
-										<p class="card-text">Khu vực: <small class="text-muted">Phường 4</small></p>
-										<p class="card-text">Kích thước: <small class="text-muted">1m2x2m</small></p>
-										<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">dd/mm/yyyy</small></p>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pen-fill"></i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			{{/each}}
 		</div>
 
 	</div>
 
   </main>
 
-<!--Modal yeu cau chinh sua-->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa thông tin bảng quảng cáo</h1>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
+  <!--Modal chinh sua-->
+  <div class="modal fade" id="editBangQCModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="" id="editBangQCForm" onsubmit="editBangQC(event)">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Chỉnh sửa thông tin điểm đặt quảng cáo
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          	<div class="modal-body">
 			<div class="container-fluid">
 				<div class="row">
 					<p class="fw-bold m-0">Thông tin chỉnh sửa</p>
 					<div class="row">
 						<div>
-							<label for="adaddress" class="form-label">Điểm đặt</label>
-							<input type="text" class="form-control" id="adaddress" placeholder="227 Nguyễn Văn Cừ, phường 4, quận 5">
+							<label for="diemdatEdit" class="form-label">Địa chỉ</label>
+							<select id="diemdatEdit" name="diemdat" class="form-control form-select">
+								{{#each diemdats}}
+            						<option value="{{id}}">{{DiaChi}}</option>
+								{{/each}}
+        					</select>
+							</datalist>
 						</div>
-						<!--<button type="button" class="btn btn-primary btn-sm">Chọn từ bản đồ</button>-->
 					</div>
 					<div class="row">
 						<div class="col-md-8">
 							<div class="row">
 								<div>
-									<label for="addresstype" class="form-label">Loại bảng quảng cáo</label>
-									<select class="form-select" aria-label="Default select example">
-										<option value="1">Trụ bảng hiflex</option>
-										<option value="2">Trụ màn hình điện tử LED</option>
-										<option value="3">Trụ hộp đèn</option>
-										<option value="4">Bảng hiflex ốp tường</option>
-										<option value="5">Màn hình điện tử ốp tường</option>
-										<option value="6">Trụ treo băng rôn dọc</option>
-										<option value="7">Trụ treo băng rôn ngang</option>
-										<option selected value="8">Trụ/Cụm pano</option>
-										<option value="9">Cổng chào</option>
-										<option value="10">Trung tâm thương mại</option>
-									  </select>
+									<label for="ploaiEdit" class="form-label">Loại bảng quảng cáo</label>
+									<select id="ploaiEdit" name="ploai" class="form-control form-select">
+										{{#each loaibangquangcaos}}
+            								<option value="{{id}}">{{Ten}}</option>
+										{{/each}}
+        							</select>
 								</div>
 							</div>
 							<div class="row">
 								<div>
-									<label for="adtype" class="form-label">Kích thước</label>
-									<input type="text" id="kichthuoc" class="form-control" placeholder="Nhập kích thước">
+									<label for="kichthuocEdit" class="form-label">Kích thước</label>
+									<input type="text" class="form-control" id="kichthuocEdit" name="kichthuoc" placeholder="1mx2m">
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div>
-								<div>
-									<label for="img">Hình ảnh</label>
-									<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-									<div class="text-end pt-4">
-										<button class="btn btn-primary btn-sm" >Sửa</button>
-									</div>
+								<label for="img">Hình ảnh</label>
+								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
+								<div class="text-end pt-4">
+									<button class="btn btn-primary btn-sm" >Sửa</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row mt-2">
-					<p class="fw-bold m-0">Thời điểm chỉnh sửa</p>
-					<div class="col-md-6">
-						<label for="startdate" class="form-label">Từ ngày</label>
-						<input type="date" class="form-control" id="startdate" placeholder="dd/mm/yyyy">
-					</div>
-					<div class="col-md-6">
-						<label for="enddate" class="form-label">Đến ngày</label>
-						<input type="date" class="form-control" id="enddate" placeholder="dd/mm/yyyy">
+					<div class="row">
+						<div>
+							<label for="ngayhethanEdit" class="form-label">Ngày hết hạn hợp đồng</label>
+							<input type="date" class="form-control" id="ngayhethanEdit" name="ngayhethan" placeholder="dd/mm/yyyy">
+						</div>
 					</div>
 				</div>
-				<div class="row mt-2">
-					<p class="fw-bold m-0">Lý do chỉnh sửa</p>
-					<div>
-					  <textarea class="form-control" name="" id="" rows="3"></textarea>
-					</div>
+  			</div>
 			</div>
-  		</div>
-  		<div class="modal-footer mt-2">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-			<button type="button" class="btn btn-primary">Gửi yêu cầu</button>
- 		 </div>
+          <div class="modal-footer">
+            <input type="hidden" name="id" id="id" value="" />
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Chỉnh sửa
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!--Modal confirm xóa-->
+<div class="modal fade" tabindex="-1" id="confirmModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa bảng quảng cáo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chứ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" id="confirmButton">Xóa</button>
+      </div>
+    </div>
+  </div>
 </div>
-	</div>
+
+<!--Modal thêm điểm đặt-->
+<div class="modal fade" id="themBangQCModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<form action="/so/qlbangqc" id="themBangQCForm" method="POST">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="userModalTitle">
+				Thêm bảng quảng cáo
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="row">
+					<div>
+						<label for="diemdat" class="form-label">Địa chỉ</label>
+						<select id="diemdat" name="diemdat" class="form-control form-select">
+							{{#each diemdats}}
+            					<option value="{{id}}">{{DiaChi}}</option>
+							{{/each}}
+        				</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="row">
+							<div>
+								<label for="ploai" class="form-label">Loại bảng quảng cáo</label>
+								<select id="ploai" name="ploai" class="form-control form-select">
+									{{#each loaibangquangcaos}}
+										<option value="{{id}}">{{Ten}}</option>
+									{{/each}}
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div>
+								<label for="kichthuoc" class="form-label">Kích thước</label>
+								<input type="text" class="form-control" id="kichthuoc" name="kichthuoc" placeholder="1mx2m">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div>
+							<label for="img">Hình ảnh</label>
+							<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
+							<div class="text-end pt-4">
+								<button class="btn btn-primary btn-sm" >Sửa</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div>
+						<label for="ngayhethan" class="form-label">Ngày hết hạn hợp đồng</label>
+						<input type="date" class="form-control" id="ngayhethan" name="ngayhethan" placeholder="dd/mm/yyyy">
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+			Close
+			</button>
+			<button type="submit" class="btn btn-primary">
+			Save
+			</button>
+		</div>
+		</div>
+	</form>
 	</div>
 </div>
-</html>
+
+<script>
+	async function editBangQC(e) {
+	e.preventDefault();
+  
+	const formData = new FormData(document.getElementById("editBangQCForm"));
+	let data = Object.fromEntries(formData.entries());
+  
+	let res = await fetch("/so/qlbangqc", {
+	  method: 'PUT',
+	  headers:{
+		"Content-Type":"application/json",
+	  },
+	  body: JSON.stringify(data),
+	});
+  
+	location.reload();
+  }
+  
+	async function deleteBangQC(id){
+	let res= await fetch(`/so/qlbangqc/${id}`, {
+	  method: "DELETE",
+	});
+	location.reload();
+  }
+    function showEditBangQCModal(btn){
+		document.querySelector("#id").value = btn.dataset.id;
+		document.querySelector("#diemdatEdit").value = btn.dataset.diemdat;
+		document.querySelector("#ploaiEdit").value = btn.dataset.ploai;
+		document.querySelector("#kichthuocEdit").value = btn.dataset.kichthuoc;
+		let dateFromData = btn.dataset.ngayhethan; 
+		let dateParts = dateFromData.replace(',','').split(' ');
+		let day = dateParts[0].padStart(2, '0');
+		let month = dateParts[2].padStart(2, '0');
+		let year = dateParts[3];
+
+		let formattedDate = `${year}-${month}-${day}`;
+
+		document.querySelector("#ngayhethanEdit").value = formattedDate;
+
+  }
+
+	document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
+		btnConfirm.addEventListener("click", (e) => {
+			let id = e.target.dataset.id;
+
+			// Show the modal
+			var myModal = new bootstrap.Modal(document.getElementById('confirmModal'), {
+				keyboard: false
+			});
+			myModal.show();
+
+			// Add an event listener to the "Yes" button
+			document.getElementById('confirmButton').addEventListener('click', function() {
+				deleteBangQC(id);
+				myModal.hide();
+			});
+		});
+	});
+
+</script>

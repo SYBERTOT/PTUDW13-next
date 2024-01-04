@@ -89,9 +89,97 @@ controller.xoaDiemDat  = async(req,res) => {
 	}
 };
 
-controller.qlbangqc = (req, res) => {
+controller.qlbangqc = async (req, res) => {
+	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.hinhthucdiemdats = await models.HinhThucDiemDat.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.diemdats = await models.DiemDat.findAll({
+		attributes: [
+		  "id",
+		  "DiaChi",
+		  "KhuVuc",
+		  "DiaChiAnh",
+		  "QuyHoach",
+		  "HinhThucDiemDatId",
+		  "LoaiDiemDatId",
+		],
+		include: [
+			{ model: models.LoaiDiemDat },
+			{ model: models.HinhThucDiemDat}
+		],
+	  });
+	res.locals.loaibangquangcaos = await models.LoaiBangQuangCao.findAll({
+		attributes: [ "id", "Ten"]
+	})
+	res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+		attributes: [
+			"id",
+			"KichThuoc",
+			"DiaChiAnh",
+			"NgayHetHan",
+			"DiemDatId",
+			"LoaiBangQuangCaoId"
+		],
+		include: [
+			{ model: models.DiemDat },
+			{ model: models.LoaiBangQuangCao}
+		],
+	});
 	res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});
 }
+
+controller.taoBangQC = async(req, res) => {
+	let { diemdat, ploai, kichthuoc, ngayhethan } = req.body;
+
+	try{
+		await models.BangQuangCao.create({
+			KichThuoc: kichthuoc,
+			LoaiBangQuangCaoId: ploai,
+			NgayHetHan: ngayhethan,
+			DiemDatId: diemdat
+		});
+		res.redirect("/so/qlbangqc");
+	}	catch(error)
+	{
+		res.send("Không thể tạo bảng quảng cáo!");
+		console.error(error);
+	}
+};
+
+controller.capnhatBangQC = async (req, res) => {
+	let { id, diemdat, ploai, kichthuoc, ngayhethan } = req.body;
+	try {
+		await models.BangQuangCao.update({
+			KichThuoc: kichthuoc,
+			LoaiBangQuangCaoId: ploai,
+			NgayHetHan: ngayhethan,
+			DiemDatId: diemdat
+		},
+		{
+			where: { id }
+		});
+		res.send("Bảng quảng cáo đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+};
+
+controller.xoaBangQC  = async(req,res) => {
+	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
+	try
+	{
+		await models.BangQuangCao.destroy({where: {id}});
+		res.send("Bảng quảng cáo đã bị xóa");
+	}	catch(error){
+		res.send("Không thể xóa!");
+		console.error(error);
+	}
+};
 
 controller.qltaikhoan = async (req, res) => {
 	res.locals.loaitaikhoans = await models.LoaiTaiKhoan.findAll({
