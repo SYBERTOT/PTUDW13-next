@@ -50,8 +50,37 @@ controller.show = async (req, res) => {
 };
 
 
-controller.dsBaoCao = (req, res) => {
-	res.render('dan_dsbaocao', { title: "Báo cáo đã gửi" , dsbaocao: true});
+controller.dsBaoCao = async (req, res) => {
+	const mySignedCookie = req.signedCookies.mySignedCookie;
+    const BaoCaoDaGuis = (mySignedCookie && JSON.parse(mySignedCookie)) || [];
+
+	try {
+        for (let i = 0; i < BaoCaoDaGuis.length; i++) {
+            const baoCao = BaoCaoDaGuis[i];
+			BaoCaoDaGuis[i].TenDiemDat = "";
+			BaoCaoDaGuis[i].TenBangQC = "Điểm đặt";
+
+			const hinhthucInfo = await models.HinhThucBaoCao.findByPk(baoCao.HinhThucBaoCaoId);
+			BaoCaoDaGuis[i].HinhThucBaoCao = hinhthucInfo.Ten;
+
+			if (baoCao.DiemDatId != null) {
+				const diemDatInfo = await models.DiemDat.findByPk(baoCao.DiemDatId);
+				BaoCaoDaGuis[i].TenDiemDat = diemDatInfo.DiaChi;
+			}
+
+			if (baoCao.BangQuangCaoId != null) {
+				const bangQCInfo = await models.BangQuangCao.findByPk(baoCao.BangQuangCaoId);
+				const loaiBangQC = await models.LoaiBangQuangCao.findByPk(bangQCInfo.LoaiBangQuangCaoId);
+				BaoCaoDaGuis[i].TenBangQC = "Bảng QC: " + loaiBangQC.Ten;
+			}
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+
+	// console.log(BaoCaoDaGuis);
+	res.render('dan_dsbaocao', { title: "Báo cáo đã gửi" , dsbaocao: true, BaoCaoDaGuis});
 };
 
 controller.dangnhap = (req, res) => {
@@ -59,16 +88,49 @@ controller.dangnhap = (req, res) => {
 };
 
 controller.guiBaoCao = async (req, res) => {
+	// res.clearCookie('mySignedCookie');
 	console.log(req.body);
-	let { hinhthuc, hoten, email, sdt, noidung, laDiemDat, idBiBaoCao} = req.body;
-	// try {
-	// 	await models.?.create({
-	// 	});
-	// 	res.redirect('/'); //thay vi render lai
-	// } catch (error) {
-	// 	res.send("Không thể tạo báo cáo!");
-	// 	console.error(error);
-	// }
+	let { NoiDung, HoTen, Email, DienThoai, laDiemDat, HinhThucBaoCaoId, DiemDatId, BangQuangCaoId} = req.body;
+	
+	laDiemDat = laDiemDat === 'true'; // Convert 'true' to boolean true
+
+    HinhThucBaoCaoId = parseInt(HinhThucBaoCaoId, 10);
+    DiemDatId = DiemDatId ? parseInt(DiemDatId, 10) : null;
+    BangQuangCaoId = BangQuangCaoId ? parseInt(BangQuangCaoId, 10) : null;
+
+	try {
+		const BaoCao = {
+            NoiDung,
+            HoTen,
+            Email,
+            DienThoai,
+            laDiemDat,
+            HinhThucBaoCaoId,
+            DiemDatId,
+            BangQuangCaoId
+        };
+
+		const createdBaoCao = await models.BaoCao.create(BaoCao);
+        const createdBaoCaoId = createdBaoCao.id;
+		const createdBaoCaoDate = createdBaoCao.createdAt;
+
+		const mySignedCookie = req.signedCookies.mySignedCookie;
+        const BaoCaoDaGuis = (mySignedCookie && JSON.parse(mySignedCookie)) || [];
+		BaoCaoDaGuis.push({ ...BaoCao, id: createdBaoCaoId, date: createdBaoCaoDate});
+
+		const expirationDate = new Date('2028-01-19T03:14:07');
+		res.cookie("mySignedCookie", JSON.stringify(BaoCaoDaGuis), {
+			expires: expirationDate,
+            // maxAge: 60 * 60 * 1000,
+            httpOnly: true,
+            signed: true,
+        });
+		// res.redirect('/'); //thay vi render lai
+		res.send("Đã gửi báo cáo!");
+	} catch (error) {
+		res.send("Không thể tạo báo cáo!");
+		console.error(error);
+	}
 };
 
 module.exports = controller;

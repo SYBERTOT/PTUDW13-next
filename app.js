@@ -4,6 +4,7 @@ const port = 4000 | process.env.PORT;;
 const expressHbs = require("express-handlebars");
 const paginate = require('express-handlebars-paginate');
 
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 app.use(express.static(__dirname +"/html"));
@@ -19,8 +20,8 @@ app.engine(
 		}, 
 		helpers: {       
 			showDate: (date) => {          
-				return date.toLocaleDateString(
-					'en-US', {           
+				return new Date(date).toLocaleDateString(
+					'vi-VN', {           
 						year: 'numeric',           
 						month: 'long',           
 						day: 'numeric',         
@@ -29,6 +30,12 @@ app.engine(
 			paginateHelper: paginate.createPagination, 
 			json : (context) => {
 				return JSON.stringify(context);
+			},
+			inc: (value) => {
+				return parseInt(value) + 1;
+			},
+			eq: (a, b, opt) => {
+				return (a == b) ? opt.fn(this) : opt.inverse(this);
 			}
 
 			},   
@@ -38,6 +45,8 @@ app.set("view engine","hbs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(cookieParser("COOKIE_SECRET"));
 
 app.use(
 	session({

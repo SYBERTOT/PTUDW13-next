@@ -5,11 +5,21 @@ const router = express.Router();
 router.get("/", controller.thongke);
 router.get("/pheduyet", controller.pheduyet);
 router.get("/thongke", controller.thongke);
-router.get("/qldiemdat", controller.qldiemdat);
-router.get("/qlbangqc", controller.qlbangqc);
-router.get("/qltaikhoan", controller.qltaikhoan);
 router.get("/qlquanphuong", controller.qlquanphuong);
-router.post("/", controller.taoTaiKhoan);
-router.delete("/:id", controller.xoaTaiKhoan);
+
+router.get("/qldiemdat", controller.qldiemdat);
+router.post("/qldiemdat", controller.taoDiemDat);
+router.put("/qldiemdat", controller.capnhatDiemDat);
+router.delete("/qldiemdat/:id", controller.xoaDiemDat);
+
+router.get("/qlbangqc", controller.qlbangqc);
+router.post("/qlbangqc", controller.taoBangQC);
+router.put("/qlbangqc", controller.capnhatBangQC);
+router.delete("/qlbangqc/:id", controller.xoaBangQC);
+
+router.get("/qltaikhoan", controller.qltaikhoan);
+router.post("/qltaikhoan", controller.taoTaiKhoan);
+router.put("/qltaikhoan", controller.capnhatTaiKhoan);
+router.delete("/qltaikhoan/:id", controller.xoaTaiKhoan);
 
 module.exports = router;

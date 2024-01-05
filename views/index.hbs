@@ -11,8 +11,50 @@
 		center: { lat: 10.7858, lng: 106.7085 },
 		});
 		geocoder = new google.maps.Geocoder();
+    document.getElementById("toggle-chuaQH-markers").addEventListener("change", function() {
+        if (this.checked) {
+          showQuyHoachMarkers("toggle-chuaQH-markers", "../img/marker-green.png");
+        } else {
+          hideQuyHoachMarkers("toggle-chuaQH-markers", "../img/marker-green.png");
+        }
+    });
+
+    document.getElementById("toggle-daQH-markers").addEventListener("change", function() {
+        if (this.checked) {
+            showQuyHoachMarkers("toggle-daQH-markers", "../img/marker-red.png");
+        } else {
+            hideQuyHoachMarkers("toggle-daQH-markers", "../img/marker-red.png");
+        }
+    });
+
 		setMarkers(map);
 	}
+
+  function setMapOnAll(map) {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+
+  function setMapQuyHoach(map, url) {
+    for (let i = 0; i < markers.length; i++) {
+      if (markers[i].icon.url == url) {
+        markers[i].setMap(map);
+      }
+    }
+  }
+
+  // Removes the markers from the map, but keeps them in the array.
+  // Update the hideMarkers and showMarkers functions to check the checkbox state
+  function showQuyHoachMarkers(id, url) {
+      setMapQuyHoach(map, url);
+      document.getElementById(id).checked = true;
+  }
+
+  function hideQuyHoachMarkers(id, url) {
+      setMapQuyHoach(null, url);
+      document.getElementById(id).checked = false;
+  }
 
 	// Data for the markers consisting of a name, a LatLng and a zIndex for the
 	// order in which these markers should display on top of each other.
@@ -38,13 +80,18 @@
 		for (let i = 0; i < diemdatsArray.length; i++) {
 			const diemdat = diemdatsArray[i];
 			var status = "CHƯA QUY HOẠCH";
+      var markerImgPath = "../img/marker-red.png";
 			if (diemdat.QuyHoach == true) {
-				status = "ĐÃ QUY HOẠCH"
+				status = "ĐÃ QUY HOẠCH";
+        markerImgPath = "../img/marker-green.png";
 			}
 			var marker = new google.maps.Marker({
 				position: {lat: parseFloat(diemdat.KinhDo), lng: parseFloat(diemdat.ViDo)},
 				map,
 				title: diemdat.DiaChi,
+        icon: {
+          url: markerImgPath
+        },
 			});
 			markers.push(marker);
 
@@ -132,7 +179,7 @@
 					</div>
 				</div>
 				<div class="pt-3">
-					<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#guiBaoCao"><i class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;"> Báo cáo vi phạm</i></button>
+					<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#guiBaoCao" onclick="prepareBaoCaoBangQC(${diemdat.BangQuangCaos[j].id})"><i class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;"> Báo cáo vi phạm</i></button>
 					</button>
 				</div>
 				`
@@ -151,10 +198,26 @@
 </script>
 <!--container-->
   <!-- <form action="" method="GET"> -->
-    <div class="input-group pb-1" style="padding-left: 15px; padding-right: 15px;">
+    <div class="input-group pb-1 mt-1" style="padding-left: 15px; padding-right: 15px; width: auto;">
       <input class="col-md-4 form-control" id="address" type="text" placeholder="Tìm kiếm theo địa chỉ" style="margin-left:auto;">
         <button class="bi bi-search border-0 rounded-1 fs-4 mx-1" onclick="geocodeAddress(document.getElementById('address').value, map)"></button>
-        <button class="bi bi-arrow-clockwise border-0 rounded-1 fs-4" onclick="setMarkers(map)"></button>
+        <button class="bi bi-arrow-clockwise border-0 rounded-1 fs-4 mx-1" onclick="setMarkers(map)"></button>
+
+        <div class="btn-group" role="group">
+          <label class="switch">
+            <input id="toggle-chuaQH-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
+            <span class="slider round"></span>
+          </label>
+          <p>Chưa quy hoạch</p>
+        </div>
+
+        <div class="btn-group" role="group">
+          <label class="switch">
+            <input id="toggle-daQH-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
+            <span class="slider round"></span>
+          </label>
+          <p>Đã quy hoạch</p>
+        </div>
     </div>
   <!-- </form> -->
         <div id="map"></div>
@@ -223,41 +286,41 @@
                 <div class="col-md-12">
                   <div class="row">
                     <div>
-                      <label for="hinhthuc" class="form-label">Hình thức báo cáo</label>
-                      <select id="hinhthuc" name="hinhthuc" class="form-select" aria-label="Default select example">
-                        <option value="togiac" selected>Tố giác sai phạm</option>
-                        <option value="dangky">Đăng ký nội dung</option>
-                        <option value="donggop">Đóng góp ý kiến</option>
-                        <option value="thacmac">Giải đáp thắc mắc</option>
+                      <label for="HinhThucBaoCaoId" class="form-label">Hình thức báo cáo</label>
+                      <select id="HinhThucBaoCaoId" name="HinhThucBaoCaoId" class="form-select" aria-label="Default select example">
+                        <option value=1 selected>Tố giác sai phạm</option>
+                        <option value=2>Đăng ký nội dung</option>
+                        <option value=3>Đóng góp ý kiến</option>
+                        <option value=4>Giải đáp thắc mắc</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="row">
                     <div>
-                      <label for="hoten" class="form-label">Họ tên người gửi báo cáo</label>
-                      <input type="text" class="form-control" id="hoten" name="hoten" placeholder="Họ tên">
+                      <label for="HoTen" class="form-label">Họ tên người gửi báo cáo</label>
+                      <input type="text" class="form-control" id="HoTen" name="HoTen" placeholder="Họ tên">
                     </div>
                   </div>
 
                   <div class="row">
                     <div>
-                      <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                      <label for="Email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="Email" name="Email" placeholder="Email">
                     </div>
                   </div>
 
                   <div class="row">
                     <div>
-                      <label for="sdt" class="form-label">Điện thoại liên lạc</label>
-                      <input type="text" class="form-control" id="sdt" name="sdt" placeholder="">
+                      <label for="DienThoai" class="form-label">Điện thoại liên lạc</label>
+                      <input type="text" class="form-control" id="DienThoai" name="DienThoai" placeholder="">
                     </div>
                   </div>
 
                   <div class="row">
                     <div>
-                      <label for="noidung">Nội dung báo cáo</label>
-                      <textarea id="editor" class="rounded-2 border-secondary" name="noidung"></textarea>
+                      <label for="NoiDung">Nội dung báo cáo</label>
+                      <textarea id="editor" class="rounded-2 border-secondary" name="NoiDung"></textarea>
                     </div>
                   </div>
 
@@ -269,7 +332,8 @@
                     </div>
                   </div>
                   <input type="hidden" id="laDiemDat" name="laDiemDat" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
-                  <input type="hidden" id="idBiBaoCao" name="idBiBaoCao" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
+                  <input type="hidden" id="DiemDatId" name="DiemDatId" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
+                  <input type="hidden" id="BangQuangCaoId" name="BangQuangCaoId" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
                 </div>
               </div>
             </div>
@@ -289,14 +353,15 @@
     const guiBaoCaoModal = document.getElementById("guiBaoCao");
 		if (guiBaoCaoModal) {
       guiBaoCaoModal.querySelector('#laDiemDat').value = "true";
-      guiBaoCaoModal.querySelector('#idBiBaoCao').value = document.querySelector('#iddiemdat').value;
+      guiBaoCaoModal.querySelector('#DiemDatId').value = document.querySelector('#iddiemdat').value;
     }
   }
   function prepareBaoCaoBangQC(id) {
     const guiBaoCaoModal = document.getElementById("guiBaoCao");
 		if (guiBaoCaoModal) {
       guiBaoCaoModal.querySelector('#laDiemDat').value = "false";
-      guiBaoCaoModal.querySelector('#idBiBaoCao').value = id;
+      guiBaoCaoModal.querySelector('#DiemDatId').value = document.querySelector('#iddiemdat').value;
+      guiBaoCaoModal.querySelector('#BangQuangCaoId').value = id;
     }
   }
 </script>

@@ -2,6 +2,8 @@ const controller = {};
 const TaiKhoan = require("../models").TaiKhoan;
 const LoaiTaiKhoan = require("../models").LoaiTaiKhoan;
 
+const bcrypt = require('bcrypt');
+
 controller.hienDangNhap = (req, res) => {
     let reqUrl = req.query.reqUrl ? req.query.reqUrl : "/";
     if (req.session.taikhoan) {
@@ -11,7 +13,7 @@ controller.hienDangNhap = (req, res) => {
         layout: "layoutdan",
 		title: "Đăng nhập" , 
 		dangnhap: true,
-    reqUrl,
+        reqUrl,
     });
 };
 
@@ -19,18 +21,16 @@ controller.dangNhap = async (req, res) => {
     let { TenTaiKhoan, MatKhau } = req.body;
     let taikhoan = await TaiKhoan.findOne({
         attributes: [ "id", "TenTaiKhoan", "MatKhau", "LoaiTaiKhoanId",],
-        where: { TenTaiKhoan, MatKhau },
+        where: { TenTaiKhoan },
         include: [{ model: LoaiTaiKhoan, attributes: ["HoTen"] }]
     });
     if (taikhoan) {
-        let reqUrl = req.body.reqUrl ? req.body.reqUrl : "/";
-
-        if (taikhoan.LoaiTaiKhoanId && taikhoan.LoaiTaiKhoan.HoTen) {
-            reqUrl = `/${taikhoan.LoaiTaiKhoan.HoTen.toLowerCase()}`;
+        const match = await bcrypt.compare(MatKhau, taikhoan.MatKhau);
+        if (match) {
+            let reqUrl = req.body.reqUrl ? req.body.reqUrl : "/";
+            req.session.taikhoan = taikhoan;
+            return res.redirect(reqUrl);
         }
-
-        req.session.taikhoan = taikhoan;
-        return res.redirect(reqUrl);
     }
     return res.render("dangnhap", {
         layout: "layoutdan",
@@ -40,62 +40,72 @@ controller.dangNhap = async (req, res) => {
 
 controller.daDangNhap = async (req, res, next) => {
     if (req.session.taikhoan) {
-        res.locals.taikhoan = req.session.taikhoan;
-        return next();
+        const taikhoan = req.session.taikhoan;
+        res.locals.taikhoan = taikhoan;
+
+        switch (taikhoan.LoaiTaiKhoan.HoTen) {
+            case "Phuong":
+                return res.redirect("/phuong");
+                break;
+            case "Quan":
+                return res.redirect("/quan");
+                break;
+            case "So":
+                return res.redirect("/so");
+                break;
+        }
     }
-    res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`)
+    return next();
 };
 
 controller.phuongDaDangNhap = async (req, res, next) => {
     if (req.session.taikhoan) {
         const taikhoan = req.session.taikhoan;
-        if (taikhoan.LoaiTaiKhoanId) {
-            const loaitaikhoan = await LoaiTaiKhoan.findOne({
-                where: { id: taikhoan.id, HoTen: "Phuong" },
-            });
+        res.locals.taikhoan = taikhoan;
 
-            if (loaitaikhoan && taikhoan.LoaiTaiKhoanId === loaitaikhoan.id) {
-                res.locals.taikhoan = taikhoan;
-                return next();
-            }
+        if (taikhoan.LoaiTaiKhoan.HoTen == "Phuong") {
+            return next();
         }
+
+        let phanhe = taikhoan.LoaiTaiKhoan.HoTen.toLowerCase();
+        return res.redirect("/"+phanhe);
     }
-    res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`)
-};
+
+    return res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`);
+}
 
 controller.quanDaDangNhap = async (req, res, next) => {
     if (req.session.taikhoan) {
         const taikhoan = req.session.taikhoan;
-        if (taikhoan.LoaiTaiKhoanId) {
-            const loaitaikhoan = await LoaiTaiKhoan.findOne({
-                where: { id: taikhoan.id, HoTen: "Quan" },
-            });
+        res.locals.taikhoan = taikhoan;
 
-            if (loaitaikhoan && taikhoan.LoaiTaiKhoanId === loaitaikhoan.id) {
-                res.locals.taikhoan = taikhoan;
-                return next();
-            }
+        if (taikhoan.LoaiTaiKhoan.HoTen == "Quan") {
+            return next();
         }
+
+        let phanhe = taikhoan.LoaiTaiKhoan.HoTen.toLowerCase();
+        return res.redirect("/"+phanhe);
     }
-    res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`)
-};
+
+    return res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`);
+}
 
 controller.soDaDangNhap = async (req, res, next) => {
     if (req.session.taikhoan) {
         const taikhoan = req.session.taikhoan;
-        if (taikhoan.LoaiTaiKhoanId) {
-            const loaitaikhoan = await LoaiTaiKhoan.findOne({
-                where: { id: taikhoan.id, HoTen: "So" },
-            });
+        res.locals.taikhoan = taikhoan;
 
-            if (loaitaikhoan && taikhoan.LoaiTaiKhoanId === loaitaikhoan.id) {
-                res.locals.taikhoan = taikhoan;
-                return next();
-            }
+        if (taikhoan.LoaiTaiKhoan.HoTen == "So") {
+            return next();
         }
+
+        let phanhe = taikhoan.LoaiTaiKhoan.HoTen.toLowerCase();
+        return res.redirect("/"+phanhe);
     }
-    res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`)
-};
+
+    console.log("mo cua di roi vao");
+    return res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`);
+}
 
 controller.dangXuat = async (req, res, next) => {
     req.session.destroy(function(error) {

@@ -8,7 +8,7 @@
             <div class="card border-0">
                 <div class="card-body m-3">
                     
-                        <form action="/dangnhap" method="POST" onsubmit="return validateRecaptcha()">
+                        <form action="/dangnhap" method="POST">
                             <div class="mb-3">
                                 <label for="TenTaiKhoan" class="form-label">Tên người dùng</label>
                                 <input type="text" id="TenTaiKhoan" name="TenTaiKhoan" value="" class="form-control" placeholder="">
@@ -17,9 +17,6 @@
                             <div class="mb-3">
                                 <label for="MatKhau" class="form-label">Mật khẩu</label>
                                 <input type="password" id="MatKhau" name="MatKhau" value="" class="form-control" placeholder="">
-                            </div>
-                            <div class="mb-3">
-                                <div class="g-recaptcha" data-sitekey="6Le4ZC8pAAAAABPs7kETfO2SWfFyf7PnXsl7TyiH"></div>
                             </div>
 
                             <div class="mb-3">

@@ -11,11 +11,6 @@
 		<div class="row">
 			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
 				<div class="me-3">
-					<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themDiemDatModal">
-							<i class="bi bi-plus"></i> Thêm điểm đặt
-					</button>
-				</div>
-				<div class="me-3">
 					<button type="button" class="btn btn-white border">View all</button>
 				</div>
 				<div class="input-group">
@@ -62,7 +57,6 @@
 												data-bs-target="#editDiemDatModal" onclick="showEditDiemDatModal(this)" 
 												data-id="{{id}}" data-diachi="{{DiaChi}}" data-ploai="{{LoaiDiemDatId}}" data-hthuc="{{HinhThucDiemDatId}}"
 												data-khuvuc="{{KhuVuc}}" data-quyhoach="{{QuyHoach}}"></i>
-											<i role="button" class="bi bi-trash delete-btn" data-id="{{id}}"></i>
 										</div>
 									</div>
 								</div>
@@ -80,11 +74,11 @@
   <!--Modal chinh sua-->
   <div class="modal fade" id="editDiemDatModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <form action="" id="editDiemDatForm" onsubmit="editDiemDat(event)">
+      <form action="/quan/qldiemdat" id="editDiemDatForm" method="POST">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Chỉnh sửa thông tin điểm đặt quảng cáo
+              Yêu cầu chỉnh sửa thông tin điểm đặt quảng cáo
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
@@ -142,24 +136,21 @@
                 		</div>
 					</div>
 				</div>
-				<!--<div class="row mt-2">
+				<div class="row mt-2">
 					<p class="fw-bold m-0">Thời điểm chỉnh sửa</p>
 					<div class="col-md-6">
 						<label for="startdate" class="form-label">Từ ngày</label>
-						<input type="date" class="form-control" id="startdate" placeholder="dd/mm/yyyy">
+						<input type="date" class="form-control" name="ngaychinhsua" placeholder="dd/mm/yyyy" required>
 					</div>
-					<div class="col-md-6">
-						<label for="enddate" class="form-label">Đến ngày</label>
-						<input type="date" class="form-control" id="enddate" placeholder="dd/mm/yyyy">
-					</div>
+
 				</div>
 				<div class="row mt-2">
 					<p class="fw-bold m-0">Lý do chỉnh sửa</p>
 					<div>
-					  <textarea class="form-control" name="" id="" style="height: 100px"></textarea>
+					  <textarea class="form-control" name="lydo" style="height: 100px" required></textarea>
 					</div>
 				</div>
-				-->
+				
   			</div>
 			</div>
           <div class="modal-footer">
@@ -175,129 +166,9 @@
       </form>
     </div>
   </div>
-<!--Modal confirm xóa-->
-<div class="modal fade" tabindex="-1" id="confirmModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Xóa điểm đặt</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Bạn chắc chứ?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-        <button type="button" class="btn btn-primary" id="confirmButton">Xóa</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Modal thêm điểm đặt-->
-<div class="modal fade" id="themDiemDatModal" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	<form action="/so/qldiemdat" id="themDiemDatForm" method="POST">
-		<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="userModalTitle">
-				Thêm điểm đặt
-			</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="row">
-						<div>
-							<label for="diachi" class="form-label">Địa chỉ</label>
-							<input type="text" class="form-control" id="diachi" name="diachi" placeholder="227 Nguyễn Văn Cừ, phường 4, quận 5">
-						</div>
-						<div>
-							<label for="khuvuc" class="form-label">Khu vực</label>
-							<input type="text" class="form-control" id="khuvuc" name="khuvuc" placeholder="227 Nguyễn Văn Cừ, phường 4, quận 5">
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="row">
-								<div>
-									<label for="ploai" class="form-label">Loại vị trí</label>
-									<select id="ploai" name="ploai" class="form-control form-select">
-										{{#each loaidiemdats}}
-											<option value="{{id}}">{{Ten}}</option>
-										{{/each}}
-									</select>
-								</div>
-							</div>
-							<div class="row">
-								<div>
-									<label for="hthuc" class="form-label">Hình thức quảng cáo</label>
-									<select id="hthuc" name="hthuc" class="form-control form-select">
-										{{#each hinhthucdiemdats}}
-											<option value="{{id}}">{{Ten}}</option>
-										{{/each}}
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div>
-								<label for="img">Hình ảnh</label>
-								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-								<div class="text-end pt-4">
-									<button class="btn btn-primary btn-sm" >Sửa</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row mt-2">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox" id="quyhoach" name="quyhoach" value="1">
-							<label class="form-check-label" for="quyhoachEdit">Quy hoạch</label>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
-			Close
-			</button>
-			<button type="submit" class="btn btn-primary">
-			Save
-			</button>
-		</div>
-		</div>
-	</form>
-	</div>
-</div>
-
 
   <script>
-	async function editDiemDat(e) {
-	e.preventDefault();
   
-	const formData = new FormData(document.getElementById("editDiemDatForm"));
-	let data = Object.fromEntries(formData.entries());
-  
-	let res = await fetch("/so/qldiemdat", {
-	  method: 'PUT',
-	  headers:{
-		"Content-Type":"application/json",
-	  },
-	  body: JSON.stringify(data),
-	});
-  
-	location.reload();
-  }
-  
-	async function deleteDiemDat(id){
-	let res= await fetch(`/so/qldiemdat/${id}`, {
-	  method: "DELETE",
-	});
-	location.reload();
-  }
     function showEditDiemDatModal(btn){
 	document.querySelector("#id").value = btn.dataset.id;
 	document.querySelector("#diachiEdit").value = btn.dataset.diachi;
@@ -307,21 +178,4 @@
 	document.querySelector("#quyhoachEdit").checked = btn.dataset.quyhoach === "true";
   }
 
-  document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
-    btnConfirm.addEventListener("click", (e) => {
-        let id = e.target.dataset.id;
-
-        // Show the modal
-        var myModal = new bootstrap.Modal(document.getElementById('confirmModal'), {
-            keyboard: false
-        });
-        myModal.show();
-
-        // Add an event listener to the "Yes" button
-        document.getElementById('confirmButton').addEventListener('click', function() {
-            deleteDiemDat(id);
-            myModal.hide();
-        });
-    });
-});
 </script>

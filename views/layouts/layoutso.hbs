@@ -10,110 +10,6 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 		<link href="/css/mainstyles.css" type="text/css" rel="stylesheet"/>
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-		<script>
-		
-		var map;
-		var geocoder;
-		var markers = [];
-		var infowindows = [];
-
-		const places = [
-			["227 Nguyễn Văn Cừ, Phường 4, Quận 5",10.762726906159159, 106.68233718352876,"Phường 4, Quận 5","Đất công","Quảng cáo thương mại","ĐÃ QUY HOẠCH"],
-			["280 An Dương Vương, Phường 4, Quận 5",10.761567492427426, 106.6821440644786,"Phường 4, Quận 5","Đất công","Quảng cáo thương mại","ĐÃ QUY HOẠCH"],
-			["764 Võ Văn Kiệt, Phường 1, Quận 5",10.752835510924182, 106.67892356192823,"Phường 1, Quận 5","Đất tư nhân","Xã hội hóa","ĐÃ QUY HOẠCH"],
-			["498 Hòa Hảo, Phường 5, Quận 10",10.761487732567485, 106.66533483877387,"Phường 5, Quận 10","Chợ","Cổ động chính trị","CHƯA QUY HOẠCH"],
-			["118 Bành Văn Trân, Phường 7, Quận Tân Bình",10.789805233394759, 106.6566224369221,"Phường 7, Quận Tân Bình","Đất công","Quảng cáo thương mại","ĐÃ QUY HOẠCH"],
-		];
-
-		function initMap() {
-			map = new google.maps.Map(document.getElementById("map"), {
-			zoom: 9,
-			center: { lat: 10.7858, lng: 106.7085 },
-			});
-			geocoder = new google.maps.Geocoder();
-			setMarkers(map);
-		}
-
-		// Data for the markers consisting of a name, a LatLng and a zIndex for the
-		// order in which these markers should display on top of each other.
-		
-		function geocodeAddress(address, map) { // add map as a parameter
-			geocoder.geocode({'address': address}, function(results, status) {
-			if (status === 'OK') {
-				map.setCenter(results[0].geometry.location);
-				clearMarkers();
-				var marker = new google.maps.Marker({
-				map: map, 
-				position: results[0].geometry.location
-				});
-				markers.push(marker);
-			} else {
-				alert('Geocode was not successful for the following reason: ' + status);
-			}
-			});
-		}
-
-		function setMarkers(map) {
-			clearMarkers();
-			for (let i = 0; i < places.length; i++) {
-			const place = places[i];
-				var marker = new google.maps.Marker({
-				position: {lat: place[1], lng: place[2]},
-				map,
-				title: place[0],
-				});
-				markers.push(marker);
-
-				var infowindow = new google.maps.InfoWindow({
-						content: place[0] + '<br>' +
-								place[3] + '<br>' +
-								place[4] + '<br>' +
-								place[5] + '<br>' +
-								place[6]
-					});
-				infowindows.push(infowindow);
-
-				google.maps.event.addListener(marker, 'click', (function(marker, i) {
-					return function() {
-						infowindows[i].open(map, marker);
-					}
-				})(marker, i));
-
-				google.maps.event.addListener(marker,'dblclick',function() {
-					const sidebarElement = "sidebar1" ? document.getElementById("sidebar1") : undefined;
-					if (sidebarElement) {
-						let sidebarState = sidebarElement.getAttribute('aria-hidden');
-						sidebarElement.setAttribute('aria-hidden', sidebarState == 'true' ? false : true); 
-					}
-				});
-
-
-					
-				}
-			}
-		
-		function clearMarkers(){
-			for (let i =0; i< markers.length; i++){
-			markers[i].setMap(null);
-			}
-			markers = [];
-		}
-
-		window.initMap = initMap;
-		</script>
-		<style>
-		#map {
-			height: 100%;
-  				}
-
-		html, body {
-			height: 93%;
-			width: 100%;
-			margin: 0;
-			padding: 0;
-  			}
-
-		</style>
 	</head>
 	
     <body>
@@ -136,9 +32,6 @@
                 <!-- SideBar Body -->
                 <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                   <ul class="navbar-nav justify-content-start align-items-center fs-5 flex-grow-1 pe-3">
-                    <li class="nav-item mx-2">
-                      <a class="nav-link {{#if trangchu}}active{{/if}}" aria-current="page" href="/so">Trang chủ</a>
-                    </li>
                     <li class="nav-item dropdown mx-2">
 								<a class="nav-link {{#if quanly}}active{{/if}} dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quản lý</a>
 								<div class="dropdown-menu" aria-labelledby="dropdownId">

@@ -1,227 +1,251 @@
+	<div class="container-fluid pt-5">
+		<!-- Thống kê báo CÁO -->
+		<div class="row mb-3">
+			<div class="page-title">
+				Quản lý Tài khoản
+			</div>
+		</div>
+		<div class="row mb-2" style="float: right;">
+			<div class="col-auto">
+				<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themTaiKhoanModal">
+						<i class="bi bi-plus"></i> Tạo tài khoản cán bộ
+				</button>
+			</div>
+		</div>
+		<div class="row mb-2">
+			<div class="col-auto">
+				<button class="btn btn-light">View all</button>
+			</div>
+			<div class="col">
 
-  <main>
-<!-- Thống kê báo CÁO -->
-<div class="row m-3">
-<div class="col d-flex align-self-center tw-bold">Quản lý cán bộ</div>
-<div class="col d-flex justify-content-end"><button class="btn btn-secondary indigo" onclick="openForm('Addcb')"> + Tạo tài khoản cán bộ</button></div>
-</div>
-<div class="row m-2">
-<div class="col d-flex ms-auto">
-<!-- d-flex justify-content-end -->
-<button class="btn btn-light" >View all</button>
+				<form>
+          			<div class="input-group">
+            			<span class="input-group-text" id="basic-addon-search31"><i class="bi bi-search"></i></span>
+            			<input type="text" class="form-control" placeholder="Search..." aria-label="Search..."
+              				aria-describedby="basic-addon-search31" name="keyword" required />
+          			</div>
+        		</form>
+			</div>
+		</div>
+		<div class="table-responsive mt-3">
+			<table class="table table-hover container-fluid w-100">
+				<thead>
+					<tr>
+						<th scope="col">STT</th>
+						<th scope="col">Họ và tên cán bộ</th>
+						<th scope="col">Năm sinh</th>
+						<th scope="col">Email</th>
+						<th scope="col">Điện thoại</th>
+						<th scope="col">Loại cán bộ</th>
+						<th scope="col">Nơi công tác</th>
+						<th scope="col"> </th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each taikhoans}}
+					<tr>
+						<td scope="row">{{inc @index}}</td>
+						<td>{{HoTen}}</td>
+						<td>{{NgaySinh}}</td>
+						<td>{{Email}}</td>
+						<td>{{DienThoai}}</td>
+						<td>{{LoaiTaiKhoan.HoTen}}</td>
+						<td>{{KhuVuc}}</td>
+						<td>
+							<i role="button" class="bi bi-pen-fill text-info me-3" data-bs-toggle="modal"
+							data-bs-target="#editTaiKhoanModal" onclick="showEditTaiKhoanModal(this)" 
+							data-id="{{id}}" data-name="{{HoTen}}" data-dob="{{NgaySinh}}"
+							data-email="{{Email}}" data-mobile="{{DienThoai}}" data-loaitk="{{LoaiTaiKhoanId}}"
+							data-khuvuc="{{KhuVuc}}"></i>
+							<i role="button" class="bi bi-trash text-danger delete-btn" data-id="{{id}}"></i>         
+						</td>
+					</tr> 
+					{{/each}}                          
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-<div class="input-group d-flex ms-auto">
-    <input type="text" class="form-control form-input" placeholder="Search">
-    <span class="border rounded-1 border-muted">
-    <button type="button" class="btn">
-    <i class="bi bi-search"></i>
-    </button></span>
-
-</div>
-</div>
-<div class="table-responsive mt-3">
-    <table class="table table-hover container-fluid w-100">
-        <thead>
-            <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Họ và tên cán bộ</th>
-                <th scope="col">Năm sinh</th>
-                <th scope="col">Loại cán bộ</th>
-                <th scope="col">Nơi công tác</th>
-                <th scope="col"> </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td scope="row">1</td>
-                <td>Lê Thành Trung</td>
-                <td>dd/MM/yyyy</td>
-                <td>Cán bộ quận</td>
-                <td>Quận ABC</td>
-                <td>
-                  <button type="button" class="btn"><i class="bi bi-info-circle"></i></a>
-                  <button type="button" class="btn" onclick="openForm('Edit')" ><i class="bi bi-pencil"></i></button>
-                  <button type="button" class="btn" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>          
-                </td>
-            </tr>                
-            <tr class="">
-                <td scope="row">2</td>
-                <td>Dương Hạnh Nhi</td>
-                <td>dd/MM/yyyy</td>
-                <td>Cán bộ phường</td>
-                <td>Phường XYZ</td>
-                <td>
-                  <button type="button" class="btn"><i class="bi bi-info-circle"></i></a>
-                  <button type="button" class="btn" onclick="openForm('Edit')" ><i class="bi bi-pencil"></i></button>
-                  <button type="button" class="btn" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>          
-                </td>
-            </tr>                
-            <tr>
-                <td scope="row">1</td>
-                <td>Lê Thành Trung</td>
-                <td>dd/MM/yyyy</td>
-                <td>Cán bộ quận</td>
-                <td>Quận ABC</td>
-                <td>
-                  <button type="button" class="btn"><i class="bi bi-info-circle"></i></a>
-                  <button type="button" class="btn" onclick="openForm('Edit')" ><i class="bi bi-pencil"></i></button>
-                  <button type="button" class="btn" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>          
-                </td>
-            </tr>                
-            <tr class="">
-                <td scope="row">2</td>
-                <td>Dương Hạnh Nhi</td>
-                <td>dd/MM/yyyy</td>
-                <td>Cán bộ phường</td>
-                <td>Phường XYZ</td>
-                <td>
-                  <button type="button" class="btn"><i class="bi bi-info-circle"></i></a>
-                  <button type="button" class="btn" onclick="openForm('Edit')" ><i class="bi bi-pencil"></i></button>
-                  <button type="button" class="btn" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>          
-                </td>
-            </tr>                
-            <tr>
-                <td scope="row">1</td>
-                <td>Lê Thành Trung</td>
-                <td>dd/MM/yyyy</td>
-                <td>Cán bộ quận</td>
-                <td>Quận ABC</td>
-                <td>
-                  <button type="button" class="btn"><i class="bi bi-info-circle"></i></a>
-                  <button type="button" class="btn" onclick="openForm('Edit')" ><i class="bi bi-pencil"></i></button>
-                  <button type="button" class="btn" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>          
-                </td>
-            </tr>                
-            <tr class="">
-                <td scope="row">2</td>
-                <td>Dương Hạnh Nhi</td>
-                <td>dd/MM/yyyy</td>
-                <td>Cán bộ phường</td>
-                <td>Phường XYZ</td>
-                <td>
-                  <button type="button" class="btn"><i class="bi bi-info-circle"></i></a>
-                  <button type="button" class="btn" onclick="openForm('Edit')" ><i class="bi bi-pencil"></i></button>
-                  <button type="button" class="btn" onclick="openForm('Del')"><i class="bi bi-trash"></i></button>          
-                </td>
-            </tr>                
-        </tbody>
-    </table>
-</div>
-<div id="overlay"></div>
-<div class="card form-popup" id="Addcb">
-  <div class="row">
-    <div class=" m-2"><i class="bi bi-envelope update-icon rounded rounded-circle"></i></div>
-    <div class="tw-bold m-2">Tạo tài khoản cán bộ</div>
-    <div class="rounded-5 m-2">
-      <label for="addr">Tên tài khoản</label> <br>
-      <input type="text" placeholder="" name="addr" size="50">
+  <div class="modal fade" id="editTaiKhoanModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="" id="editTaiKhoanForm" onsubmit="editTaiKhoan(event)">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Chỉnh sửa thông tin tài khoản
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-2">
+              <div class="col mb-3">
+                <label for="nameEdit" class="form-label">Họ và tên</label>
+                <input type="text" id="nameEdit" name="name" class="form-control" placeholder="John"
+                  required />
+              </div>
+              <div class="col mb-3">
+                <label for="dobEdit" class="form-label">Ngày sinh</label>
+                <input type="date" id="dobEdit" name="dob" class="form-control" placeholder="Lin" required />
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col mb-3">
+                <label for="emailEdit" class="form-label">Email</label>
+                <input type="email" id="emailEdit" name="email" class="form-control" placeholder="xxxx@xxx.xx"
+                  disabled />
+              </div>
+              <div class="col mb-3">
+                <label for="mobileEdit" class="form-label">Điện thoại</label>
+                <input type="text" id="mobileEdit" name="mobile" class="form-control" placeholder="12345678" />
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col mb-3">
+                <label for="loaitkEdit" class="form-label">Loại cán bộ</label>
+                <select id="loaitkEdit" name="loaitk" class="form-control form-select">
+					{{#each loaitaikhoans}}
+            		<option value="{{id}}">{{HoTen}}</option>
+					{{/each}}
+        		</select>
+              </div>
+              <div class="col mb-3">
+                <label for="khuvucEdit" class="form-label">Nơi công tác</label>
+                <input type="text" id="khuvucEdit" name="khuvuc" class="form-control" placeholder="xxxx" />
+              </div>
+            </div>
+            <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="id" id="id" value="" />
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="rounded-5 m-2">
-      <label for="addr">Email</label> <br>
-      <input type="text" placeholder="" name="addr" size="50">
-    </div>
-    <div class=" m-2"><label for="addr"> Loại cán bộ</label> <br>
-      <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn loại vị trí</button>
-      <div class="dropdown-menu">
-        <div><label>Cán bộ quận</label></div>
-        <div><label>Cán bộ phường</label></div>
-      </div>  
-    </div>
-    <div class=" m-2"><label for="addr"> Quận</label> <br>
-      <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn quận quản lý</button>
-      <div class="dropdown-menu">
-        <div><label>Quận ABC</label></div>
-        <div><label>Quận NVC</label></div>
-      </div>  
-    </div>
-    <div class=" m-2"><label for="addr"> Phường</label> <br>
-      <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn phường quản lý</button>
-      <div class="dropdown-menu">
-        <div><label>Phường NVC</label></div>
-        <div><label>Phường ABC</label></div>
-      </div>  
-    </div>
-    <div class="row mt-3">
-      <div class="col">
-          <button type="button" class="btn btn-block border w-100" onclick="closeForm('Addcb')">Hủy</button>          
-      </div>      
-      <div class="col">
-        <button type="submit" class="btn btn-block btn-secondary indigo w-100" onclick="closeForm('Addcb')">Tạo</button>
-      </div>   
-    </div>   
-
-
   </div>
-</div>
 
-<div class="card form-popup" id="Edit">
-  <div class="row">
-    <div class=" m-2"><i class="bi bi-envelope update-icon rounded rounded-circle"></i></div>
-    <div class="tw-bold m-2">Phân công khu vực quản lý</div>
-      <div class=" m-2"><label for="addr"> Loại cán bộ</label> <br>
-        <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn loại vị trí</button>
-        <div class="dropdown-menu">
-          <div><label>Cán bộ quận</label></div>
-          <div><label>Cán bộ phường</label></div>
-        </div>  
+<div class="modal fade" tabindex="-1" id="confirmModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa tài khoản</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class=" m-2"><label for="addr"> Quận</label> <br>
-        <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn quận quản lý</button>
-        <div class="dropdown-menu">
-          <div><label>Quận ABC</label></div>
-          <div><label>Quận NVC</label></div>
-        </div>  
+      <div class="modal-body">
+        <p>Bạn chắc chứ?</p>
       </div>
-      <div class=" m-2"><label for="addr"> Phường</label> <br>
-        <button class="btn btn-light dropdown-toggle " type="button" data-bs-toggle="dropdown"> Chọn phường quản lý</button>
-        <div class="dropdown-menu">
-          <div><label>Phường NVC</label></div>
-          <div><label>Phường ABC</label></div>
-        </div>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" id="confirmButton">Xóa</button>
       </div>
     </div>
-    <div class="row mt-3">
-      <div class="col">
-          <button type="button" class="btn btn-block border w-100" onclick="closeForm('Edit')">Hủy</button>          
-      </div>      
-      <div class="col">
-        <button type="submit" class="btn btn-block btn-secondary indigo w-100" onclick="closeForm('Edit')">Cập nhật</button>
-      </div>   
-    </div>   
-  </div>
-    </div>
   </div>
 </div>
-<div class="card form-popup" id="Del">
-  <div class="row">
-    <div class=" m-2"><i class="bi bi-exclamation-circle del-icon rounded rounded-circle"></i></div>
-    <div class=" m-2 fw-bold">Xóa cán bộ</div>
-    <div class="m-2">
-      <label for="addr">Bạn chắc chắn xóa điểm đặt này chứ? Hành động này không thể hoàn tác</label> <br>
-    </div>
-    <div class="row ">
-      <div class="col">
-          <button type="button" class="btn btn-block border btn-light w-100" onclick="closeForm('Del')">Hủy</button>          
-      </div>      
-      <div class="col">
-        <button type="submit" class="btn btn-block btn-secondary scarlet w-100" onclick="closeForm('Del')">Xóa</button>
-      </div>   
-    </div>   
-  </div>
-  </form>
-</div>
-  </main>
  
+<div class="modal fade" id="themTaiKhoanModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<form action="/so/qltaikhoan" id="themTaiKhoanForm" method="POST">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="userModalTitle">
+				Thêm tài khoản
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+            <div class="row g-2">
+              <div class="col mb-3">
+                <label for="username" class="form-label">Tên tài khoản</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="John"
+                  required />
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col mb-3">
+                <label for="loaitk" class="form-label">Loại cán bộ</label>
+                <select id="loaitk" name="loaitk" class="form-control form-select">
+					{{#each loaitaikhoans}}
+            		<option value="{{id}}">{{HoTen}}</option>
+					{{/each}}
+        		</select>
+              </div>
+              <div class="col mb-3">
+                <label for="khuvuc" class="form-label">Nơi công tác</label>
+                <input type="text" id="khuvuc" name="khuvuc" class="form-control" placeholder="xxxx" />
+              </div>
+            </div>
+            <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+          </div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+			Close
+			</button>
+			<button type="submit" class="btn btn-primary">
+			Save
+			</button>
+		</div>
+		</div>
+	</form>
+	</div>
+</div>
 
 <script>
-  var triggerEl = document.querySelector('#navId a')
-  bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
-  function openForm(id) {
-    document.getElementById(id).style.display = "block";
-    document.getElementById("overlay").style.display = "block";
+	async function editTaiKhoan(e) {
+	e.preventDefault();
+  
+	const formData = new FormData(document.getElementById("editTaiKhoanForm"));
+	let data = Object.fromEntries(formData.entries());
+  
+	let res = await fetch("/so/qltaikhoan", {
+	  method: 'PUT',
+	  headers:{
+		"Content-Type":"application/json",
+	  },
+	  body: JSON.stringify(data),
+	});
+  
+	location.reload();
   }
-  function closeForm(id) {
-    document.getElementById(id).style.display = "none";
-    document.getElementById("overlay").style.display = "none";
+  
+	async function deleteUser(id){
+	let res= await fetch(`/so/qltaikhoan/${id}`, {
+	  method: "DELETE",
+	});
+	location.reload();
   }
+    function showEditTaiKhoanModal(btn){
+	document.querySelector("#id").value = btn.dataset.id;
+	document.querySelector("#nameEdit").value = btn.dataset.name;
+	document.querySelector("#dobEdit").value = btn.dataset.dob;
+	document.querySelector("#emailEdit").value = btn.dataset.email;
+	document.querySelector("#mobileEdit").value = btn.dataset.mobile;
+	document.querySelector("#loaitkEdit").value = btn.dataset.loaitk;
+	document.querySelector("#khuvucEdit").value = btn.dataset.khuvuc;
+  }
+
+  document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
+    btnConfirm.addEventListener("click", (e) => {
+        let id = e.target.dataset.id;
+
+        // Show the modal
+        var myModal = new bootstrap.Modal(document.getElementById('confirmModal'), {
+            keyboard: false
+        });
+        myModal.show();
+
+        // Add an event listener to the "Yes" button
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            deleteUser(id);
+            myModal.hide();
+        });
+    });
+});
+
+
+  
 </script>
