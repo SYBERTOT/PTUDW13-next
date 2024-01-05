@@ -3,6 +3,9 @@ const models = require("../models");
 const { Op } = require('sequelize');
 const axios = require('axios');
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10; // Number of salt rounds for bcrypt hashing
+
 controller.qldiemdat = async (req, res) => {
 	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
 		attributes: [ "id", "Ten"]
@@ -227,12 +230,13 @@ controller.thongke = (req, res) => {
 
 controller.taoTaiKhoan = async(req, res) => {
 	let { username, loaitk, khuvuc } = req.body;
+	let MatKhau = await bcrypt.hash("123", saltRounds);
 	try{
 		await models.TaiKhoan.create({
 			TenTaiKhoan: username, 
 			LoaiTaiKhoanId: loaitk,
 			KhuVuc: khuvuc,
-			MatKhau: "123",
+			MatKhau: MatKhau,
 		});
 		res.redirect("/so/qltaikhoan");
 	}	catch(error)

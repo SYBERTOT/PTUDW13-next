@@ -12,23 +12,6 @@ router.use("/quan", controller.quanDaDangNhap, require("./quanRouter"));
 router.use("/so", controller.soDaDangNhap, require("./soRouter"));
 router.use("/", controller.daDangNhap, require("./danRouter"));
 
-router.post("/dangnhap", async (req, res) => {
-    const recaptchaResponse = req.body['g-recaptcha-response'];
-    // Verify reCAPTCHA response
-    try {
-        const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${YOUR_RECAPTCHA_SECRET_KEY}&response=${recaptchaResponse}`;
-        const recaptchaVerification = await axios.post(verificationURL);
-        
-        if (recaptchaVerification.data.success) {
-            await controller.dangNhap(req, res);
-        } else {
-            // Handle failed reCAPTCHA verification
-            res.status(403).send('Failed reCAPTCHA verification.');
-        }
-    } catch (error) {
-        console.error('Error verifying reCAPTCHA:', error);
-        res.status(500).send('Internal server error.');
-    }
-});
+router.post("/dangnhap", controller.dangNhap);
 
 module.exports = router;
