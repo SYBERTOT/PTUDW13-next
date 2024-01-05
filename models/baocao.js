@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       BaoCao.belongsTo(models.DiemDat);
       BaoCao.belongsTo(models.BangQuangCao);
       BaoCao.belongsTo(models.HinhThucBaoCao);
+      BaoCao.belongsTo(models.TaiKhoan);
     }
   }
   BaoCao.init({
@@ -22,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     Email: DataTypes.STRING,
     DienThoai: DataTypes.STRING,
     laDiemDat: DataTypes.BOOLEAN,
+    XuLy: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'BaoCao',
