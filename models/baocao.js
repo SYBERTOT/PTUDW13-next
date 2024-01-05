@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     DienThoai: DataTypes.STRING,
     laDiemDat: DataTypes.BOOLEAN,
     XuLy: DataTypes.BOOLEAN,
+    HinhThucXuLy: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'BaoCao',
