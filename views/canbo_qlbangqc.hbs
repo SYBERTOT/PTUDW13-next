@@ -1,0 +1,166 @@
+  <main>
+	<div class="container-fluid pt-5">
+		<!--title-->
+		<div class="row mb-3">
+			<div class="page-title">
+				Quản lý bảng quảng cáo
+			</div>
+		</div>
+		
+		<!--button bar-->
+		<div class="row">
+			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+				<div class="me-3">
+					<button type="button" class="btn btn-white border">View all</button>
+				</div>
+				<div class="input-group">
+					<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
+					<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
+				  </div>
+			</div>
+		</div>
+
+		<!--card set-->
+		<div class="row justify-content-center">
+			{{#each bangquangcaos}}
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="card mb-3">
+					<div class="row g-0">
+						<div class="col-md-4">
+							<img src="{{DiaChiAnh}}" class="img-fluid rounded-start h-100" alt = "{{DiemDat.DiaChi}}">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body ms-2">
+								<div>
+									<p class="card-title">{{LoaiBangQuangCao.Ten}}</p>
+									<p class="card-text">Địa chỉ: <small class="text-muted">{{DiemDat.DiaChi}}</small></p>
+									<p class="card-text">Khu vực: <small class="text-muted">{{DiemDat.KhuVuc}}</small></p>
+									<p class="card-text">Kích thước: <small class="text-muted">{{KichThuoc}}</small></p>
+									<p class="card-text">Ngày hết hạn hợp đồng: <small class="text-muted">{{showDate NgayHetHan}}</small></p>
+								</div>
+								<div class="text-end">
+										<div class="btn-group" role="group">
+											<i role="button" class="bi bi-pen-fill me-3" data-bs-toggle="modal"
+												data-bs-target="#editBangQCModal" onclick="showEditBangQCModal(this)" 
+												data-id="{{id}}" data-diemdat="{{DiemDatId}}" data-ploai="{{LoaiBangQuangCaoId}}" data-kichthuoc="{{KichThuoc}}"
+												data-ngayhethan="{{showDate NgayHetHan}}"></i>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+
+	</div>
+
+  </main>
+
+  <!--Modal chinh sua-->
+  <div class="modal fade" id="editBangQCModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="/quan/qlbangqc" id="editBangQCForm" method="POST">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Yêu cầu chỉnh sửa thông tin điểm đặt quảng cáo
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          	<div class="modal-body">
+			<div class="container-fluid">
+				<div class="row">
+					<p class="fw-bold m-0">Thông tin chỉnh sửa</p>
+					<div class="row">
+						<div>
+							<label for="diemdatEdit" class="form-label">Địa chỉ</label>
+							<select id="diemdatEdit" name="diemdat" class="form-control form-select">
+								{{#each diemdats}}
+            						<option value="{{id}}">{{DiaChi}}</option>
+								{{/each}}
+        					</select>
+							</datalist>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<div class="row">
+								<div>
+									<label for="ploaiEdit" class="form-label">Loại bảng quảng cáo</label>
+									<select id="ploaiEdit" name="ploai" class="form-control form-select">
+										{{#each loaibangquangcaos}}
+            								<option value="{{id}}">{{Ten}}</option>
+										{{/each}}
+        							</select>
+								</div>
+							</div>
+							<div class="row">
+								<div>
+									<label for="kichthuocEdit" class="form-label">Kích thước</label>
+									<input type="text" class="form-control" id="kichthuocEdit" name="kichthuoc" placeholder="1mx2m">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div>
+								<label for="img">Hình ảnh</label>
+								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
+								<div class="text-end pt-4">
+									<button class="btn btn-primary btn-sm" >Sửa</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-2">
+					<p class="fw-bold m-0">Thời điểm chỉnh sửa</p>
+					<div class="col-md-6">
+						<label for="startdate" class="form-label">Từ ngày</label>
+						<input type="date" class="form-control" name="ngaychinhsua" placeholder="dd/mm/yyyy" required>
+					</div>
+
+				</div>
+				<div class="row mt-2">
+					<p class="fw-bold m-0">Lý do chỉnh sửa</p>
+					<div>
+					  <textarea class="form-control" name="lydo" style="height: 100px" required></textarea>
+					</div>
+				</div>
+  			</div>
+			</div>
+          <div class="modal-footer">
+            <input type="hidden" name="id" id="id" value="" />
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Chỉnh sửa
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+
+    function showEditBangQCModal(btn){
+		document.querySelector("#id").value = btn.dataset.id;
+		document.querySelector("#diemdatEdit").value = btn.dataset.diemdat;
+		document.querySelector("#ploaiEdit").value = btn.dataset.ploai;
+		document.querySelector("#kichthuocEdit").value = btn.dataset.kichthuoc;
+		let dateFromData = btn.dataset.ngayhethan; 
+		let dateParts = dateFromData.replace(',','').split(' ');
+		let day = dateParts[0].padStart(2, '0');
+		let month = dateParts[2].padStart(2, '0');
+		let year = dateParts[3];
+
+		let formattedDate = `${year}-${month}-${day}`;
+
+		document.querySelector("#ngayhethanEdit").value = formattedDate;
+
+  }
+
+</script>
