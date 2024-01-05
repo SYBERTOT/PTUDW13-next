@@ -303,17 +303,24 @@
         <!--/container-->
 {{!-- tinymce --}}
 <script src="https://cdn.tiny.cloud/1/vqxvddp1yo9we3090oejpm5byq3f9taeds999743y9ra4yk6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-{{!-- <script src="https://cdn.tiny.cloud/1/vqxvddp1yo9we3090oejpm5byq3f9taeds999743y9ra4yk6/tinymce/6/plugin.min.js" referrerpolicy="origin"></script> --}}
 <script>
+  // Prevent Bootstrap dialog from blocking focusin
+       document.addEventListener('focusin', (e) => 
+       {
+          if (e.target.closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) 
+          {
+            e.stopImmediatePropagation();
+          }
+      });
     //let ndbaocao = document.getElementById('tinymce');
     tinymce.init({
         selector:'#editor',
         menubar: false,
         statusbar: false,
         //plugins: 'autoresize anchor autolink charmap code codesample directionality fullpage help hr image imagetools insertdatetime link lists media nonbreaking pagebreak preview print searchreplace table template textpattern toc visualblocks visualchars',
-        plugins: [ "image", "code", "table", "link", "media", "codesample", "paste"],
+        plugins: [ "image", "link"],
         paste_block_drop: false,
-        toolbar: 'h5 bold italic underline blockquote bullist numlist backcolor link image removeformat edit',
+        toolbar: 'undo redo | link image',
         skin: 'bootstrap',
         //toolbar_drawer: 'floating',
         //min_width: 5000,
@@ -336,3 +343,20 @@
     });
 
 </script>
+{{!-- tinymce.init({
+  selector: 'textarea#local-upload',
+  plugins: 'image code',
+  toolbar: 'undo redo | image code',
+
+  /* without images_upload_url set, Upload tab won't show up*/
+  images_upload_url: 'postAcceptor.php',
+
+  /* we override default upload handler to simulate successful upload*/
+  images_upload_handler: function (blobInfo, success, failure) {
+    setTimeout(function () {
+      /* no matter what you upload, we will turn it into TinyMCE logo :)*/
+      success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
+    }, 2000);
+  },
+  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+}); --}}
