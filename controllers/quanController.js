@@ -161,9 +161,53 @@ controller.taoYCCSbangqc = async(req, res) => {
 	}
 };
 
-controller.xlbaocao = (req, res) => {
+controller.xlbaocao = async (req, res) => {
+	res.locals.diemdats = await models.DiemDat.findAll({
+		attributes: [ "id", "DiaChi"]
+	});
+	res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+		attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc"],
+		include: [
+			{ model: models.LoaiBangQuangCao }
+		]
+	});
+	res.locals.hinhthucbaocaos = await models.HinhThucBaoCao.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.baocaos = await models.BaoCao.findAll({
+		attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId"],
+		include: [
+			{ model: models.DiemDat },
+			{
+				model: models.BangQuangCao,
+				include: [{
+					model: models.LoaiBangQuangCao,
+					attributes: ["id", "Ten"]
+				}]
+			},
+			{ model: models.HinhThucBaoCao },
+		]
+	});
 	res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutquan"});
 }
+
+controller.capnhatCachThucXuLy = async (req, res) => {
+	let { id, cachthuc } = req.body;
+	try {
+		await models.BaoCao.update({
+			XuLy: true,
+			HinhThucXuLy: cachthuc
+		},
+		{
+			where: { id }
+		});
+		res.send("Báo cáo đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+};
 
 controller.xlcapphep = (req, res) => {
 	res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan"});

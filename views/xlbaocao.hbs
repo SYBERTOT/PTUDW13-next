@@ -1,290 +1,94 @@
 
-  <main>
-	<div class="container-fluid pt-5">
-		<!--title-->
-		<div class="row mb-3">
-			<div class="page-title">
-				Xử lý báo cáo của người dân
-			</div>
+<div class="container-fluid pt-5">
+	<!--title-->
+	<div class="row mb-3">
+		<div class="page-title">
+			Xử lý báo cáo của người dân
 		</div>
-
-		<!--button bar-->
-		<div class="row">
-			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
-				<div class="me-3">
-					<button type="button" class="btn btn-white border">View all</button>
-				</div>
-				<div class="input-group">
-					<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
-					<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
-				  </div>
-			</div>
-		</div>
-
-		<!--table-->
-		<div class="row mx-1">
-			<table class="table align-middle table-striped table-bordered">
-				<colgroup>
-					<col style="width:5%">
-					<col style="width:10%">
-					<col style="width:30%">
-					<col style="width:30%">
-					<col style="width:10%">
-					<col style="width:10%">
-					<col style="width:5%">
-				</colgroup>
-				<thead>
-				  <tr>
-					<th scope="col">STT</th>
-					<th scope="col">Thời gian</th>
-					<th scope="col">Thông tin người gửi</th>
-					<th scope="col">Địa điểm</th>
-					<th scope="col">Phân loại</th>
-					<th scope="col">Tình trạng</th>
-					<th scope="col"></th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr>
-					<th scope="row">1</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">2</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">3</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">4</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">5</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">6</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">7</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">8</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">9</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				  <tr>
-					<th scope="row">10</th>
-					<td>dd/mm/yyyy</td>
-					<td>
-						<i class="bi bi-person-fill"></i>   Lorem ipsum dolor sit.
-						<br>
-						<i class="bi bi-envelope-fill"></i>   Lorem, ipsum dolor.
-						<br>
-						<i class="bi bi-telephone-fill"></i>   Lorem, ipsum.
-					</td>
-					<td>
-						<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">227 Nguyễn Văn Cừ, phường 4</small></p> 
-						<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">Trụ/cụm pano 1m2x2m</small></p> 
-					</td>
-					<td><span class="badge rounded-pill text-bg-primary">Đăng ký nội dung</span></td>
-					<td><span class="badge text-bg-secondary">Đang xử lý</span></td>
-					<td>
-						<div class="btn-group" role="group">
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#chitietbaocao"><i class="bi bi-info-circle-fill"></i></button>
-							<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#cachthucxuly"><i class="bi bi-pen-fill"></i></button>
-						  </div>
-					</td>
-				  </tr>
-				</tbody>
-			</table>
-		</div>
-
-		
-	
 	</div>
 
-  </main>
+	<!--button bar-->
+	<div class="row">
+		<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+			<div class="me-3">
+				<button type="button" class="btn btn-white border">View all</button>
+			</div>
+			<div class="input-group">
+				<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
+				<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+		</div>
+	</div>
 
+	<!--table-->
+	<div class="row mx-1 table-responsive">
+		<table class="table align-middle table-striped table-bordered table-hover">
+			<colgroup>
+				<col style="width:3%">
+				<col style="width:7%">
+				<col style="width:20%">
+				<col style="width:40%">
+				<col style="width:10%">
+				<col style="width:10%">
+				<col style="width:5%">
+			</colgroup>
+			<thead>
+				<tr>
+				<th scope="col">STT</th>
+				<th scope="col">Thời gian</th>
+				<th scope="col">Thông tin người gửi</th>
+				<th scope="col">Địa điểm</th>
+				<th scope="col">Phân loại</th>
+				<th scope="col">Tình trạng</th>
+				<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each baocaos}}
+				<tr>
+					<th scope="row">{{inc @index}}</th>
+					<td>{{showDate createdAt}}</td>
+					<td>
+						<i class="bi bi-person-fill"></i>   {{HoTen}}
+						<br>
+						<i class="bi bi-envelope-fill"></i>   {{Email}}
+						<br>
+						<i class="bi bi-telephone-fill"></i>   {{DienThoai}}
+					</td>
+					<td>
+						<p class="fw-bold m-0 p-0">Điểm đặt: <small class="text-muted">{{DiemDat.DiaChi}}</small></p> 
+						{{#unless laDiemDat}}<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">{{this.BangQuangCao.LoaiBangQuangCao.Ten}} {{BangQuangCao.KichThuoc}}</small></p> {{/unless}}
+					</td>
+					<td><span class="badge rounded-pill 
+					{{#eq HinhThucBaoCaoId 1}} bg-danger
+					{{/eq}}
+					{{#eq HinhThucBaoCaoId 2}} bg-info
+					{{/eq}}
+					{{#eq HinhThucBaoCaoId 3}} bg-primary
+					{{/eq}}
+					{{#eq HinhThucBaoCaoId 4}} bg-warning
+					{{/eq}}">{{HinhThucBaoCao.Ten}}</span></td>
+					<td>{{#if XuLy}}<span class="badge text-bg-success">Đã xử lý</span>
+					{{else}}<span class="badge text-bg-secondary">Đang xử lý</span>
+					{{/if}}</td>
+					<td>
+						<i role="button" class="bi bi-info-circle-fill me-3" data-bs-toggle="modal"
+							data-bs-target="#chitietbaocao" onclick="showchitietbaocao(this)" 
+							data-id="{{id}}" data-noidung="{{NoiDung}}"></i>
+						{{#unless XuLy}}
+						<i role="button" class="bi bi-pen-fill update-btn" data-bs-toggle="modal"
+							data-bs-target="#cachthucxuly" onclick="showcachthuc(this)" data-id="{{id}}"></i> 
+						{{/unless}}
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+
+	
+
+</div>
 <!--Modal chi tiết báo cáo-->
 <div class="modal fade" id="chitietbaocao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
@@ -318,39 +122,70 @@
 				</div>
 				<div class="row mt-2">
 					<p class="fw-bold m-0">Nội dung báo cáo</p>
-					<div>
-						<textarea readonly class="form-control" name="" id="" rows="4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt vero tenetur voluptates ab natus sapiente molestiae unde nesciunt quisquam illum!</textarea>
-					  </div>
-				</div>
-			</div>
-  		</div>
-	  </div>
-    </div>
-</div>
-
-<!--Modal cách thức xử lý-->
-<div class="modal fade" id="cachthucxuly" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật cách thức xử lý</h1>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-			<div class="container-fluid">
-				<div class="row">
-					<p class="fw-bold m-0">Cách thức xử lý</p>
-					<div>
-						<textarea class="form-control" name="" id="" style="height: 100px" placeholder="Cập nhật cách thức xử lý"></textarea>
+					<div id="shownoidung">
+						
 					</div>
 				</div>
 			</div>
   		</div>
-		<div class="modal-footer mt-2">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-			<button type="button" class="btn btn-primary">Cập nhật</button>
- 		 </div>
+		<div class="modal-footer">
+			<input type="hidden" name="id" id="id" value="" />
+		</div>
 	  </div>
     </div>
 </div>
-</html>
+<!--Modal cách thức xử lý-->
+<div class="modal fade" id="cachthucxuly" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form action="" id="updateBaoCaoForm" onsubmit="updateBaoCao(event)">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật cách thức xử lý</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row">
+							<p class="fw-bold m-0">Cách thức xử lý</p>
+							<div>
+								<textarea class="form-control" name="cachthuc" id="" style="height: 100px" placeholder="Cập nhật cách thức xử lý"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer mt-2">
+					<input type="hidden" name="id" id="updid" value="" />
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+					<button type="submit" class="btn btn-primary">Cập nhật</button>
+				</div>
+			</div>
+		</form>
+    </div>
+</div>
+<script>
+	function showchitietbaocao(btn){
+		document.querySelector("#id").value = btn.dataset.id;
+		document.querySelector("#shownoidung").innerHTML = `${btn.dataset.noidung}`;
+	}
+
+	function showcachthuc(btn){
+		document.querySelector("#updid").value = btn.dataset.id;
+	}
+	async function updateBaoCao(e) {
+		e.preventDefault();
+  
+		const formData = new FormData(document.getElementById("updateBaoCaoForm"));
+		let data = Object.fromEntries(formData.entries());
+  
+		let res = await fetch("/quan/xlbaocao", {
+	  		method: 'PUT',
+	  		headers:{
+				"Content-Type":"application/json",
+	 	 	},
+	  		body: JSON.stringify(data),
+		});
+  
+		location.reload();
+  }
+	
+</script>
