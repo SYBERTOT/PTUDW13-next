@@ -11,6 +11,9 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const YOUR_APP_ID = "1363610574264678";
 const YOUR_APP_SECRET = "b35089f5d08347d5302206f1a0851782";
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const YOUR_CLIENT_ID = "1021716428694-5b9lh3mt4sp4mifhmshmptlgul324r15.apps.googleusercontent.com";
+const YOUR_CLIENT_SECRET = "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";
 
 const TaiKhoan = require("./models").TaiKhoan;
 const LoaiTaiKhoan = require("./models").LoaiTaiKhoan;
@@ -73,29 +76,51 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
     clientID: YOUR_APP_ID,
     clientSecret: YOUR_APP_SECRET,
-    callbackURL: 'http://localhost:4000/dangnhap/facebook/callback',
+    callbackURL: '/dangnhap/facebook/callback',
 	profileFields: ['id', 'emails', 'displayName'],
-	profileFields: ['emails'],
 	// request the user's email
     scope: ['email'],
 }, async (accessToken, refreshToken, profile, done) => {
-	let Email = profile.emails[0].value;
-	console.log(Email);
-	const taikhoan = await TaiKhoan.findOne({ 
-		attributes: [ "id", "Email", "TenTaiKhoan", "MatKhau", "LoaiTaiKhoanId",],
-		where: { Email },
-		include: [{ model: LoaiTaiKhoan, attributes: ["HoTen"] }]
-	});
-
-	if (taikhoan) {
-
-		return done(null, taikhoan);
-
-	} else {
-		return done(null, null);
-
+	try {
+		let Email = profile.emails[0].value;
+		const taikhoan = await TaiKhoan.findOne({ 
+			attributes: [ "id", "Email", "TenTaiKhoan", "MatKhau", "LoaiTaiKhoanId",],
+			where: { Email },
+			include: [{ model: LoaiTaiKhoan, attributes: ["HoTen"] }]
+		});
+	
+		if (taikhoan) {
+			return done(null, taikhoan);
+		} else {
+			return done(null, null);
+		}
+	} catch (error) {
+		return done(error);
 	}
-
+}));
+passport.use(new GoogleStrategy({
+    clientID: YOUR_CLIENT_ID,
+    clientSecret: YOUR_CLIENT_SECRET,
+    callbackURL: '/dangnhap/google/callback',
+	// request the user's email
+    scope: ['email'],
+}, async (accessToken, refreshToken, profile, done) => {
+	try {
+		let Email = profile.emails[0].value;
+		const taikhoan = await TaiKhoan.findOne({ 
+			attributes: [ "id", "Email", "TenTaiKhoan", "MatKhau", "LoaiTaiKhoanId",],
+			where: { Email },
+			include: [{ model: LoaiTaiKhoan, attributes: ["HoTen"] }]
+		});
+	
+		if (taikhoan) {
+			return done(null, taikhoan);
+		} else {
+			return done(null, null);
+		}
+	} catch (error) {
+		return done(error);
+	}
 }));
 passport.serializeUser((user, done) => {
     // Serialize user information to store in the session
@@ -109,15 +134,24 @@ passport.deserializeUser((obj, done) => {
 
 app.get('/dangnhap/facebook', passport.authenticate('facebook'));
 app.get('/dangnhap/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: 'localhost:4000/dangnhap' }),
+    passport.authenticate('facebook', { failureRedirect: '/dangnhap' }),
     (req, res) => {
-		console.log(req.user);
 		if (req.user) {
 			req.session.taikhoan = req.user;
 			return res.redirect("/");
 		}
 		return res.redirect("/dangnhap");
-
+    }
+);
+app.get('/dangnhap/google', passport.authenticate('google'));
+app.get('/dangnhap/google/callback',
+    passport.authenticate('google', { failureRedirect: '/dangnhap' }),
+    (req, res) => {
+		if (req.user) {
+			req.session.taikhoan = req.user;
+			return res.redirect("/");
+		}
+		return res.redirect("/dangnhap");
     }
 );
 app.use("/", require("./routes/authRouter"));

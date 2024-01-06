@@ -1,35 +1,45 @@
-<!--container-->
-<div class="container">
-    <div class="row">
-		<h5 class="fw-bold bi bi-box-arrow-in-right fs-4 ps-5">   Đăng nhập</h5>
-        <p class="mb-4 {{#if message}}alert-danger danger p-3{{/if}}">{{#if message}}{{message}}{{else}}Vui lòng đăng nhập để thực hiện tác vụ trong phân quyền{{/if}}</p>
+<!-- https://developers.facebook.com/apps/1363610574264678/permissions?use_case_enum=FB_LOGIN -->
+<!-- https://business.facebook.com/settings/people/61555464355840?business_id=1318302099565435-->
+<!-- https://console.cloud.google.com/apis/credentials/oauthclient?previousPage=%2Fapis%2Fcredentials%3Fproject%3Dptudw13-1702405812189&project=ptudw13-1702405812189-->
+<!-- https://console.cloud.google.com/apis/credentials?project=ptudw13-1702405812189-->
+<!-- note de chinh khi deploy-->
+<!-- container -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold bi bi-box-arrow-in-right fs-4 mb-4 text-center"> Đăng nhập</h5>
 
-        <div class="col-md-8 m-auto">
-            <div class="card border-0">
-                <div class="card-body m-3">
-                    
-                        <form action="/dangnhap" method="POST">
-                            <div class="mb-3">
-                                <label for="TenTaiKhoan" class="form-label">Tên người dùng</label>
-                                <input type="text" id="TenTaiKhoan" name="TenTaiKhoan" value="" class="form-control" placeholder="">
-                            </div>
+                    <form action="/dangnhap" method="POST">
+                        <div class="mb-3">
+                            <label for="TenTaiKhoan" class="form-label">Tên người dùng</label>
+                            <input type="text" id="TenTaiKhoan" name="TenTaiKhoan" value="" class="form-control" placeholder="">
+                        </div>
 
-                            <div class="mb-3">
-                                <label for="MatKhau" class="form-label">Mật khẩu</label>
-                                <input type="password" id="MatKhau" name="MatKhau" value="" class="form-control" placeholder="">
-                            </div>
+                        <div class="mb-3">
+                            <label for="MatKhau" class="form-label">Mật khẩu</label>
+                            <input type="password" id="MatKhau" name="MatKhau" value="" class="form-control" placeholder="">
+                        </div>
 
-                            <div class="mb-3">
-                            	<a class="btn btn-secondary" href="/">Hủy</a>
-                                <button class="btn btn-primary" type="submit" tabindex="4">Đăng nhập</button>
-                            </div>
-                            <input type="hidden" name="reqUrl" value="{{reqUrl}}" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
-                        </form>
+                        <div class="d-grid gap-2 mb-3">
+                            <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                        </div>
+                        <input type="hidden" name="reqUrl" value="{{reqUrl}}" class="form-control" style="display: none;">
 
-                        <a href="/dangnhap/facebook"><i class="bi bi-facebook fs-5"></i></a>
+                        <p class="text-center mb-2">Hoặc đăng nhập bằng</p>
+                        <div class="d-flex justify-content-center">
+                            <a href="/dangnhap/facebook" class="btn btn-outline-primary me-2">
+                                <i class="bi bi-facebook me-2 fs-5"></i> Facebook
+                            </a>
+                            <a href="/dangnhap/google" class="btn btn-outline-danger">
+                                <i class="bi bi-google me-2 fs-5"></i> Google
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--/container-->
+<!-- /container -->
