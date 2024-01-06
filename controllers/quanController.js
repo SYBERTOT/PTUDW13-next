@@ -209,9 +209,69 @@ controller.capnhatCachThucXuLy = async (req, res) => {
 		}
 };
 
-controller.xlcapphep = (req, res) => {
+controller.xlcapphep = async (req, res) => {
+	res.locals.diemdats = await models.DiemDat.findAll({
+		attributes: [ "id", "DiaChi"]
+	});
+	res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+		attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+		include: [
+			{ model: models.LoaiBangQuangCao }
+		]
+	});
+	res.locals.hinhthucbaocaos = await models.HinhThucBaoCao.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.capphepquangcaos = await models.CapPhepQuangCao.findAll({
+		attributes: [ "id", "createdAt", "NoiDung", "DiaChiAnh", "TenCongTy", "Email", "DienThoai", "DiaChiCongTy", "DiemDatId", "BangQuangCaoId", "NgayBatDau", "NgayKetThuc" , "TinhTrang"],
+		include: [
+			{ model: models.DiemDat },
+			{
+				model: models.BangQuangCao,
+				include: [{
+					model: models.LoaiBangQuangCao,
+					attributes: ["id", "Ten"]
+				}]
+			},
+		]
+	});
 	res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan"});
 }
+
+controller.xoaCapPhep  = async(req,res) => {
+	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
+	try
+	{
+		await models.CapPhepQuangCao.destroy({where: {id}});
+		res.send("Cấp phép đã bị xóa");
+	}	catch(error){
+		res.send("Không thể xóa tài khoản");
+		console.error(error);
+	}
+};
+
+controller.taoCapPhep = async(req, res) => {
+	let { diemdat, bangqc, noidung, tencongty, diachicongty, email, dienthoai, ngaybatdau, ngayketthuc } = req.body;
+
+	try{
+		await models.CapPhepQuangCao.create({
+			NoiDung: noidung,
+			TenCongTy: tencongty,
+			Email: email,
+			DienThoai: dienthoai,
+			DiaChiCongTy: diachicongty,
+			NgayBatDau: ngaybatdau,
+			NgayKetThuc: ngayketthuc,
+			BangQuangCaoId: bangqc,
+			DiemDatId: diemdat
+		});
+		res.redirect("/quan/xlcapphep");
+	}	catch(error)
+	{
+		res.send("Không thể tạo cấp phép!");
+		console.error(error);
+	}
+};
 
 controller.CapNhatThongTin = async (req, res) =>{
 	let{id, HoTen, NgaySinh, Email, DienThoai} = req.body;

@@ -9,9 +9,14 @@ router.post("/qldiemdat", controller.taoYCCSdiemdat);
 
 router.get("/qlbangqc", controller.qlbangqc);
 router.post("/qlbangqc", controller.taoYCCSbangqc);
+
 router.get("/xlbaocao", controller.xlbaocao);
 router.put("/xlbaocao", controller.capnhatCachThucXuLy);
+
 router.get("/xlcapphep", controller.xlcapphep);
+router.post("/xlcapphep", controller.taoCapPhep);
+router.delete("/xlcapphep/:id", controller.xoaCapPhep);
+
 router.put("/",controller.CapNhatThongTin);
 
 module.exports = router;
