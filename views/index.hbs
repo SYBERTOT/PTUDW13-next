@@ -369,6 +369,26 @@
 {{!-- tinymce --}}
 <script src="https://cdn.tiny.cloud/1/vqxvddp1yo9we3090oejpm5byq3f9taeds999743y9ra4yk6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
+  function filehandling(cb, value, meta) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'file'); 
+        input.setAttribute('accept', 'image/*');
+        input.onchange = function() {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function () {
+          var id = 'blobid' + (new Date()).getTime();
+          var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+          var base64 = reader.result.split(',')[1];
+          var blobInfo = blobCache.create(id, file, base64); 
+          blobCache.add(blobInfo);
+          // call the callback and populate the Title field with the file name
+          cb(blobInfo.blobUri(), { title: file.name });
+        };
+        reader.readAsDataURL(file);
+        };
+        input.click();         
+  }
   // Prevent Bootstrap dialog from blocking focusin
        document.addEventListener('focusin', (e) => 
        {
@@ -392,6 +412,11 @@
         min_height: 200,           
         autoresize_bottom_margin: 16,
         add_form_submit_trigger : true,
+        image_title: true,
+        // enable automatic uploads of images represented by blob or data URIS
+        automatic_uploads: true, // add custom filepicker only to Image dialog
+        file_picker_types: 'image',
+        file_picker_callback: filehandling,
         setup: (editor) => {
             editor.on('init', () => {
                 editor.getContainer().style.transition="border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out"
