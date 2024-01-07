@@ -23,7 +23,7 @@ controller.hienDangNhap = (req, res) => {
 controller.dangNhap = async (req, res) => {
     let { TenTaiKhoan, MatKhau } = req.body;
     let taikhoan = await TaiKhoan.findOne({
-        attributes: [ "id", "TenTaiKhoan", "MatKhau", "LoaiTaiKhoanId",],
+        attributes: [ "id", "TenTaiKhoan", "MatKhau", "LoaiTaiKhoanId", "KhuVuc"],
         where: { TenTaiKhoan },
         include: [{ model: LoaiTaiKhoan, attributes: ["HoTen"] }]
     });

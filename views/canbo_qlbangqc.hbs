@@ -1,4 +1,3 @@
-  <main>
 	<div class="container-fluid pt-5">
 		<!--title-->
 		<div class="row mb-3">
@@ -11,12 +10,39 @@
 		<div class="row">
 			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
 				<div class="me-3">
-					<button type="button" class="btn btn-white border">View all</button>
+					<div class="dropdown"> 
+						<button class="btn btn-success dropdown-toggle"
+								type="button" 
+								id="multiSelectDropdown"
+								data-bs-toggle="dropdown" 
+								aria-expanded="false"> 
+							Select 
+						</button> 
+						<ul class="dropdown-menu" 
+							aria-labelledby="multiSelectDropdown"> 
+							{{#each diemdats}}
+							<li> 
+								<label> 
+									<input type="checkbox" 
+										value="{{id}}"> 
+									{{tachPhuong KhuVuc}} 
+								</label> 
+							</li> 
+							{{/each}}
+						</ul> 
+        			</div> 
 				</div>
-				<div class="input-group">
-					<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
-					<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
-				  </div>
+				<div class="me-3">
+					<a href="/quan/qlbangqc" type="button" class="btn btn-white border">View all</a>
+				</div>
+				<div class="me-3">
+					<form method = "get" action ="/quan/qlbangqc">
+						<div class="input-group">
+							<input type="text" name="search" class="form-control" placeholder="Tìm kiếm" aria-label="search">
+							<button type="submit" class="btn border"><i class="bi bi-search"></i></button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 
@@ -55,8 +81,6 @@
 		</div>
 
 	</div>
-
-  </main>
 
   <!--Modal chinh sua-->
   <div class="modal fade" id="editBangQCModal" tabindex="-1" aria-hidden="true">
@@ -160,7 +184,31 @@
 		let formattedDate = `${year}-${month}-${day}`;
 
 		document.querySelector("#ngayhethanEdit").value = formattedDate;
-
   }
 
+        const chBoxes = 
+            document.querySelectorAll('.dropdown-menu input[type="checkbox"]'); 
+        const dpBtn =  
+            document.getElementById('multiSelectDropdown'); 
+        let mySelectedListItems = []; 
+  
+        function handleCB() { 
+            mySelectedListItems = []; 
+            let mySelectedListItemsText = 'Phường '; 
+  
+            chBoxes.forEach((checkbox) => { 
+                if (checkbox.checked) { 
+                    mySelectedListItems.push(checkbox.value); 
+                    mySelectedListItemsText += checkbox.value + ', Phường '; 
+                } 
+            }); 
+  
+            dpBtn.innerText = 
+                mySelectedListItems.length > 0 
+                    ? mySelectedListItemsText.slice(0, -2) : 'Select'; 
+        } 
+  
+        chBoxes.forEach((checkbox) => { 
+            checkbox.addEventListener('change', handleCB); 
+        }); 
 </script>

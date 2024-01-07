@@ -47,8 +47,13 @@ app.engine(
 			},
 			eq: (a, b, opt) => {
 				return (a == b) ? opt.fn(this) : opt.inverse(this);
+			},
+			tachPhuong: (value) => {
+				return value.split(',')[0];
+			},
+			tachQuan: (value) => {
+				return value.split(',')[1];
 			}
-
 			},   
 		}),
 );
