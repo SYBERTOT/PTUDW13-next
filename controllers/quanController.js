@@ -852,7 +852,7 @@ controller.xoaCapPhep  = async(req,res) => {
 
 controller.taoCapPhep = async(req, res) => {
 	let { diemdat, bangqc, noidung, tencongty, diachicongty, email, dienthoai, ngaybatdau, ngayketthuc } = req.body;
-
+	let hinhanh = req.file.path;
 	try{
 		await models.CapPhepQuangCao.create({
 			NoiDung: noidung,
@@ -863,7 +863,8 @@ controller.taoCapPhep = async(req, res) => {
 			NgayBatDau: ngaybatdau,
 			NgayKetThuc: ngayketthuc,
 			BangQuangCaoId: bangqc,
-			DiemDatId: diemdat
+			DiemDatId: diemdat,
+			DiaChiAnh: hinhanh
 		});
 		res.redirect("/quan/xlcapphep");
 	}	catch(error)

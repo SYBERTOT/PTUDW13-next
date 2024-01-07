@@ -127,7 +127,7 @@
 				<div class="row">
 					<p class="fw-bold m-0">Hình ảnh minh họa</p>
 					<div>
-						<img src="/img/1.png" id="hinhanh" class="d-block w-100" alt="..." >
+						<img id="hinhanhchitiet" class="d-block w-100" alt="..." >
 					</div>
 				</div>
 				<div class="row mt-2">
@@ -167,7 +167,7 @@
 <!--Modal tạo cấp phép-->
 <div class="modal fade" id="taoCapPhepModal" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-	<form action="/quan/xlcapphep" id="taoCapPhepForm" method="POST">
+	<form action="/quan/xlcapphep" id="taoCapPhepForm" method="POST" enctype="multipart/form-data">
 		<div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title" id="userModalTitle">
@@ -205,7 +205,8 @@
 						<div class="row">
 							<div class="col-6">
 								<label for="hinhanh" class="form-label">Hình ảnh minh họa</label>
-								<img src="/img/1.png" id="hinhanh" class="d-block w-100" alt="..." >
+								<img class="d-block w-100" id="preview">
+    							<input type="file" accept="image/*" class="form-control form-control-sm" id="hinhanh" name="hinhanh" onchange="(previewFile(event))">
 							</div>
 							<div class="col-6">
 								<label for="noidung" class="form-label">Nội dung quảng cáo</label>
@@ -269,7 +270,12 @@
 	function showchitietcapphep(btn) {
 		document.querySelector("#id").value = btn.dataset.id;
 		document.querySelector("#noidung").value = btn.dataset.noidung;
-		document.querySelector("#hinhanh").src = btn.dataset.img;
+		var imgPath = btn.dataset.img;
+		var imgUrl = '../' + imgPath.replace(/html\\/g, '/');
+		document.querySelector("#hinhanhchitiet").src = imgUrl;
+
+		console.log(imgPath);
+		console.log(imgUrl);
 	}
 
 	async function xoaCapPhep(id){
@@ -354,5 +360,17 @@
 		checkbox.addEventListener('change', handleCB); 
 	}); 
 	handleCB();
+
+	var previewFile = function (event) {
+		var input = event.target;
+
+    	var reader = new FileReader();
+    	reader.onload = function(){
+			var dataURL = reader.result;
+			var output = document.getElementById('preview');
+			output.src = dataURL;
+    	};
+    	reader.readAsDataURL(input.files[0]);
+	}
 
 </script>
