@@ -118,37 +118,46 @@ controller.dangXuat = async (req, res, next) => {
 };
 
 controller.xlQuenMatKhau = async (req, res) => {
+    console.log(req.body);
     let { email } = req.body;
     const taikhoan = await TaiKhoan.findOne({ where: { Email: email } });
     if (taikhoan) {
-        const resetToken = generateRandomToken(); // Implement this function
-        // taikhoan.resetPasswordToken = resetToken;
-        // taikhoan.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
-        // await taikhoan.save();
-
-        // Send email with reset link
-        sendResetEmail(taikhoan.Email, resetToken, (error) => {
-            if (error) {
-                return res.status(500).send("Failed to send reset email");
-            } else {
-                return res.send("Check your mailbox!"); // Email sent successfully
-            }
-        });
-    } else {
-    return res.redirect('/dangnhap/quenmatkhau');
+        res.json({msg: 'true', hoten: taikhoan.HoTen});
+    }
+    else {
+        res.json({msg: 'false'});
     }
 };
 
+controller.doiMatKhau = async (req, res) => {
+    let { email, psw } = req.body;
+    const hashedPassword = await bcrypt.hash(psw, 10);
+    try {
+		await models.TaiKhoan.update({
+			MatKhau: hashedPassword,
+		},
+		{
+			where: { Email:email }
+		});
+        res.json({msg: 'success'});
+	}
+		catch (error) {
+			console.error(error);
+        res.json({msg: 'failed'});
+		}
+};
+
 controller.xacMinhQuenMatKhau = async (req, res) => {
-    let { token } = req.params.token;
+    // let { token } = req.params.token;
     // const taikhoan = await TaiKhoan.findOne({
     //     where: {
     //         resetPasswordToken: token,
     //         resetPasswordExpires: { [Op.gte]: Date.now() },
     //     },
     // });
-    
+    let token ="100";
     console.log(token);
+    res.json({acc: token});
     // if (taikhoan) {
     //     res.render('resetmatkhau', { token: resetToken }); // Render the reset password page
     // }

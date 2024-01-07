@@ -7,6 +7,10 @@ const paginate = require('express-handlebars-paginate');
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const YOUR_APP_ID = "1363610574264678";
