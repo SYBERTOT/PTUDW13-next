@@ -57,34 +57,133 @@ controller.show = async (req, res) => {
 
 controller.qldiemdat = async (req, res) => {
 	let khuvuc = req.session.taikhoan.KhuVuc;
+	let loaitk = req.session.taikhoan.LoaiTaiKhoanId;
+	let search = req.query.search;
+	let phuong = req.query.phuong;
+	let tenQuan = '';
+
 	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
 		attributes: [ "id", "Ten"]
 	});
 	res.locals.hinhthucdiemdats = await models.HinhThucDiemDat.findAll({
 		attributes: [ "id", "Ten"]
-	})
-	res.locals.diemdats = await models.DiemDat.findAll({
-		attributes: [
-		  "id",
-		  "DiaChi",
-		  "KhuVuc",
-		  "DiaChiAnh",
-		  "QuyHoach",
-		  "HinhThucDiemDatId",
-		  "LoaiDiemDatId",
-		],
-		order: [["createdAt", "DESC"]],
-		include: [
-			{ model: models.LoaiDiemDat },
-			{ model: models.HinhThucDiemDat}
-		],
-		where: {
-			KhuVuc: {
-				[Op.endsWith]: khuvuc
+	});
+
+	if (loaitk === 2)
+	{
+		let quan = await models.Quan.findOne({
+			attributes: [ "id", "Ten"],
+			where: {
+				Ten: khuvuc
 			}
+		});
+		tenQuan = quan.Ten;
+		res.locals.phuongs = await models.Phuong.findAll({
+			attributes: [ "id", "Ten", "QuanId"],
+			where: {
+				QuanId: quan.id
+			}
+		});
+	}
+	
+	if (search) {
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			order: [["createdAt", "DESC"]],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				},
+				DiaChi: {
+					[Op.iRegexp]: search
+				}
+			}
+		});
+		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
+	}
+	else if (phuong) {
+		let phuongArray = [];
+		if (Array.isArray(phuong)) {
+			phuongArray = phuong;
 		}
-	  });
-	res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutquan"});
+		else {
+			phuongArray.push(phuong);
+		}
+		let getPhuongs = await models.Phuong.findAll({
+			attributes: [ "id", "Ten"],
+			where: {
+				id: {
+					[Op.in]: phuongArray
+				}
+			}
+		});
+		let phuongTens = [];
+		if (Array.isArray(getPhuongs)) {
+			phuongTens = getPhuongs.map(ph => ph.Ten + `, ${tenQuan}`);
+		}
+		else {
+			phuongTens.push(getPhuongs.Ten);
+		}
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			order: [["createdAt", "DESC"]],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+			where: {
+				KhuVuc: {
+					[Op.in]: phuongTens 
+				}
+			}
+		});
+		req.session.checkedPhuongs = phuongArray;
+		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutquan", checkedPhuongs: req.session.checkedPhuongs});
+	}
+	else {	
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			order: [["createdAt", "DESC"]],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				}
+			}
+		});
+		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
+	}
 }
 
 controller.taoYCCSdiemdat = async(req, res) => {
@@ -112,7 +211,12 @@ controller.taoYCCSdiemdat = async(req, res) => {
 
 controller.qlbangqc = async (req, res) => {
 	let khuvuc = req.session.taikhoan.KhuVuc;
+	let loaitk = req.session.taikhoan.LoaiTaiKhoanId;
 	let search = req.query.search;
+	let phuong = req.query.phuong;
+	let diemdat = req.query.diemdat;
+	let tenQuan = '';
+	
 	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
 		attributes: [ "id", "Ten"]
 	});
@@ -121,7 +225,23 @@ controller.qlbangqc = async (req, res) => {
 	});
 	res.locals.loaibangquangcaos = await models.LoaiBangQuangCao.findAll({
 		attributes: [ "id", "Ten"]
-	})
+	});
+	if (loaitk === 2)
+	{
+		let quan = await models.Quan.findOne({
+			attributes: [ "id", "Ten"],
+			where: {
+				Ten: khuvuc
+			}
+		});
+		tenQuan = quan.Ten;
+		res.locals.phuongs = await models.Phuong.findAll({
+			attributes: [ "id", "Ten", "QuanId"],
+			where: {
+				QuanId: quan.id
+			}
+		});
+	}
 
 	if (search) {
 		res.locals.diemdats = await models.DiemDat.findAll({
@@ -148,6 +268,7 @@ controller.qlbangqc = async (req, res) => {
 			}
 		  });
 		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+
 		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
 			attributes: [
 				"id",
@@ -168,8 +289,115 @@ controller.qlbangqc = async (req, res) => {
 
 			}
 		});
-		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan"});
+		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
 	} 
+	else if (phuong) {
+		let phuongArray = [];
+		if (Array.isArray(phuong)) {
+			phuongArray = phuong;
+		}
+		else {
+			phuongArray.push(phuong);
+		}
+		let getPhuongs = await models.Phuong.findAll({
+			attributes: [ "id", "Ten"],
+			where: {
+				id: {
+					[Op.in]: phuongArray
+				}
+			}
+		});
+		let phuongTens = [];
+		if (Array.isArray(getPhuongs)) {
+			phuongTens = getPhuongs.map(ph => ph.Ten + `, ${tenQuan}`);
+		}
+		else {
+			phuongTens.push(getPhuongs.Ten);
+		}
+
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+			where: {
+				KhuVuc: {
+					[Op.in]: phuongTens
+				},
+			}
+		  });
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [
+				"id",
+				"KichThuoc",
+				"DiaChiAnh",
+				"NgayHetHan",
+				"DiemDatId",
+				"LoaiBangQuangCaoId"
+			],
+			include: [
+				{ model: models.DiemDat },
+				{ model: models.LoaiBangQuangCao}
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				},
+
+			}
+		});
+		req.session.checkedPhuongs = phuongArray;
+		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan", checkedPhuongs: req.session.checkedPhuongs});
+	}
+	else if (diemdat) {
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+			where: {
+				id: diemdat
+			}
+		  });
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [
+				"id",
+				"KichThuoc",
+				"DiaChiAnh",
+				"NgayHetHan",
+				"DiemDatId",
+				"LoaiBangQuangCaoId"
+			],
+			include: [
+				{ model: models.DiemDat },
+				{ model: models.LoaiBangQuangCao}
+			],
+			where: {
+				DiemDatId: diemdat
+			}
+		});
+		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
+	}
 	else {
 		res.locals.diemdats = await models.DiemDat.findAll({
 			attributes: [
@@ -211,7 +439,7 @@ controller.qlbangqc = async (req, res) => {
 				}
 			}
 		});
-		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan"});
+		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
 	}
 
 }
@@ -239,49 +467,183 @@ controller.taoYCCSbangqc = async(req, res) => {
 
 controller.xlbaocao = async (req, res) => {
 	let khuvuc = req.session.taikhoan.KhuVuc;
-	res.locals.diemdats = await models.DiemDat.findAll({
-		attributes: [ "id", "DiaChi", "KhuVuc"],
-		where: {
-			KhuVuc: {
-				[Op.endsWith]: khuvuc
-			}
-		}
-	});
-	var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
-	res.locals.bangquangcaos = await models.BangQuangCao.findAll({
-		attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
-		include: [
-			{ model: models.LoaiBangQuangCao }
-		],
-		where: {
-			DiemDatId: {
-				[Op.in]: diemdatIds
-			}
-		}
-	});
+	let loaitk = req.session.taikhoan.LoaiTaiKhoanId;
+	let search = req.query.search;
+	let phuong = req.query.phuong;
+	let tenQuan = '';
+
 	res.locals.hinhthucbaocaos = await models.HinhThucBaoCao.findAll({
 		attributes: [ "id", "Ten"]
 	});
-	res.locals.baocaos = await models.BaoCao.findAll({
-		attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId"],
-		include: [
-			{ model: models.DiemDat },
-			{
-				model: models.BangQuangCao,
-				include: [{
-					model: models.LoaiBangQuangCao,
-					attributes: ["id", "Ten"]
-				}]
-			},
-			{ model: models.HinhThucBaoCao },
-		],
-		where: {
-			DiemDatId: {
-				[Op.in]: diemdatIds
-			},
+	if (loaitk === 2)
+	{
+		let quan = await models.Quan.findOne({
+			attributes: [ "id", "Ten"],
+			where: {
+				Ten: khuvuc
+			}
+		});
+		tenQuan = quan.Ten;
+		res.locals.phuongs = await models.Phuong.findAll({
+			attributes: [ "id", "Ten", "QuanId"],
+			where: {
+				QuanId: quan.id
+			}
+		});
+	}
+	if (search) {
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [ "id", "DiaChi", "KhuVuc"],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				},
+				DiaChi: {
+					[Op.iRegexp]: search
+				}
+			}
+		});
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+			include: [
+				{ model: models.LoaiBangQuangCao }
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		res.locals.baocaos = await models.BaoCao.findAll({
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId"],
+			include: [
+				{ model: models.DiemDat },
+				{
+					model: models.BangQuangCao,
+					include: [{
+						model: models.LoaiBangQuangCao,
+						attributes: ["id", "Ten"]
+					}]
+				},
+				{ model: models.HinhThucBaoCao },
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				},
+			}
+		});
+		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutquan", checkedPhuongs: []});
+	}
+	else if (phuong) {
+		let phuongArray = [];
+		if (Array.isArray(phuong)) {
+			phuongArray = phuong;
 		}
-	});
-	res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutquan"});
+		else {
+			phuongArray.push(phuong);
+		}
+		let getPhuongs = await models.Phuong.findAll({
+			attributes: [ "id", "Ten"],
+			where: {
+				id: {
+					[Op.in]: phuongArray
+				}
+			}
+		});
+		let phuongTens = [];
+		if (Array.isArray(getPhuongs)) {
+			phuongTens = getPhuongs.map(ph => ph.Ten + `, ${tenQuan}`);
+		}
+		else {
+			phuongTens.push(getPhuongs.Ten);
+		}
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [ "id", "DiaChi", "KhuVuc"],
+			where: {
+				KhuVuc: {
+					[Op.in]: phuongTens
+				}
+			}
+		});
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+			include: [
+				{ model: models.LoaiBangQuangCao }
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		res.locals.baocaos = await models.BaoCao.findAll({
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId"],
+			include: [
+				{ model: models.DiemDat },
+				{
+					model: models.BangQuangCao,
+					include: [{
+						model: models.LoaiBangQuangCao,
+						attributes: ["id", "Ten"]
+					}]
+				},
+				{ model: models.HinhThucBaoCao },
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				},
+			}
+		});
+		req.session.checkedPhuongs = phuongArray;
+		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutquan", checkedPhuongs: req.session.checkedPhuongs});
+	}
+	else {
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [ "id", "DiaChi", "KhuVuc"],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				}
+			}
+		});
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+			include: [
+				{ model: models.LoaiBangQuangCao }
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		res.locals.baocaos = await models.BaoCao.findAll({
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId"],
+			include: [
+				{ model: models.DiemDat },
+				{
+					model: models.BangQuangCao,
+					include: [{
+						model: models.LoaiBangQuangCao,
+						attributes: ["id", "Ten"]
+					}]
+				},
+				{ model: models.HinhThucBaoCao },
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				},
+			}
+		});
+		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutquan", checkedPhuongs: []});
+	}
+	
 }
 
 controller.capnhatCachThucXuLy = async (req, res) => {
@@ -304,47 +666,176 @@ controller.capnhatCachThucXuLy = async (req, res) => {
 
 controller.xlcapphep = async (req, res) => {
 	let khuvuc = req.session.taikhoan.KhuVuc;
-	res.locals.diemdats = await models.DiemDat.findAll({
-		attributes: [ "id", "DiaChi", "KhuVuc"],
-		where: {
-			KhuVuc: {
-				[Op.endsWith]: khuvuc
+	let loaitk = req.session.taikhoan.LoaiTaiKhoanId;
+	let search = req.query.search;
+	let phuong = req.query.phuong;
+	let tenQuan = '';
+	if (loaitk === 2)
+	{
+		let quan = await models.Quan.findOne({
+			attributes: [ "id", "Ten"],
+			where: {
+				Ten: khuvuc
 			}
-		}
-	});
-	var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
-
-	res.locals.bangquangcaos = await models.BangQuangCao.findAll({
-		attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
-		include: [
-			{ model: models.LoaiBangQuangCao }
-		],
-		where: {
-			DiemDatId: {
-				[Op.in]: diemdatIds
+		});
+		tenQuan = quan.Ten;
+		res.locals.phuongs = await models.Phuong.findAll({
+			attributes: [ "id", "Ten", "QuanId"],
+			where: {
+				QuanId: quan.id
 			}
-		},
-	});
-
-	res.locals.capphepquangcaos = await models.CapPhepQuangCao.findAll({
-		attributes: [ "id", "createdAt", "NoiDung", "DiaChiAnh", "TenCongTy", "Email", "DienThoai", "DiaChiCongTy", "DiemDatId", "BangQuangCaoId", "NgayBatDau", "NgayKetThuc" , "TinhTrang"],
-		include: [
-			{ model: models.DiemDat },
-			{
-				model: models.BangQuangCao,
-				include: [{
-					model: models.LoaiBangQuangCao,
-					attributes: ["id", "Ten"]
-				}]
-			},
-		],
-		where: {
-			DiemDatId: {
-				[Op.in]: diemdatIds
-			},
+		});
+	}
+	if (search) {
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [ "id", "DiaChi", "KhuVuc"],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				},
+				DiaChi: {
+					[Op.iRegexp]: search
+				}
+			}
+		});
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+			include: [
+				{ model: models.LoaiBangQuangCao }
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		res.locals.capphepquangcaos = await models.CapPhepQuangCao.findAll({
+			attributes: [ "id", "createdAt", "NoiDung", "DiaChiAnh", "TenCongTy", "Email", "DienThoai", "DiaChiCongTy", "DiemDatId", "BangQuangCaoId", "NgayBatDau", "NgayKetThuc" , "TinhTrang"],
+			include: [
+				{ model: models.DiemDat },
+				{
+					model: models.BangQuangCao,
+					include: [{
+						model: models.LoaiBangQuangCao,
+						attributes: ["id", "Ten"]
+					}]
+				},
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				},
+			}
+		});
+		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan", checkedPhuongs: []});
+	}
+	else if (phuong) {
+		let phuongArray = [];
+		if (Array.isArray(phuong)) {
+			phuongArray = phuong;
 		}
-	});
-	res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan"});
+		else {
+			phuongArray.push(phuong);
+		}
+		let getPhuongs = await models.Phuong.findAll({
+			attributes: [ "id", "Ten"],
+			where: {
+				id: {
+					[Op.in]: phuongArray
+				}
+			}
+		});
+		let phuongTens = [];
+		if (Array.isArray(getPhuongs)) {
+			phuongTens = getPhuongs.map(ph => ph.Ten + `, ${tenQuan}`);
+		}
+		else {
+			phuongTens.push(getPhuongs.Ten);
+		}
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [ "id", "DiaChi", "KhuVuc"],
+			where: {
+				KhuVuc: {
+					[Op.in]: phuongTens
+				}
+			}
+		});
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+			include: [
+				{ model: models.LoaiBangQuangCao }
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		req.session.checkedPhuongs = phuongArray;
+		res.locals.capphepquangcaos = await models.CapPhepQuangCao.findAll({
+			attributes: [ "id", "createdAt", "NoiDung", "DiaChiAnh", "TenCongTy", "Email", "DienThoai", "DiaChiCongTy", "DiemDatId", "BangQuangCaoId", "NgayBatDau", "NgayKetThuc" , "TinhTrang"],
+			include: [
+				{ model: models.DiemDat },
+				{
+					model: models.BangQuangCao,
+					include: [{
+						model: models.LoaiBangQuangCao,
+						attributes: ["id", "Ten"]
+					}]
+				},
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				},
+			}
+		});
+		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan", checkedPhuongs: req.session.checkedPhuongs});
+	}
+	else {
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [ "id", "DiaChi", "KhuVuc"],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				}
+			}
+		});
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+			include: [
+				{ model: models.LoaiBangQuangCao }
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		res.locals.capphepquangcaos = await models.CapPhepQuangCao.findAll({
+			attributes: [ "id", "createdAt", "NoiDung", "DiaChiAnh", "TenCongTy", "Email", "DienThoai", "DiaChiCongTy", "DiemDatId", "BangQuangCaoId", "NgayBatDau", "NgayKetThuc" , "TinhTrang"],
+			include: [
+				{ model: models.DiemDat },
+				{
+					model: models.BangQuangCao,
+					include: [{
+						model: models.LoaiBangQuangCao,
+						attributes: ["id", "Ten"]
+					}]
+				},
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				},
+			}
+		});
+		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan", checkedPhuongs: []});
+	}
+
 }
 
 controller.xoaCapPhep  = async(req,res) => {

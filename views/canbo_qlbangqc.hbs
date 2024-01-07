@@ -2,7 +2,7 @@
 		<!--title-->
 		<div class="row mb-3">
 			<div class="page-title">
-				Quản lý bảng quảng cáo
+				Quản lý bảng quảng cáo 
 			</div>
 		</div>
 		
@@ -10,27 +10,30 @@
 		<div class="row">
 			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
 				<div class="me-3">
-					<div class="dropdown"> 
-						<button class="btn btn-success dropdown-toggle"
-								type="button" 
-								id="multiSelectDropdown"
-								data-bs-toggle="dropdown" 
-								aria-expanded="false"> 
-							Select 
-						</button> 
-						<ul class="dropdown-menu" 
-							aria-labelledby="multiSelectDropdown"> 
-							{{#each diemdats}}
-							<li> 
-								<label> 
-									<input type="checkbox" 
-										value="{{id}}"> 
-									{{tachPhuong KhuVuc}} 
-								</label> 
-							</li> 
-							{{/each}}
-						</ul> 
-        			</div> 
+					<form method = "get" action ="/quan/qlbangqc">
+						<div class="dropdown"> 
+							<button class="btn btn-primary dropdown-toggle"
+									type="button" 
+									id="multiSelectDropdown"
+									data-bs-toggle="dropdown" 
+									aria-expanded="false"> 
+								Chọn Phường 
+							</button> 
+							<ul class="dropdown-menu" 
+								aria-labelledby="multiSelectDropdown"> 
+								{{#each phuongs}}
+								<li> 
+									<label> 
+										<input type="checkbox" 
+											value="{{id}}" name="phuong" {{#if (isInArray id (json ../checkedPhuongs))}}checked{{/if}}> 
+										{{Ten}} 
+									</label> 
+								</li> 
+								{{/each}}
+								<button type="submit" class="btn btn-sm btn-primary float-end">Áp dụng</button>
+							</ul> 
+						</div> 
+					</form>
 				</div>
 				<div class="me-3">
 					<a href="/quan/qlbangqc" type="button" class="btn btn-white border">View all</a>
@@ -47,7 +50,7 @@
 		</div>
 
 		<!--card set-->
-		<div class="row justify-content-center">
+		<div class="row">
 			{{#each bangquangcaos}}
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<div class="card mb-3">
@@ -169,7 +172,6 @@
   </div>
 
 <script>
-
     function showEditBangQCModal(btn){
 		document.querySelector("#id").value = btn.dataset.id;
 		document.querySelector("#diemdatEdit").value = btn.dataset.diemdat;
@@ -184,31 +186,35 @@
 		let formattedDate = `${year}-${month}-${day}`;
 
 		document.querySelector("#ngayhethanEdit").value = formattedDate;
-  }
+	}
 
-        const chBoxes = 
-            document.querySelectorAll('.dropdown-menu input[type="checkbox"]'); 
-        const dpBtn =  
-            document.getElementById('multiSelectDropdown'); 
-        let mySelectedListItems = []; 
+    const chBoxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]'); 
+    const dpBtn = document.getElementById('multiSelectDropdown'); 
+    let mySelectedListItems = [];
   
-        function handleCB() { 
-            mySelectedListItems = []; 
-            let mySelectedListItemsText = 'Phường '; 
-  
-            chBoxes.forEach((checkbox) => { 
-                if (checkbox.checked) { 
-                    mySelectedListItems.push(checkbox.value); 
-                    mySelectedListItemsText += checkbox.value + ', Phường '; 
-                } 
-            }); 
-  
-            dpBtn.innerText = 
-                mySelectedListItems.length > 0 
-                    ? mySelectedListItemsText.slice(0, -2) : 'Select'; 
-        } 
+    function handleCB() { 
+        mySelectedListItems = []; 
+        let mySelectedListItemsText = ''; 
   
         chBoxes.forEach((checkbox) => { 
-            checkbox.addEventListener('change', handleCB); 
+            if (checkbox.checked) { 
+                mySelectedListItems.push(checkbox.value); 
+                let labelText = checkbox.parentNode.textContent.trim();
+            	mySelectedListItemsText += labelText + ', '; 
+            } 
         }); 
+  
+		if (mySelectedListItems.length > 3) {
+			dpBtn.innerText = 'Đã chọn (' + mySelectedListItems.length + ')';
+		} else {
+			dpBtn.innerText = 
+			mySelectedListItems.length > 0 
+			? mySelectedListItemsText.slice(0, -2) : 'Chọn Phường'; 
+		} 
+	} 
+  
+	chBoxes.forEach((checkbox) => { 
+		checkbox.addEventListener('change', handleCB); 
+	}); 
+	handleCB();
 </script>

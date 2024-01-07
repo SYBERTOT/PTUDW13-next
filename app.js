@@ -53,6 +53,9 @@ app.engine(
 			},
 			tachQuan: (value) => {
 				return value.split(',')[1];
+			},
+			isInArray: (value, array) => {
+				return array.includes(value);
 			}
 			},   
 		}),

@@ -198,29 +198,32 @@
 </script>
 <!--container-->
   <!-- <form action="" method="GET"> -->
-    <div class="input-group pb-1 mt-1" style="padding-left: 15px; padding-right: 15px; width: auto;">
-      <input class="col-md-4 form-control" id="address" type="text" placeholder="Tìm kiếm theo địa chỉ" style="margin-left:auto;">
-        <button class="bi bi-search border-0 rounded-1 fs-4 mx-1" onclick="geocodeAddress(document.getElementById('address').value, map)"></button>
-        <button class="bi bi-arrow-clockwise border-0 rounded-1 fs-4 mx-1" onclick="setMarkers(map)"></button>
+	<div class="container-fluid pt-5">
+		<div class="input-group pb-1 mt-3" style="padding-left: 15px; padding-right: 15px; width: auto;">
+		<input class="col-md-4 form-control" id="address" type="text" placeholder="Tìm kiếm theo địa chỉ" style="margin-left:auto;">
+			<button class="bi bi-search border-0 rounded-1 fs-4 mx-1" onclick="geocodeAddress(document.getElementById('address').value, map)"></button>
+			<button class="bi bi-arrow-clockwise border-0 rounded-1 fs-4 mx-1" onclick="setMarkers(map)"></button>
 
-        <div class="btn-group" role="group">
-          <label class="switch">
-            <input id="toggle-chuaQH-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
-            <span class="slider round"></span>
-          </label>
-          <p>Chưa quy hoạch</p>
-        </div>
+			<div class="btn-group d-flex justify-content-center align-items-center me-2" role="group">
+			<label class="switch me-1">
+				<input id="toggle-chuaQH-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
+				<span class="slider round"></span>
+			</label>
+			<div>  Chưa quy hoạch</div>
+			</div>
 
-        <div class="btn-group" role="group">
-          <label class="switch">
-            <input id="toggle-daQH-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
-            <span class="slider round"></span>
-          </label>
-          <p>Đã quy hoạch</p>
-        </div>
-    </div>
-  <!-- </form> -->
-        <div id="map"></div>
+			<div class="btn-group d-flex justify-content-center align-items-center" role="group">
+			<label class="switch me-1">
+				<input id="toggle-daQH-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
+				<span class="slider round"></span>
+			</label>
+			<div>  Đã quy hoạch</div>
+			</div>
+		</div>
+	<!-- </form> -->
+	</div>
+		<div id="map"></div>
+
         <script
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE&callback=initMap&v=weekly"
           defer

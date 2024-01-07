@@ -9,15 +9,45 @@
 
 	<!--button bar-->
 	<div class="row">
-		<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
-			<div class="me-3">
-				<button type="button" class="btn btn-white border">View all</button>
-			</div>
-			<div class="input-group">
-				<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
-				<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
+			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+				<div class="me-3">
+					<form method = "get" action ="/quan/xlbaocao">
+						<div class="dropdown"> 
+							<button class="btn btn-primary dropdown-toggle"
+									type="button" 
+									id="multiSelectDropdown"
+									data-bs-toggle="dropdown" 
+									aria-expanded="false"> 
+								Chọn Phường 
+							</button> 
+							<ul class="dropdown-menu" 
+								aria-labelledby="multiSelectDropdown"> 
+								{{#each phuongs}}
+								<li> 
+									<label> 
+										<input type="checkbox" 
+											value="{{id}}" name="phuong" {{#if (isInArray id (json ../checkedPhuongs))}}checked{{/if}}> 
+										{{Ten}} 
+									</label> 
+								</li> 
+								{{/each}}
+								<button type="submit" class="btn btn-sm btn-primary float-end">Áp dụng</button>
+							</ul> 
+						</div> 
+					</form>
 				</div>
-		</div>
+				<div class="me-3">
+					<a href="/quan/xlbaocao" type="button" class="btn btn-white border">View all</a>
+				</div>
+				<div class="me-3">
+					<form method = "get" action ="/quan/xlbaocao">
+						<div class="input-group">
+							<input type="text" name="search" class="form-control" placeholder="Tìm kiếm" aria-label="search">
+							<button type="submit" class="btn border"><i class="bi bi-search"></i></button>
+						</div>
+					</form>
+				</div>
+			</div>
 	</div>
 
 	<!--table-->
@@ -186,5 +216,35 @@
   
 		location.reload();
   }
+  
+    const chBoxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]'); 
+    const dpBtn = document.getElementById('multiSelectDropdown'); 
+    let mySelectedListItems = [];
+  
+    function handleCB() { 
+        mySelectedListItems = []; 
+        let mySelectedListItemsText = ''; 
+  
+        chBoxes.forEach((checkbox) => { 
+            if (checkbox.checked) { 
+                mySelectedListItems.push(checkbox.value); 
+                let labelText = checkbox.parentNode.textContent.trim();
+            	mySelectedListItemsText += labelText + ', '; 
+            } 
+        }); 
+  
+		if (mySelectedListItems.length > 3) {
+			dpBtn.innerText = 'Đã chọn (' + mySelectedListItems.length + ')';
+		} else {
+			dpBtn.innerText = 
+			mySelectedListItems.length > 0 
+			? mySelectedListItemsText.slice(0, -2) : 'Chọn Phường'; 
+		} 
+	} 
+  
+	chBoxes.forEach((checkbox) => { 
+		checkbox.addEventListener('change', handleCB); 
+	}); 
+	handleCB();
 	
 </script>
