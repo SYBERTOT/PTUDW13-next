@@ -1,11 +1,6 @@
 const nodemailer = require('nodemailer');
-require('dotenv').config();
 
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
-
-const sendResetEmail = (email, resetToken) => {
+const sendResetEmail = async (email, resetToken, id) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -18,16 +13,17 @@ const sendResetEmail = (email, resetToken) => {
         from: 'ptudw13@gmail.com',
         to: email,
         subject: 'Password Reset',
-        text: `Click the following link to reset your password: http://localhost:4000/quenmatkhau/${resetToken}`,
+        text: `Click the following link to reset your password: http://localhost:4000/quenmatkhau/${id}/${resetToken}`,
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Error sending email:', error);
-        } else {
-            console.log('Email sent:', info.response);
-        }
-    });
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent:', info.response);
+        return info;
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+    }
 };
 
 module.exports = sendResetEmail;

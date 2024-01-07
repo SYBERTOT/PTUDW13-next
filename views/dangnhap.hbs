@@ -63,6 +63,7 @@
                         <input type="email" id="inputEmail" name="email" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Gửi</button>
+                    <div id="messageContainer"></div>
                 </form>
             </div>
         </div>
@@ -70,3 +71,38 @@
 </div>
 <!-- /Forgot Password Modal -->
 <!-- /container -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loginForm = document.getElementById('loginForm');
+        const messageContainer = document.getElementById('messageContainer');
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Use Fetch API or Axios to make the POST request
+            try {
+                const response = await fetch('/quenmatkhau', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: loginForm.querySelector('[name="email"]').value,
+                    }),
+                });
+
+                const result = await response.json();
+
+                // Display the message
+                messageContainer.textContent = result.message;
+
+                // Redirect if needed
+                if (result.redirectTo) {
+                    window.location.href = result.redirectTo;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+</script>
