@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Quan.hasMany(models.Phuong);
     }
   }
-  LoaiDiemDat.init({
+  Quan.init({
     Ten: DataTypes.STRING
   }, {
     sequelize,

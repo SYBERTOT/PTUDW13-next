@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Phuong.belongsTo(models.Quan);
     }
   }
-  LoaiDiemDat.init({
+  Phuong.init({
     Ten: DataTypes.STRING
   }, {
     sequelize,
