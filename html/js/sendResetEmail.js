@@ -9,13 +9,13 @@ const sendResetEmail = (email, resetToken) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: '',
-            pass: '',
+            user: 'ptudw13@gmail.com',
+            pass: 'qwba hrdr ahuw rkdx',
         },
     });  
 
     const mailOptions = {
-        from: '',
+        from: 'ptudw13@gmail.com',
         to: email,
         subject: 'Password Reset',
         text: `Click the following link to reset your password: http://localhost:4000/quenmatkhau/${resetToken}`,
