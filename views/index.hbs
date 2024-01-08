@@ -13,49 +13,63 @@
 		geocoder = new google.maps.Geocoder();
     document.getElementById("toggle-chuaQH-markers").addEventListener("change", function() {
         if (this.checked) {
-          showQuyHoachMarkers("toggle-chuaQH-markers", "../img/marker-green.png");
+          showQHMarkers(false, map);
         } else {
-          hideQuyHoachMarkers("toggle-chuaQH-markers", "../img/marker-green.png");
+          showQHMarkers(false, null);
         }
     });
 
     document.getElementById("toggle-daQH-markers").addEventListener("change", function() {
         if (this.checked) {
-            showQuyHoachMarkers("toggle-daQH-markers", "../img/marker-red.png");
+            showQHMarkers(true, map);
         } else {
-            hideQuyHoachMarkers("toggle-daQH-markers", "../img/marker-red.png");
+            showQHMarkers(true, null);
+        }
+    });
+
+    document.getElementById("toggle-coQC-markers").addEventListener("change", function() {
+        if (this.checked) {
+            showQCMarkers(true, map);
+        } else {
+            showQCMarkers(true, null);
+        }
+    });
+
+    document.getElementById("toggle-khongQC-markers").addEventListener("change", function() {
+        if (this.checked) {
+          showQCMarkers(false, map);
+        } else {
+          showQCMarkers(false, null);
         }
     });
 
 		setMarkers(map);
 	}
 
-  function setMapOnAll(map) {
-    for (let i = 0; i < markers.length; i++) {
-      markers[i].setMap(map);
-    }
-  }
-
-  function setMapQuyHoach(map, url) {
-    for (let i = 0; i < markers.length; i++) {
-      if (markers[i].icon.url == url) {
-        markers[i].setMap(map);
+  function showQHMarkers(daQH, map) {
+      for (let i=0; i<markers.length; i++) {
+          if (markers[i].diemdat.QuyHoach == daQH) {
+              markers[i].setMap(map);
+          }
       }
+  }
+
+  function showQCMarkers(coQC, map) {
+    if (coQC) {
+        for (let i=0; i<markers.length; i++) {
+          if (markers[i].diemdat.BangQuangCaos.length > 0) {
+              markers[i].setMap(map);
+          }
+        }
+    } else {
+        for (let i=0; i<markers.length; i++) {
+          if (markers[i].diemdat.BangQuangCaos.length == 0) {
+              markers[i].setMap(map);
+          }
+        }
     }
-  }
 
-  // Removes the markers from the map, but keeps them in the array.
-  // Update the hideMarkers and showMarkers functions to check the checkbox state
-  function showQuyHoachMarkers(id, url) {
-      setMapQuyHoach(map, url);
-      document.getElementById(id).checked = true;
   }
-
-  function hideQuyHoachMarkers(id, url) {
-      setMapQuyHoach(null, url);
-      document.getElementById(id).checked = false;
-  }
-
 	// Data for the markers consisting of a name, a LatLng and a zIndex for the
 	// order in which these markers should display on top of each other.
 
@@ -92,6 +106,7 @@
         icon: {
           url: markerImgPath
         },
+        diemdat,
 			});
 			markers.push(marker);
 
@@ -219,6 +234,23 @@
 			</label>
 			<div>  Đã quy hoạch</div>
 			</div>
+
+      <div class="btn-group d-flex justify-content-center align-items-center me-2" role="group">
+			<label class="switch me-1">
+				<input id="toggle-coQC-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
+				<span class="slider round"></span>
+			</label>
+			<div> Có bảng QC</div>
+			</div>
+
+      <div class="btn-group d-flex justify-content-center align-items-center me-2" role="group">
+			<label class="switch me-1">
+				<input id="toggle-khongQC-markers" type="checkbox" class="border-0 rounded-1 mx-1" checked/>
+				<span class="slider round"></span>
+			</label>
+			<div>  Không bảng QC</div>
+			</div>
+
 		</div>
 	<!-- </form> -->
 	</div>

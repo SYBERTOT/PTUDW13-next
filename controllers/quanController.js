@@ -2,6 +2,7 @@ const controller = {};
 const models = require("../models");
 const { Op } = require('sequelize');
 
+const sendAnnouncementEmail = require('../html/js/sendAnnouncementEmail');
 
 controller.show = async (req, res) => {
 	let khuvuc = req.session.taikhoan.KhuVuc;
@@ -647,7 +648,7 @@ controller.xlbaocao = async (req, res) => {
 }
 
 controller.capnhatCachThucXuLy = async (req, res) => {
-	let { id, cachthuc } = req.body;
+	let { id, cachthuc, email } = req.body;
 	try {
 		await models.BaoCao.update({
 			XuLy: true,
@@ -656,6 +657,52 @@ controller.capnhatCachThucXuLy = async (req, res) => {
 		{
 			where: { id }
 		});
+
+		const baocao = await models.BaoCao.findOne({
+			include: [
+				{ model: models.HinhThucBaoCao },
+				{ model: models.DiemDat},
+				{ model: models.BangQuangCao,
+					include: [ models.LoaiBangQuangCao ]
+				 },
+			],
+			where: {id}
+		});
+
+		let bangqc = "(Điểm đặt)";
+		if (baocao.BangQuangCao) {
+			bangqc = `(${baocao.BangQuangCao.LoaiBangQuangCao.Ten})`;
+		}
+		let ngayUpdate = new Date(baocao.updatedAt).toLocaleString('vi-VN', {
+			day: 'numeric',
+			month: 'numeric',
+			year: 'numeric',
+			hour: 'numeric',
+			minute: 'numeric',
+		});
+		let ngayCreate = new Date(baocao.createdAt).toLocaleString('vi-VN', {
+			day: 'numeric',
+			month: 'numeric',
+			year: 'numeric',
+			hour: 'numeric',
+			minute: 'numeric',
+		});
+
+		let subject = 'Thông báo về tình trạng xử lý của báo cáo bạn đã gửi';
+		let content = `<p>Chào bạn ${baocao.HoTen},</p>
+		<p>Chúng tôi xin gửi lời chào thân ái đến bạn. Bạn đang nhận được thông báo này vì bạn đã gửi một báo cáo và chúng tôi đã tiến hành xử lý nó. Dưới đây là thông tin chi tiết về báo cáo mà bạn đã gửi:</p>
+		<p><strong>Ngày gửi</strong>: ${ngayCreate}</p>
+		<p><strong>Hình thức báo cáo</strong>: ${baocao.HinhThucBaoCao.Ten}</p>
+		<p><strong>Điểm đặt bị báo cáo</strong>: ${baocao.DiemDat.DiaChi} ${bangqc}</p>
+		<p><strong>Nội dung báo cáo</strong>: </p>
+		<p>${baocao.NoiDung}</p>
+
+		<p><strong>Hình thức xử lý</strong>: ${cachthuc}</p>
+		<p><strong>Ngày xử lý</strong>: ${ngayUpdate}</p>
+		<p>Chúng tôi xin cảm ơn sự hợp tác của bạn trong việc gửi báo cáo. Nếu bạn có bất kỳ câu hỏi hoặc cần thêm thông tin, đừng ngần ngại liên hệ với chúng tôi qua email này.</p>
+		<p>Trân trọng,<br><strong>PTUDW-13</strong></p>`;
+
+		await sendAnnouncementEmail(email, subject, content);
 		res.send("Báo cáo đã được cập nhật!");
 	}
 		catch (error) {

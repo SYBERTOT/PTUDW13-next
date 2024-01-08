@@ -107,7 +107,7 @@
 							data-id="{{id}}" data-noidung="{{NoiDung}}"></i>
 						{{#unless XuLy}}
 						<i role="button" class="bi bi-pen-fill update-btn" data-bs-toggle="modal"
-							data-bs-target="#cachthucxuly" onclick="showcachthuc(this)" data-id="{{id}}"></i> 
+							data-bs-target="#cachthucxuly" onclick="showcachthuc(this)" data-id="{{id}}" data-email="{{Email}}"></i> 
 						{{/unless}}
 					</td>
 				</tr>
@@ -184,6 +184,7 @@
 				</div>
 				<div class="modal-footer mt-2">
 					<input type="hidden" name="id" id="updid" value="" />
+					<input type="hidden" name="email" id="updemail" value=""/>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
 					<button type="submit" class="btn btn-primary">Cập nhật</button>
 				</div>
@@ -199,6 +200,7 @@
 
 	function showcachthuc(btn){
 		document.querySelector("#updid").value = btn.dataset.id;
+		document.querySelector("#updemail").value = btn.dataset.email;
 	}
 	async function updateBaoCao(e) {
 		e.preventDefault();
