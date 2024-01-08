@@ -1,5 +1,5 @@
 <script>
-	var map;
+  var map;
 	var geocoder;
 	var markers = [];
 	var infowindows = [];
@@ -44,8 +44,105 @@
     });
 
 		setMarkers(map);
+
+    markerCluster = new MarkerClusterer(map, markers, {
+      imagePath:
+        "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+    });
+
+    // Add event listener for zoom change
+    google.maps.event.addListener(map, 'zoom_changed', function () {
+      var currentZoom = map.getZoom();
+
+      // Adjust clusterer based on zoom level
+      if (currentZoom >= 14) {
+        markerCluster.setMaxZoom(20);
+      } else {
+        markerCluster.setMaxZoom(14);
+      }
+    });
+
+    var geolocationControlDiv = document.createElement("div");
+    var geolocationControl = new GeolocationControl(geolocationControlDiv, map);
+
+    geolocationControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(geolocationControlDiv);
 	}
 
+  function GeolocationControl(controlDiv, map) {
+    // Set CSS for the control button
+    var controlUI = document.createElement("div");
+    controlUI.style.backgroundColor = "#fff";
+    controlUI.style.border = "2px solid #fff";
+    controlUI.style.borderRadius = "3px";
+    controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+    controlUI.style.cursor = "pointer";
+    controlUI.style.marginBottom = "22px";
+    controlUI.style.textAlign = "center";
+    controlUI.title = "Click to center map on your location";
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control text
+    var controlText = document.createElement("div");
+    controlText.style.color = "rgb(25,25,25)";
+    controlText.style.fontFamily = "Roboto,Arial,sans-serif";
+    controlText.style.fontSize = "16px";
+    controlText.style.lineHeight = "38px";
+    controlText.style.paddingLeft = "5px";
+    controlText.style.paddingRight = "5px";
+    controlText.innerHTML = "Current Location";
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners
+    controlUI.addEventListener("click", function () {
+        if (navigator.geolocation) {
+        // If the geolocation is supported by the browser
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            // Success callback
+            const userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+
+            // Center the map on the user's location
+            map.setCenter(userLocation);
+
+            // Create a marker for the user's location (optional)
+            const userMarker = new google.maps.Marker({
+              position: userLocation,
+              map: map,
+              title: "Your Location",
+            });
+
+            // You can do more with the user's location if needed
+            console.log("User's Location:", userLocation);
+          },
+          function (error) {
+            // Error callback
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+              case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+              case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+              case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+            }
+          }
+        );
+      } else {
+        // Geolocation is not supported by the browser
+        alert("Geolocation is not supported by your browser.");
+      }
+    });
+  }
+  
   function showQHMarkers(daQH, map) {
       for (let i=0; i<markers.length; i++) {
           if (markers[i].diemdat.QuyHoach == daQH) {
@@ -260,6 +357,8 @@
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE&callback=initMap&v=weekly"
           defer
         ></script>
+
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <!--/container-->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="markerInfo" aria-labelledby="markerInfoLabel">
   <div class="offcanvas-header">
