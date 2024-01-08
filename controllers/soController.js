@@ -12,7 +12,13 @@ controller.qldiemdat = async (req, res) => {
 	});
 	res.locals.hinhthucdiemdats = await models.HinhThucDiemDat.findAll({
 		attributes: [ "id", "Ten"]
-	})
+	});
+	res.locals.quans = await models.Quan.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.phuongs = await models.Phuong.findAll({
+		attributes: [ "id", "Ten", "QuanId"]
+	});
 	res.locals.diemdats = await models.DiemDat.findAll({
 		attributes: [
 		  "id",
@@ -192,7 +198,13 @@ controller.qltaikhoan = async (req, res) => {
 				[Op.ne]: 3
 			}
 		}
-	})
+	});
+	res.locals.quans = await models.Quan.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.phuongs = await models.Phuong.findAll({
+		attributes: [ "id", "Ten", "QuanId"]
+	});
 	res.locals.taikhoans = await models.TaiKhoan.findAll({
 		attributes: [
 		  "id",
@@ -201,6 +213,7 @@ controller.qltaikhoan = async (req, res) => {
 		  "Email",
 		  "DienThoai",
 		  "KhuVuc",
+		  "TenTaiKhoan",
 		  "LoaiTaiKhoanId",
 		],
 		order: [["createdAt", "DESC"]],
@@ -213,7 +226,7 @@ controller.qltaikhoan = async (req, res) => {
 			}
 		}
 	  });
-	res.render('qltaikhoan', { title: "Quản lý tài khoản" , quanly: true , layout: "layoutso"});
+	res.render('qltaikhoan', { title: "Quản lý tài khoản" , quanly: true , layout: "layoutso", checkedPhuongs: []});
 }
 
 controller.qlquanphuong = (req, res) => {
@@ -247,13 +260,16 @@ controller.taoTaiKhoan = async(req, res) => {
 };
 
 controller.capnhatTaiKhoan = async (req, res) => {
-	let { id, name, dob, email, mobile, loaitk, khuvuc } = req.body;
+	let { id, loaitk, tenphuong, tenquan } = req.body;
+	let khuvuc = '';
+	if (loaitk == 1) {
+		khuvuc = tenphuong + ', ' + tenquan;
+	}
+	else if (loaitk ==2) {
+		khuvuc = tenquan;
+	}
 	try {
 		await models.TaiKhoan.update({
-			HoTen: name,
-			NgaySinh: dob,
-			Email: email,
-			DienThoai: mobile,
 			LoaiTaiKhoanId: loaitk,
 			KhuVuc: khuvuc
 		},

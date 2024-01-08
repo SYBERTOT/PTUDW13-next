@@ -5,26 +5,50 @@
 				Quản lý Tài khoản
 			</div>
 		</div>
-		<div class="row mb-2" style="float: right;">
-			<div class="col-auto">
-				<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themTaiKhoanModal">
-						<i class="bi bi-plus"></i> Tạo tài khoản cán bộ
-				</button>
-			</div>
-		</div>
-		<div class="row mb-2">
-			<div class="col-auto">
-				<button class="btn btn-light">View all</button>
-			</div>
-			<div class="col">
-
-				<form>
-          			<div class="input-group">
-            			<span class="input-group-text" id="basic-addon-search31"><i class="bi bi-search"></i></span>
-            			<input type="text" class="form-control" placeholder="Search..." aria-label="Search..."
-              				aria-describedby="basic-addon-search31" name="keyword" required />
-          			</div>
-        		</form>
+		<!--button bar-->
+		<div class="row">
+			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+				<div class="me-3">
+					<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themTaiKhoanModal">
+						<i class="bi bi-plus"></i> Tạo tài khoản cán bộ</button>
+				</div>
+				<div class="me-3">
+					<form method = "get" action ="/quan/xlbaocao">
+						<div class="dropdown"> 
+							<button class="btn btn-primary dropdown-toggle"
+									type="button" 
+									id="multiSelectDropdown"
+									data-bs-toggle="dropdown" 
+									aria-expanded="false"> 
+								Chọn Phường 
+							</button> 
+							<ul class="dropdown-menu" 
+								aria-labelledby="multiSelectDropdown"> 
+								{{#each phuongs}}
+								<li> 
+									<label> 
+										<input type="checkbox" 
+											value="{{id}}" name="phuong" {{#if (isInArray id (json ../checkedPhuongs))}}checked{{/if}}> 
+										{{Ten}} 
+									</label> 
+								</li> 
+								{{/each}}
+								<button type="submit" class="btn btn-sm btn-primary float-end">Áp dụng</button>
+							</ul> 
+						</div> 
+					</form>
+				</div>
+				<div class="me-3">
+					<a href="/quan/xlbaocao" type="button" class="btn btn-white border">View all</a>
+				</div>
+				<div class="me-3">
+					<form method = "get" action ="/quan/xlbaocao">
+						<div class="input-group">
+							<input type="text" name="search" class="form-control" placeholder="Tìm kiếm" aria-label="search">
+							<button type="submit" class="btn border"><i class="bi bi-search"></i></button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 		<div class="table-responsive mt-3">
@@ -81,11 +105,11 @@
               <div class="col mb-3">
                 <label for="nameEdit" class="form-label">Họ và tên</label>
                 <input type="text" id="nameEdit" name="name" class="form-control" placeholder="John"
-                  required />
+                  disabled />
               </div>
               <div class="col mb-3">
                 <label for="dobEdit" class="form-label">Ngày sinh</label>
-                <input type="date" id="dobEdit" name="dob" class="form-control" placeholder="Lin" required />
+                <input type="date" id="dobEdit" name="dob" class="form-control" placeholder="Lin" disabled />
               </div>
             </div>
             <div class="row g-2">
@@ -96,7 +120,7 @@
               </div>
               <div class="col mb-3">
                 <label for="mobileEdit" class="form-label">Điện thoại</label>
-                <input type="text" id="mobileEdit" name="mobile" class="form-control" placeholder="12345678" />
+                <input type="text" id="mobileEdit" name="mobile" class="form-control" placeholder="12345678" disabled/>
               </div>
             </div>
             <div class="row g-2">
@@ -109,8 +133,24 @@
         		</select>
               </div>
               <div class="col mb-3">
-                <label for="khuvucEdit" class="form-label">Nơi công tác</label>
-                <input type="text" id="khuvucEdit" name="khuvuc" class="form-control" placeholder="xxxx" />
+				<div class="col">
+					<label for="quanEdit" class="form-label">Quận</label>
+					<select id="quanEdit" name="quan" class="form-control form-select"> 
+						<option value="#">Chọn Quận</option>
+						{{#each quans}}
+							<option value="{{id}}">{{Ten}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="col">
+					<label for="phuongEdit" class="form-label">Phường</label>
+					<select id="phuongEdit" name="phuong" class="form-control form-select" disabled>
+						<option value="#">Chọn Phường</option>
+						{{#each phuongs}}
+							<option data-value="{{QuanId}}" value="{{id}}">{{Ten}}</option>
+						{{/each}}
+					</select>
+				</div>
               </div>
             </div>
             <div class="text-center badge bg-label-danger" id="errorMessage"></div>
@@ -196,18 +236,25 @@
 
 <script>
 	async function editTaiKhoan(e) {
-	e.preventDefault();
-  
-	const formData = new FormData(document.getElementById("editTaiKhoanForm"));
-	let data = Object.fromEntries(formData.entries());
-  
-	let res = await fetch("/so/qltaikhoan", {
-	  method: 'PUT',
-	  headers:{
-		"Content-Type":"application/json",
-	  },
-	  body: JSON.stringify(data),
-	});
+		e.preventDefault();
+
+		let phuongValue = document.querySelector("#phuongEdit");
+		let phuongText = phuongValue.options[phuongValue.selectedIndex].text;
+		let quanValue = document.querySelector("#quanEdit");
+		let quanText = quanValue.options[quanValue.selectedIndex].text;
+
+		const formData = new FormData(document.getElementById("editTaiKhoanForm"));
+		let data = Object.fromEntries(formData.entries());
+		data.tenphuong = phuongText;
+		data.tenquan = quanText;
+
+		let res = await fetch("/so/qltaikhoan", {
+		method: 'PUT',
+		headers:{
+			"Content-Type":"application/json",
+		},
+		body: JSON.stringify(data),
+		});
   
 	location.reload();
   }
@@ -219,14 +266,68 @@
 	location.reload();
   }
     function showEditTaiKhoanModal(btn){
-	document.querySelector("#id").value = btn.dataset.id;
-	document.querySelector("#nameEdit").value = btn.dataset.name;
-	document.querySelector("#dobEdit").value = btn.dataset.dob;
-	document.querySelector("#emailEdit").value = btn.dataset.email;
-	document.querySelector("#mobileEdit").value = btn.dataset.mobile;
-	document.querySelector("#loaitkEdit").value = btn.dataset.loaitk;
-	document.querySelector("#khuvucEdit").value = btn.dataset.khuvuc;
-  }
+		document.querySelector("#id").value = btn.dataset.id;
+		document.querySelector("#nameEdit").value = btn.dataset.name;
+		document.querySelector("#dobEdit").value = btn.dataset.dob;
+		document.querySelector("#emailEdit").value = btn.dataset.email;
+		document.querySelector("#mobileEdit").value = btn.dataset.mobile;
+		document.querySelector("#loaitkEdit").value = btn.dataset.loaitk;
+		let khuvuc = btn.dataset.khuvuc.split(',');
+		let quanList = document.querySelector("#quanEdit");
+		let phuongList = document.querySelector("#phuongEdit");
+		if(btn.dataset.loaitk == 1) {
+			phuongList.disabled = false;
+		}
+		else if (btn.dataset.loaitk == 2) {
+			phuongList.disabled = true;
+		};
+
+		if(khuvuc[1]) {
+			for(let i=0; i<quanList.options.length; i++){
+				if(quanList.options[i].text == khuvuc[1].trimStart()){
+					quanList.selectedIndex = i;
+					break;
+    			}
+			}
+			var bangqcOptions = document.getElementById('phuongEdit').options;
+
+			for (var i = 0; i < bangqcOptions.length; i++) {
+				var option = bangqcOptions[i];
+				var optionDataValue = option.getAttribute('data-value');
+				if (parseInt(optionDataValue) === parseInt(quanList.selectedIndex)) {
+				option.style.display = '';
+				} else {
+				option.style.display = 'none';
+				}
+			}
+			for(let j=0; j<phuongList.options.length; j++){
+				if(phuongList.options[j].text == khuvuc[0] && phuongList.options[j].style.display != 'none'){
+					phuongList.selectedIndex = j;
+					break;
+    			}
+			}
+		}
+		else {
+			for(let i=0; i<quanList.options.length; i++){
+				if(quanList.options[i].text == khuvuc[0]){
+					quanList.selectedIndex = i;
+					break;
+    			}
+			}
+			var bangqcOptions = document.getElementById('phuongEdit').options;
+
+			for (var i = 0; i < bangqcOptions.length; i++) {
+				var option = bangqcOptions[i];
+				var optionDataValue = option.getAttribute('data-value');
+				if (parseInt(optionDataValue) === parseInt(quanList.selectedIndex)) {
+				option.style.display = '';
+				} else {
+				option.style.display = 'none';
+				}
+			}
+			phuongList.selectedIndex= '#';
+		}
+	}
 
   document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
     btnConfirm.addEventListener("click", (e) => {
@@ -247,5 +348,69 @@
 });
 
 
+	document.getElementById('quanEdit').addEventListener('change', function() {
+		var selectedDiemdat = this.value;
+		var bangqcSelect = document.getElementById('phuongEdit');
+
+		if (selectedDiemdat === "#") {
+			bangqcSelect.value = "#";
+			bangqcSelect.disabled = true;
+			return;
+		}
+		bangqcSelect.disabled = false;
+		bangqcSelect.value = "#";
+		var bangqcOptions = document.getElementById('phuongEdit').options;
+
+		for (var i = 0; i < bangqcOptions.length; i++) {
+			var option = bangqcOptions[i];
+			var optionDataValue = option.getAttribute('data-value');
+			if (parseInt(optionDataValue) === parseInt(selectedDiemdat)) {
+			option.style.display = '';
+			} else {
+			option.style.display = 'none';
+			}
+		}
+	});
+
+	document.getElementById('loaitkEdit').addEventListener('change', function() {
+		let phuongList = document.getElementById("phuongEdit");
+		if (this.value == 1) {
+			phuongList.disabled = false;
+		}
+		else if (this.value == 2) {
+			phuongList.disabled = true;
+			phuongList.value = "#";
+		}
+	});
+
+	const chBoxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]'); 
+    const dpBtn = document.getElementById('multiSelectDropdown'); 
+    let mySelectedListItems = [];
+
+    function handleCB() { 
+        mySelectedListItems = []; 
+        let mySelectedListItemsText = ''; 
+  
+        chBoxes.forEach((checkbox) => { 
+            if (checkbox.checked) { 
+                mySelectedListItems.push(checkbox.value); 
+                let labelText = checkbox.parentNode.textContent.trim();
+            	mySelectedListItemsText += labelText + ', '; 
+            } 
+        }); 
+  
+		if (mySelectedListItems.length > 3) {
+			dpBtn.innerText = 'Đã chọn (' + mySelectedListItems.length + ')';
+		} else {
+			dpBtn.innerText = 
+			mySelectedListItems.length > 0 
+			? mySelectedListItemsText.slice(0, -2) : 'Chọn Phường'; 
+		} 
+	} 
+  
+	chBoxes.forEach((checkbox) => { 
+		checkbox.addEventListener('change', handleCB); 
+	}); 
+	handleCB();
   
 </script>
