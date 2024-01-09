@@ -33,6 +33,8 @@ router.get("/xlcapphep", controller.xlcapphep);
 router.post("/xlcapphep", upload.single('hinhanh'), controller.taoCapPhep);
 router.delete("/xlcapphep/:id", controller.xoaCapPhep);
 
-router.put("/",controller.CapNhatThongTin);
+router.post("/capnhat",controller.CapNhatThongTin);
+router.post("/doimatkhau", controller.doiMatKhau);
 
+router.get('/thongtin', controller.thongTin);
 module.exports = router;

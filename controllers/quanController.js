@@ -921,21 +921,60 @@ controller.taoCapPhep = async(req, res) => {
 	}
 };
 
+controller.thongTin = async (req, res) => {
+    let taikhoan = await models.TaiKhoan.findOne({
+        attributes: [ "id", "HoTen", "TenTaiKhoan", "Email", "MatKhau", "KhuVuc", "DienThoai"],
+        where: { id: res.locals.taikhoan.id },
+    });
+    res.render("thongtin", {layout: "layoutquan", taikhoan});
+};
+
+
+
+
 controller.CapNhatThongTin = async (req, res) =>{
-	let{id, HoTen, NgaySinh, Email, DienThoai} = req.body;
+	let{id, HoTen, Email, DienThoai} = req.body;
+	console.log(req.body);
 	try {
 		await models.TaiKhoan.update({
 			HoTen,
-			NgaySinh,
 			Email,
 			DienThoai
-		}, {where:{id}});
-		res.send("Tài khoản đã được cập nhật");
+		}, {where:{id: id}});
+		res.json({msg: 'true'});
 	} 	catch(error)
 	{
-		res.send("Không thể cập nhật tài khoản");
 		console.error(error);
+		res.json({msg: 'false'});
 	}
 }
 
+controller.doiMatKhau = async (req, res) => {
+    let { id, MkCu, MkMoi } = req.body;
+	let tk = await models.TaiKhoan.findOne({
+        attributes: ["MatKhau"],
+        where: { id: id },
+    });
+	if(tk){
+		const match = await bcrypt.compare(MkCu, tk.MatKhau);
+		if(match){
+			const hashedPassword = await bcrypt.hash(MkMoi, 10);
+			try {
+				await models.TaiKhoan.update({
+					MatKhau: hashedPassword,
+				},
+				{
+					where: {id: id}
+				});
+				res.json({msg: 'true'});
+			}
+			catch (error) {
+					console.error(error);
+					 res.json({msg: 'false'});
+			}
+		} else res.json({msg: 'oldpsw'});
+	} else res.json({msg: 'false'});
+};
+
 module.exports = controller;
+

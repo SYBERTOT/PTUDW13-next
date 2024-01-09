@@ -1,0 +1,146 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h4 class="fw-bold py-3 mb-4">Tài khoản</h4>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-4">
+        {{#with taikhoan}}
+        <h5 class="card-header">Thông tin tài khoản</h5>
+        <!-- Account -->
+        <div class="card-body">
+          <form action="/quan/capnhat" method="POST">
+            <div class="row">
+              <div class="mb-3 col-md-6">
+                <label for="firstName" class="form-label">Họ tên</label>
+                <input class="form-control" type="text" id="HoTen" name="HoTen" value="{{HoTen}}" autofocus />
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="lastName" class="form-label">Tên tài khoản</label>
+                <input class="form-control" type="text" name="TenTaiKhoan" id="TenTaiKhoan" value="{{TenTaiKhoan}}" disabled/>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="email" class="form-label">E-mail</label>
+                <input class="form-control" type="text" id="Email" name="Email" value="{{Email}}"/>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="lastName" class="form-label">Khu vực</label>
+                <input class="form-control" type="text" name="KhuVuc" id="KhuVuc" value="{{KhuVuc}}" disabled/>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label class="form-label" for="phoneNumber">Số điện thoại</label>
+                <div class="input-group input-group-max-columns input-group-merge w-100">
+                  <span class="input-group-text">VN (+84) </span>
+                  <input type="tel" id="DienThoai" name="DienThoai" class="form-control" value="{{DienThoai}}"/>
+                </div>
+              </div>
+
+                <input class="form-control" id="ID" type="hidden" name="id" value="{{id}}"/>
+            </div>
+            <div class="mt-2">
+              <button type="submit" class="btn btn-primary me-2" id="DoittBtn">Lưu thay đổi</button>
+            </div>
+          </form>
+        </div>
+        <!-- /Account -->
+        {{/with}}
+      </div>
+      <div class="card">
+        <h5 class="card-header">Đổi mật khẩu</h5>
+        <div class="card-body">
+
+          <form action="/quan/doimatkhau" method="POST" onsubmit="return checkPsw()">
+            <div class="row">
+              <div class="mb-3 col-md-6">
+                <label for="MkCu" class="form-label">Mật khẩu cũ</label>
+                <input class="form-control" type="password" id="MkCu" name="MkCu" autofocus />
+              </div>
+            </div>
+            <div class="row">
+              <div class="mb-3 col-md-6">
+                <label for="MkMoi" class="form-label">Mật khẩu mới</label>
+                <input class="form-control" type="password" id="MkMoi" name="MkMoi" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="mb-3 col-md-6">
+                <label for="MkXacNhan" class="form-label">Nhập lại mật khẩu mới</label>
+                <input class="form-control" type="password" id="MkXacNhan" name="MkXacNhan" />
+              </div>
+            <input class="form-control" id="IDmk" type="hidden" name="id" value="{{taikhoan.id}}"/>
+            </div>
+            <button type="submit" class="btn btn-primary me-2" id="DoimkBtn" onsubmit="return checkPsw()">Đổi</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('DoittBtn').addEventListener('click', (event) => {
+    event.preventDefault();
+    // Get the email value
+    const id = document.getElementById('ID').value;
+    const HoTen = document.getElementById('HoTen').value;
+    const Email = document.getElementById('Email').value;
+    const DienThoai = document.getElementById('DienThoai').value;
+    // Make an AJAX request to the server using fetch
+    fetch('/quan/capnhat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id: id, HoTen: HoTen, Email: Email, DienThoai: DienThoai }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the response from the server
+        //otpVal = data.otpVal;
+        console.log(data);
+        if(data.msg == 'true')
+            alert('Cập nhật thông tin THÀNH CÔNG');
+        else alert('Cập nhật thông tin KHÔNG THÀNH CÔNG');
+    })
+    .catch(error => console.error('Error:', error));
+});
+function checkPsw(){
+    //event.preventDefault();
+    // Get the email value
+    const id = document.getElementById('IDmk').value;
+    const MkCu = document.getElementById('MkCu').value;
+    const MkMoi = document.getElementById('MkMoi').value;
+    const MkXacNhan = document.getElementById('MkXacNhan').value;
+    if(MkMoi != MkXacNhan){
+        alert("Mật khẩu mới không trùng với xác nhận");
+    }else if (MkMoi.trim() == "" || MkMoi == null){
+        alert("Mật khẩu mới không hợp lệ");
+    }else if (MkMoi === MkCu){
+        alert("Mật khẩu mới không được nhập trùng với mật khẩu cũ");
+    }
+    else{
+        //alert('Oke hết gòi');
+        console.log(id, MkCu, MkMoi, MkXacNhan);
+        // Make an AJAX request to the server using fetch
+        fetch('/quan/doimatkhau', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: id, MkCu: MkCu, MkMoi: MkMoi}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server
+            //otpVal = data.otpVal;
+            console.log(data);
+            if(data.msg == 'true')
+                 alert('Cập nhật mật khẩu THÀNH CÔNG');
+            else if(data.msg == 'oldpsw')
+                 alert('Sai mật khẩu cũ');
+            else alert('Cập nhật khẩu KHÔNG THÀNH CÔNG');
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    return false;
+}
+</script>
