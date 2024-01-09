@@ -1,141 +1,96 @@
-<!-- QUẢN LÝ ĐIỂM ĐẶT QUẢNG CÁO -->
 <div class="container-fluid pt-5">
-	<div class="row m-3">
-	<div class="col d-flex align-self-center tw-bold">Phê duyệt yêu cầu cấp phép</div>
-	<!-- <div class="col d-flex justify-content-end"><button class="btn btn-secondary indigo" > + Thêm điểm đặt</button></div> -->
-	</div>
-	<div class="row m-2">
-	<div class="col d-flex ms-auto">
-	<!-- d-flex justify-content-end -->
-		<button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"> Quận</button>
-		<div class="dropdown-menu">
-		<div><label><input type="checkbox" id="Q1" name="q1" value="Q1"> Quận 1</label></div>
-		<div><label><input type="checkbox" id="QPN" name="qPN" value="QPN"> Quận Phú Nhuận</label></div>
-		<div><label><input type="checkbox" id="Q4" name="q4" value="Q4"> Quận 4</label></div>
-		<div><label><input type="checkbox" id="Q5" name="q5" value="Q5"> Quận 5</label></div>
-		<div><label><input type="checkbox" id="QBT" name="qBT" value="QBT"> Quận Bình Thạnh</label></div>
-		<div><button class="btn btn-secondary indigo d-flex ms-auto" >Áp dụng</button></div>
-		</div> 
-		<button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"> Phường</button>
-		<div class="dropdown-menu">
-		<div><label><input type="checkbox" id="P1" name="P1" value="P1"> Phường 1</label></div>
-		<div><label><input type="checkbox" id="P2" name="P2" value="P2"> Phường 2</label></div>
-		<div><label><input type="checkbox" id="PNCT" name="PNCT" value="PNCT"> Phường Nguyễn Cư Trinh</label></div>
-		<div><label><input type="checkbox" id="PNTB" name="PNTB" value="PNTB"> Phường Nguyễn Thái Bình</label></div>
-		<div><label><input type="checkbox" id="PBHHA" name="PBHHA" value="PBHHA"> Phường Bình Hưng Hòa A</label></div>
-		<div><button class="btn btn-secondary indigo d-flex ms-auto" >Áp dụng</button></div>
-		</div>  
-		<button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"> Điểm đặt</button>
-		<div class="dropdown-menu">
-		<div class="dropdown-item"><label> 227 Nguyễn Văn Cừ</label></div>
-		<div class="dropdown-item"><label> 369 Nguyễn Thị Minh Khai</label></div>
-		<div class="dropdown-item"><label> 148 Lê Hồng Phong</label></div>
-		<div class="dropdown-item"><label> 357 Trần phú</label></div>
-		<div class="dropdown-item"><label> 102 Lý Thái Tổ</label></div>
-		<div class="dropdown-item"><label> 555 Hùng Vương</label></div>
-		</div> </div>
-		<div class="input-group d-flex ms-auto">
-		<input type="text" class="form-control form-input" placeholder="Search">
-		<span class="border rounded-1 border-muted">
-			<button type="button" class="btn">
-			<i class="bi bi-search"></i>
-		</button></span>
+	<!--title-->
+	<div class="row mb-3">
+		<div class="page-title">
+			Phê duyệt cấp phép quảng cáo
 		</div>
 	</div>
-	<div class="container">
+	
+	<!--button bar-->
 	<div class="row">
-		<div class="col">
-		<div class="card p-4 h-100" >
-			<div class="row">
-			<div class="col">
-				<img class="card-image img-fluid" src="image.png" class="img-fluid rounded-top" alt="">
+		<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+			<div class="me-3">
+				<button type="button" class="btn btn-white border">View all</button>
 			</div>
-			<div class="col">
-				<div class="data">
-				<p>Điểm đặt: 227 Nguyễn Văn Cừ, phường 4, quận 5 <br>
-					Loại bảng quảng cáo: Trụ/Cụm pano <br>
-					Kích thước: 1.2mx2m <br>
-					Nội dung quảng cáo: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat, neque id tincidunt iaculis, massa metus vehicula est, ac bibendum tortor nisl et elit. Phasellus nec faucibus urna. Phasellus vel efficitur lectus, eget mollis velit. </p>
+			<div class="input-group">
+				<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
+				<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
 				</div>
-				</div>
-				<div class="col">
-					<div class="data">
-					<p>Tên công ty: <br>
-						Email: <br>
-						Điện thoại: <br>
-						Địa chỉ: <br>
-						<br>
-						Ngày bắt đầu hợp đồng: <br>
-						Ngày kết thúc hợp đồng: </p>
+		</div>
+	</div>
+
+	<!--card set-->
+	<div class="row justify-content-center">
+		{{#each capphepquangcaos}}
+			<div class="col-lg-10 col-md-10 col-sm-12">
+				<div class="card mb-3" >
+					<div class="row g-0">
+						<div class="col-md-3">
+							<img class="img-fluid rounded-start h-100" src="{{toUrl DiaChiAnh}}" alt="">
+						</div>
+						<div class="col-md-9">
+							<div class="card-body ms-2">
+								<div class="row">
+									<div class="col-6">
+										<div>
+											<p class="card-title">Thông tin quảng cáo</p>
+											<p class="card-text">Điểm đặt: <small class="text-muted">{{DiemDat.DiaChi}}</small></p>
+											<p class="card-text">Bảng quảng cáo: <small class="text-muted">{{LoaiBangQuangCao.Ten}} {{BangQuangCao.KichThuoc}}</small></p>
+											<p class="card-text">Nội dung quảng cáo: <small class="text-muted">{{NoiDung}}</small></p>
+											<p class="card-text">Ngày bắt đầu hợp đồng: <small class="text-muted">{{showDate NgayBatDau}}</small></p>
+											<p class="card-text">Ngày kết thúc hợp đồng: <small class="text-muted">{{showDate NgayKetThuc}}</small></p>
+										</div>
+									</div>
+									<div class="col-6">
+										<div>
+											<p class="card-title">Thông tin công ty</p>
+											<p class="card-text">Tên công ty: <small class="text-muted">{{TenCongTy}}</small></p>
+											<p class="card-text">Địa chỉ công ty: <small class="text-muted">{{DiaChiCongTy}}</small></p>
+											<p class="card-text">Email: <small class="text-muted">{{Email}}</small></p>
+											<p class="card-text">Điện thoại: <small class="text-muted">{{DienThoai}}</small></p>
+											
+										</div>
+									</div>					
+								</div>
+								<div class="text-end">
+									<div class="btn-group" role="group">
+										<button class="btn btn-secondary indigo dongy-btn" data-id="{{id}}"><i class="bi bi-check-lg"></i> Đồng ý</button>
+										<button class="btn btn-secondary border-indigo tuchoi-btn" data-id="{{id}}"><i class="bi bi-x"></i> Từ chối</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
+				</div>
 			</div>
-			</div>
-			<div class="d-flex justify-content-end">
-				<button class="btn btn-secondary indigo" ><i class="bi bi-check-lg"></i> Đồng ý</button>
-				<button class="btn btn-secondary border-indigo" ><i class="bi bi-x"></i> Từ chối</button>
-			</div>
-		</div>
-		</div>
+		{{/each}}
 	</div>
 
-	</div>
 </div>
-  <!-- /QUẢN LÝ ĐIỂM ĐẶT QUẢNG CÁO -->
-
-  <!-- POPUP WINDOWS -->
-  <div class="card form-popup" id="Update">
-    <div class="row">
-      <div class=" m-3"><i class="bi bi-envelope popup-icon rounded rounded-circle"></i></div>
-      <div class=" m-2">Cập nhật điểm đặt</div>
-      <div class=" m-2"><label for="addr">Địa chỉ</label></div>
-      <div class="rounded-5 m-2"><input type="text" placeholder="" name="addr" required></div>
-      <div class=" m-2"><button class="btn btn-secondary indigo" >Chọn từ bản đồ</button></div>
-      <div class="row">
-        <div class="col d-flex justify-content-center">
-          <button class="btn btn-light dropdown-toggle m-2" type="button" data-bs-toggle="dropdown"> Chọn loại vị trí</button>
-          <div class="dropdown-menu">
-            <div><label> Đất công/Công viên/Hành lang an toàn giao thông</label></div>
-            <div><label> Đất tư nhân/Nhà ở riêng lẻ</label></div>
-            <div><label> Trung tâm thương mại</label></div>
-            <div><label> Chợ</label></div>
-            <div><label> Cây xăng</label></div>
-            <div><label> Nhà chờ xe buýt</label></div>
-          </div>  
-          <button class="btn btn-light dropdown-toggle m-2" type="button" data-bs-toggle="dropdown"> Chọn hình thức quảng cáo</button>
-          <div class="dropdown-menu">
-            <div><label> Cổ động chính trị</label></div>
-            <div><label> Quảng cáo thương mại</label></div>
-            <div><label> Xã hội hoá</label></div>
-          </div>  
-        </div>      
-        <div class="col m-2">
-          <div class=" m-2">Hình ảnh</div>
-          <img class="image img-fluid" src="image.png" class="img-fluid rounded-top" alt="">
-          <div class=" m-2">Thêm Xóa Sửa</div>
-
-        </div>   
-      </div>   
-      <div class="row ">
-        <div class="col d-flex justify-content-center mb-3">
-            <button type="button" class="btn btn-block btn-secondary cancel" onclick="closeForm(Update)">Hủy</button>          
-        </div>      
-        <div class="col d-flex justify-content-center mb-3">
-          <button type="submit" class="btn btn-block btn-secondary indigo" onclick="closeForm(Update)">Cập nhật</button>
-        </div>   
-      </div>   
-    </div>
-    <!-- <form action="#" class="form-container"> -->
-      <!-- <h1></h1> -->
-    </form>
-  </div>
 
 <script>
-  var triggerEl = document.querySelector('#navId a')
-  bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
-    function openForm() {
-    document.getElementById("update").style.display = "block";
-  }
-  function closeForm(id) {
-    document.getElementById(id).style.display = "none";
-  }
+	document.querySelectorAll('.dongy-btn').forEach((button) => {
+		button.addEventListener('click', function() {
+			var id = this.getAttribute('data-id');
+			pheduyetCapPhep(id, true);
+		});
+	});
+
+	document.querySelectorAll('.tuchoi-btn').forEach((button) => {
+		button.addEventListener('click', function() {
+			var id = this.getAttribute('data-id');
+			pheduyetCapPhep(id, false);
+		});
+	});
+	async function pheduyetCapPhep(id, tinhtrang) {
+		let res = await fetch("/so/pheduyet", {
+			method: 'PUT',
+			headers:{
+				"Content-Type":"application/json",
+			},
+			body: JSON.stringify({ tinhtrang: tinhtrang , id: id}),
+			});
+	
+		location.reload();
+	}
 </script>

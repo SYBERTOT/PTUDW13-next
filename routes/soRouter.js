@@ -3,7 +3,6 @@ const controller = require("../controllers/soController");
 const router = express.Router();
 
 router.get("/", controller.thongke);
-router.get("/pheduyet", controller.pheduyet);
 router.get("/thongke", controller.thongke);
 router.get("/qlquanphuong", controller.qlquanphuong);
 
@@ -22,4 +21,6 @@ router.post("/qltaikhoan", controller.taoTaiKhoan);
 router.put("/qltaikhoan", controller.capnhatTaiKhoan);
 router.delete("/qltaikhoan/:id", controller.xoaTaiKhoan);
 
+router.get("/pheduyet", controller.pheduyet);
+router.put("/pheduyet", controller.capnhatPheDuyetCapPhep);
 module.exports = router;

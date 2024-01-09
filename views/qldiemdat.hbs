@@ -26,7 +26,7 @@
 		</div>
 		
 		<!--card set-->
-		<div class="row justify-content-center">
+		<div class="row">
 				{{#each diemdats}}
 				<div class="col-lg-6 col-md-6 col-sm-12">
 					<div class="card mb-3">
@@ -57,7 +57,7 @@
 									</div>
 									<div class="text-end">
 										<div class="btn-group" role="group">
-											<i role="button" class="bi bi-info-circle-fill detail-btn me-3" data-id="{{id}}"></i>
+											<a href="/so/qlbangqc?diemdat={{id}}" type="button" class="text-dark"><i role="button" class="bi bi-info-circle-fill me-3"></i></a>
 											<i role="button" class="bi bi-pen-fill me-3" data-bs-toggle="modal"
 												data-bs-target="#editDiemDatModal" onclick="showEditDiemDatModal(this)" 
 												data-id="{{id}}" data-diachi="{{DiaChi}}" data-ploai="{{LoaiDiemDatId}}" data-hthuc="{{HinhThucDiemDatId}}"

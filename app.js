@@ -48,11 +48,13 @@ app.engine(
 			eq: (a, b, opt) => {
 				return (a == b) ? opt.fn(this) : opt.inverse(this);
 			},
-			tachPhuong: (value) => {
-				return value.split(',')[0];
-			},
-			tachQuan: (value) => {
-				return value.split(',')[1];
+			toUrl: (value) => {
+				if (value) {
+					return '../' + value.replace(/html\\/g, '/');
+				}
+				else {
+					return '../img/1.png';
+				}
 			},
 			isInArray: (value, array) => {
 				return array.includes(value);

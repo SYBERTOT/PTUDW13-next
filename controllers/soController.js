@@ -37,7 +37,6 @@ controller.qldiemdat = async (req, res) => {
 	  });
 	res.render('qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutso"});
 }
-
 controller.taoDiemDat = async(req, res) => {
 	let { diachi, khuvuc, ploai, hthuc } = req.body;
 
@@ -64,7 +63,6 @@ controller.taoDiemDat = async(req, res) => {
 		console.error(error);
 	}
 };
-
 controller.capnhatDiemDat = async (req, res) => {
 	let { id, diachi, khuvuc, ploai, hthuc, quyhoach } = req.body;
 	try {
@@ -85,7 +83,6 @@ controller.capnhatDiemDat = async (req, res) => {
 			console.error(error);
 		}
 };
-
 controller.xoaDiemDat  = async(req,res) => {
 	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
 	try
@@ -99,47 +96,91 @@ controller.xoaDiemDat  = async(req,res) => {
 };
 
 controller.qlbangqc = async (req, res) => {
+	let diemdat = req.query.diemdat;
 	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
 		attributes: [ "id", "Ten"]
 	});
 	res.locals.hinhthucdiemdats = await models.HinhThucDiemDat.findAll({
 		attributes: [ "id", "Ten"]
 	});
-	res.locals.diemdats = await models.DiemDat.findAll({
-		attributes: [
-		  "id",
-		  "DiaChi",
-		  "KhuVuc",
-		  "DiaChiAnh",
-		  "QuyHoach",
-		  "HinhThucDiemDatId",
-		  "LoaiDiemDatId",
-		],
-		include: [
-			{ model: models.LoaiDiemDat },
-			{ model: models.HinhThucDiemDat}
-		],
-	  });
-	res.locals.loaibangquangcaos = await models.LoaiBangQuangCao.findAll({
-		attributes: [ "id", "Ten"]
-	})
-	res.locals.bangquangcaos = await models.BangQuangCao.findAll({
-		attributes: [
-			"id",
-			"KichThuoc",
-			"DiaChiAnh",
-			"NgayHetHan",
-			"DiemDatId",
-			"LoaiBangQuangCaoId"
-		],
-		include: [
-			{ model: models.DiemDat },
-			{ model: models.LoaiBangQuangCao}
-		],
-	});
-	res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});
+	if (diemdat) {
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+			where: {
+				id: diemdat
+			}
+		  });
+		res.locals.loaibangquangcaos = await models.LoaiBangQuangCao.findAll({
+			attributes: [ "id", "Ten"]
+		})
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [
+				"id",
+				"KichThuoc",
+				"DiaChiAnh",
+				"NgayHetHan",
+				"DiemDatId",
+				"LoaiBangQuangCaoId"
+			],
+			include: [
+				{ model: models.DiemDat },
+				{ model: models.LoaiBangQuangCao}
+			],
+			where: {
+				DiemDatId: diemdat
+			}
+		});
+		res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});
+	}
+	else {
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+		  });
+		res.locals.loaibangquangcaos = await models.LoaiBangQuangCao.findAll({
+			attributes: [ "id", "Ten"]
+		})
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [
+				"id",
+				"KichThuoc",
+				"DiaChiAnh",
+				"NgayHetHan",
+				"DiemDatId",
+				"LoaiBangQuangCaoId"
+			],
+			include: [
+				{ model: models.DiemDat },
+				{ model: models.LoaiBangQuangCao}
+			],
+		});
+		res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});
+	}
+	
 }
-
 controller.taoBangQC = async(req, res) => {
 	let { diemdat, ploai, kichthuoc, ngayhethan } = req.body;
 
@@ -157,7 +198,6 @@ controller.taoBangQC = async(req, res) => {
 		console.error(error);
 	}
 };
-
 controller.capnhatBangQC = async (req, res) => {
 	let { id, diemdat, ploai, kichthuoc, ngayhethan } = req.body;
 	try {
@@ -177,7 +217,6 @@ controller.capnhatBangQC = async (req, res) => {
 			console.error(error);
 		}
 };
-
 controller.xoaBangQC  = async(req,res) => {
 	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
 	try
@@ -228,22 +267,32 @@ controller.qltaikhoan = async (req, res) => {
 	  });
 	res.render('qltaikhoan', { title: "Quản lý tài khoản" , quanly: true , layout: "layoutso", checkedPhuongs: []});
 }
-
-controller.qlquanphuong = (req, res) => {
-	res.render('qlbangqc', { title: "Quản lý quận, phường" , quanly: true , layout: "layoutso"});
-}
-
-controller.pheduyet = (req, res) => {
-	res.render('pheduyet', { title: "Phê duyệt" , pheduyet: true , layout: "layoutso"});
-}
-
-controller.thongke = (req, res) => {
-	res.render('thongke', { title: "Thống kê" , thongke: true , layout: "layoutso"});
-}
-
 controller.taoTaiKhoan = async(req, res) => {
-	let { username, loaitk, khuvuc } = req.body;
+	let { username, loaitk, phuong, quan } = req.body;
 	let MatKhau = await bcrypt.hash("123", saltRounds);
+	let tenphuong = await models.Phuong.findOne({
+		attributes: ["id", "Ten"],
+		where: {
+			id: {
+				[Op.eq]: phuong
+			}
+		}
+	});
+	let tenquan = await models.Quan.findOne({
+		attributes: ["id", "Ten"],
+		where: {
+			id: {
+				[Op.eq]: quan
+			}
+		}
+	});
+	let khuvuc = '';
+	if (loaitk == 1) {
+		khuvuc = tenphuong.Ten + ', ' + tenquan.Ten;
+	}
+	else if (loaitk ==2) {
+		khuvuc = tenquan.Ten;
+	}
 	try{
 		await models.TaiKhoan.create({
 			TenTaiKhoan: username, 
@@ -258,7 +307,6 @@ controller.taoTaiKhoan = async(req, res) => {
 		console.error(error);
 	}
 };
-
 controller.capnhatTaiKhoan = async (req, res) => {
 	let { id, loaitk, tenphuong, tenquan } = req.body;
 	let khuvuc = '';
@@ -283,7 +331,6 @@ controller.capnhatTaiKhoan = async (req, res) => {
 			console.error(error);
 		}
 };
-
 controller.xoaTaiKhoan  = async(req,res) => {
 	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
 	try
@@ -295,5 +342,66 @@ controller.xoaTaiKhoan  = async(req,res) => {
 		console.error(error);
 	}
 };
+
+controller.qlquanphuong = async (req, res) => {
+	res.locals.quans = await models.Quan.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.phuongs = await models.Phuong.findAll({
+		attributes: [ "id", "Ten", "QuanId"]
+	});
+	res.render('qlquanphuong', { title: "Quản lý quận, phường" , quanly: true , layout: "layoutso"});
+}
+
+controller.pheduyet = async (req, res) => {
+	res.locals.diemdats = await models.DiemDat.findAll({
+		attributes: [ "id", "DiaChi", "KhuVuc"],
+	});
+	var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+	res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+		attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+		include: [
+			{ model: models.LoaiBangQuangCao }
+		],
+	});
+	res.locals.capphepquangcaos = await models.CapPhepQuangCao.findAll({
+		attributes: [ "id", "createdAt", "NoiDung", "DiaChiAnh", "TenCongTy", "Email", "DienThoai", "DiaChiCongTy", "DiemDatId", "BangQuangCaoId", "NgayBatDau", "NgayKetThuc" , "TinhTrang"],
+		include: [
+			{ model: models.DiemDat },
+			{
+				model: models.BangQuangCao,
+				include: [{
+					model: models.LoaiBangQuangCao,
+					attributes: ["id", "Ten"]
+				}]
+			},
+		],
+		where: {
+			TinhTrang: null
+		}
+	});
+	res.render('pheduyet', { title: "Phê duyệt" , pheduyet: true , layout: "layoutso"});
+}
+
+controller.capnhatPheDuyetCapPhep = async (req, res) => {
+	let { id, tinhtrang } = req.body;
+	try {
+		await models.CapPhepQuangCao.update({
+			TinhTrang: tinhtrang
+		},
+		{
+			where: { id }
+		});
+		res.send("Phê duyệt đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+}
+
+controller.thongke = (req, res) => {
+	res.render('thongke', { title: "Thống kê" , thongke: true , layout: "layoutso"});
+}
 
 module.exports = controller;

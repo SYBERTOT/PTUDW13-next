@@ -12,6 +12,7 @@
 					<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themTaiKhoanModal">
 						<i class="bi bi-plus"></i> Tạo tài khoản cán bộ</button>
 				</div>
+				<!--
 				<div class="me-3">
 					<form method = "get" action ="/quan/xlbaocao">
 						<div class="dropdown"> 
@@ -37,7 +38,7 @@
 							</ul> 
 						</div> 
 					</form>
-				</div>
+				</div>-->
 				<div class="me-3">
 					<a href="/quan/xlbaocao" type="button" class="btn btn-white border">View all</a>
 				</div>
@@ -56,8 +57,9 @@
 				<thead>
 					<tr>
 						<th scope="col">STT</th>
-						<th scope="col">Họ và tên cán bộ</th>
-						<th scope="col">Năm sinh</th>
+						<th scope="col">Tên tài khoản</th>
+						<th scope="col">Họ tên</th>
+						<th scope="col">Ngày sinh</th>
 						<th scope="col">Email</th>
 						<th scope="col">Điện thoại</th>
 						<th scope="col">Loại cán bộ</th>
@@ -69,8 +71,9 @@
 					{{#each taikhoans}}
 					<tr>
 						<td scope="row">{{inc @index}}</td>
+						<td>{{TenTaiKhoan}}</td>
 						<td>{{HoTen}}</td>
-						<td>{{NgaySinh}}</td>
+						<td>{{showDate NgaySinh}}</td>
 						<td>{{Email}}</td>
 						<td>{{DienThoai}}</td>
 						<td>{{LoaiTaiKhoan.HoTen}}</td>
@@ -215,8 +218,24 @@
         		</select>
               </div>
               <div class="col mb-3">
-                <label for="khuvuc" class="form-label">Nơi công tác</label>
-                <input type="text" id="khuvuc" name="khuvuc" class="form-control" placeholder="xxxx" />
+				<div class="col">
+					<label for="quan" class="form-label">Quận</label>
+					<select id="quan" name="quan" class="form-control form-select"> 
+						<option value="#">Chọn Quận</option>
+						{{#each quans}}
+							<option value="{{id}}">{{Ten}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="col">
+					<label for="phuong" class="form-label">Phường</label>
+					<select id="phuong" name="phuong" class="form-control form-select">
+						<option value="#">Chọn Phường</option>
+						{{#each phuongs}}
+							<option data-value="{{QuanId}}" value="{{id}}">{{Ten}}</option>
+						{{/each}}
+					</select>
+				</div>
               </div>
             </div>
             <div class="text-center badge bg-label-danger" id="errorMessage"></div>
@@ -283,34 +302,39 @@
 		};
 
 		if(khuvuc[1]) {
-			for(let i=0; i<quanList.options.length; i++){
-				if(quanList.options[i].text == khuvuc[1].trimStart()){
+			let tenquan = khuvuc[1].trimStart();
+			let tenphuong = khuvuc[0];
+			let idquan = 0;
+			for(let i=1; i<quanList.options.length; i++){
+				if(quanList.options[i].text == tenquan){
 					quanList.selectedIndex = i;
+					idquan = quanList.options[i].value;
 					break;
     			}
 			}
 			var bangqcOptions = document.getElementById('phuongEdit').options;
-
 			for (var i = 0; i < bangqcOptions.length; i++) {
 				var option = bangqcOptions[i];
 				var optionDataValue = option.getAttribute('data-value');
-				if (parseInt(optionDataValue) === parseInt(quanList.selectedIndex)) {
+				if (parseInt(optionDataValue) === parseInt(idquan)) {
 				option.style.display = '';
 				} else {
 				option.style.display = 'none';
 				}
 			}
-			for(let j=0; j<phuongList.options.length; j++){
-				if(phuongList.options[j].text == khuvuc[0] && phuongList.options[j].style.display != 'none'){
+			for(let j=1; j<phuongList.options.length; j++){
+				if(phuongList.options[j].text == tenphuong && phuongList.options[j].style.display != 'none'){
 					phuongList.selectedIndex = j;
 					break;
     			}
 			}
 		}
 		else {
+			let idquan = 0;
 			for(let i=0; i<quanList.options.length; i++){
 				if(quanList.options[i].text == khuvuc[0]){
 					quanList.selectedIndex = i;
+					idquan = quanList.options[i].value;
 					break;
     			}
 			}
@@ -319,7 +343,7 @@
 			for (var i = 0; i < bangqcOptions.length; i++) {
 				var option = bangqcOptions[i];
 				var optionDataValue = option.getAttribute('data-value');
-				if (parseInt(optionDataValue) === parseInt(quanList.selectedIndex)) {
+				if (parseInt(optionDataValue) === parseInt(idquan)) {
 				option.style.display = '';
 				} else {
 				option.style.display = 'none';
@@ -351,8 +375,8 @@
 	document.getElementById('quanEdit').addEventListener('change', function() {
 		var selectedDiemdat = this.value;
 		var bangqcSelect = document.getElementById('phuongEdit');
-
-		if (selectedDiemdat === "#") {
+		var loaitk = document.getElementById('loaitkEdit');
+		if (selectedDiemdat === "#" || loaitk.value === '2') {
 			bangqcSelect.value = "#";
 			bangqcSelect.disabled = true;
 			return;
@@ -412,5 +436,38 @@
 		checkbox.addEventListener('change', handleCB); 
 	}); 
 	handleCB();
-  
+
+	document.getElementById('quan').addEventListener('change', function() {
+		var selectedQuan = this.value;
+		var phuongSelect = document.getElementById('phuong');
+		let loaitk = document.getElementById('loaitk');
+		if (selectedQuan === "#" || loaitk.value === '2') {
+			phuongSelect.value = "#";
+			phuongSelect.disabled = true;
+			return;
+		}
+		phuongSelect.disabled = false;
+		phuongSelect.value = "#";
+		var phuongOptions = document.getElementById('phuong').options;
+
+		for (var i = 0; i < phuongOptions.length; i++) {
+			var option = phuongOptions[i];
+			var optionDataValue = option.getAttribute('data-value');
+			if (parseInt(optionDataValue) === parseInt(selectedQuan)) {
+			option.style.display = '';
+			} else {
+			option.style.display = 'none';
+			}
+		}
+	});
+	document.getElementById('loaitk').addEventListener('change', function() {
+		let phuongList = document.getElementById("phuong");
+		if (this.value == 1) {
+			phuongList.disabled = false;
+		}
+		else if (this.value == 2) {
+			phuongList.disabled = true;
+			phuongList.value = "#";
+		}
+	});
 </script>
