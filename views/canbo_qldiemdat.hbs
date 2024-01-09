@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
 				<div class="me-3">
-					<form method = "get" action ="/quan/qldiemdat">
+					<form method = "get" action ="/canbo/qldiemdat">
 						<div class="dropdown"> 
 							<button class="btn btn-primary dropdown-toggle"
 									type="button" 
@@ -37,10 +37,10 @@
 					</form>
 				</div>
 				<div class="me-3">
-					<a href="/quan/qldiemdat" type="button" class="btn btn-white border">View all</a>
+					<a href="/canbo/qldiemdat" type="button" class="btn btn-white border">View all</a>
 				</div>
 				<div class="me-3">
-					<form method = "get" action ="/quan/qldiemdat">
+					<form method = "get" action ="/canbo/qldiemdat">
 						<div class="input-group">
 							<input type="text" name="search" class="form-control" placeholder="Tìm kiếm" aria-label="search">
 							<button type="submit" class="btn border"><i class="bi bi-search"></i></button>
@@ -82,7 +82,7 @@
 									</div>
 									<div class="text-end">
 										<div class="btn-group" role="group">
-											<a href="/quan/qlbangqc?diemdat={{id}}" type="button" class="text-dark"><i role="button" class="bi bi-info-circle-fill me-3"></i></a>
+											<a href="/canbo/qlbangqc?diemdat={{id}}" type="button" class="text-dark"><i role="button" class="bi bi-info-circle-fill me-3"></i></a>
 											<i role="button" class="bi bi-pen-fill me-3" data-bs-toggle="modal"
 												data-bs-target="#editDiemDatModal" onclick="showEditDiemDatModal(this)" 
 												data-id="{{id}}" data-diachi="{{DiaChi}}" data-ploai="{{LoaiDiemDatId}}" data-hthuc="{{HinhThucDiemDatId}}"
@@ -104,7 +104,7 @@
   <!--Modal chinh sua-->
   <div class="modal fade" id="editDiemDatModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <form action="/quan/qldiemdat" id="editDiemDatForm" method="POST">
+      <form action="/canbo/qldiemdat" id="editDiemDatForm" method="POST">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">

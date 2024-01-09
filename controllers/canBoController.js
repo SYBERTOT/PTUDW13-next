@@ -202,7 +202,7 @@ controller.taoYCCSdiemdat = async(req, res) => {
 			LyDo: lydo,
 			LoaiChinhSua: false
 		});
-		res.redirect("/quan/qldiemdat");
+		res.redirect("/canbo/qldiemdat");
 	}	catch(error)
 	{
 		res.send("Không thể tạo yêu cầu chỉnh sửa");
@@ -458,7 +458,7 @@ controller.taoYCCSbangqc = async(req, res) => {
 			LyDo: lydo,
 			LoaiChinhSua: true
 		});
-		res.redirect("/quan/qlbangqc");
+		res.redirect("/canbo/qlbangqc");
 	}	catch(error)
 	{
 		res.send("Không thể tạo yêu cầu chỉnh sửa");
