@@ -57,22 +57,26 @@ controller.dsBaoCao = async (req, res) => {
 	try {
         for (let i = 0; i < BaoCaoDaGuis.length; i++) {
             const baoCao = BaoCaoDaGuis[i];
-			BaoCaoDaGuis[i].TenDiemDat = "";
-			BaoCaoDaGuis[i].TenBangQC = "Điểm đặt";
-
+			if (baoCao.laDiemDat == null) {
+				BaoCaoDaGuis[i].TenDiemDat = baoCao.DiaChi;
+				BaoCaoDaGuis[i].TenBangQC = "Địa điểm";
+			} else {
+				BaoCaoDaGuis[i].TenDiemDat = "";
+				BaoCaoDaGuis[i].TenBangQC = "Điểm đặt";
+	
+				if (baoCao.DiemDatId != null) {
+					const diemDatInfo = await models.DiemDat.findByPk(baoCao.DiemDatId);
+					BaoCaoDaGuis[i].TenDiemDat = diemDatInfo.DiaChi;
+				}
+	
+				if (baoCao.BangQuangCaoId != null) {
+					const bangQCInfo = await models.BangQuangCao.findByPk(baoCao.BangQuangCaoId);
+					const loaiBangQC = await models.LoaiBangQuangCao.findByPk(bangQCInfo.LoaiBangQuangCaoId);
+					BaoCaoDaGuis[i].TenBangQC = "Bảng QC: " + loaiBangQC.Ten;
+				}
+			}
 			const hinhthucInfo = await models.HinhThucBaoCao.findByPk(baoCao.HinhThucBaoCaoId);
 			BaoCaoDaGuis[i].HinhThucBaoCao = hinhthucInfo.Ten;
-
-			if (baoCao.DiemDatId != null) {
-				const diemDatInfo = await models.DiemDat.findByPk(baoCao.DiemDatId);
-				BaoCaoDaGuis[i].TenDiemDat = diemDatInfo.DiaChi;
-			}
-
-			if (baoCao.BangQuangCaoId != null) {
-				const bangQCInfo = await models.BangQuangCao.findByPk(baoCao.BangQuangCaoId);
-				const loaiBangQC = await models.LoaiBangQuangCao.findByPk(bangQCInfo.LoaiBangQuangCaoId);
-				BaoCaoDaGuis[i].TenBangQC = "Bảng QC: " + loaiBangQC.Ten;
-			}
         }
     } catch (error) {
         console.error(error);
@@ -90,13 +94,21 @@ controller.dangnhap = (req, res) => {
 controller.guiBaoCao = async (req, res) => {
 	// res.clearCookie('mySignedCookie');
 	console.log(req.body);
-	let { NoiDung, HoTen, Email, DienThoai, laDiemDat, HinhThucBaoCaoId, DiemDatId, BangQuangCaoId} = req.body;
+	let { NoiDung, HoTen, Email, DienThoai, laDiemDat, HinhThucBaoCaoId, DiemDatId, BangQuangCaoId, DiaChiNgauNhien } = req.body;
 	
-	laDiemDat = laDiemDat === 'true'; // Convert 'true' to boolean true
-
-    HinhThucBaoCaoId = parseInt(HinhThucBaoCaoId, 10);
-    DiemDatId = DiemDatId ? parseInt(DiemDatId, 10) : null;
-    BangQuangCaoId = BangQuangCaoId ? parseInt(BangQuangCaoId, 10) : null;
+	let DiaChi = DiaChiNgauNhien;
+	if (laDiemDat == 'null') {
+		laDiemDat = null;
+		HinhThucBaoCaoId = null;
+    	DiemDatId = null;
+    	BangQuangCaoId = null;
+	} else {
+		DiaChi = null;
+		laDiemDat = laDiemDat === 'true'; // Convert 'true' to boolean true
+		HinhThucBaoCaoId = parseInt(HinhThucBaoCaoId, 10);
+		DiemDatId = DiemDatId ? parseInt(DiemDatId, 10) : null;
+		BangQuangCaoId = BangQuangCaoId ? parseInt(BangQuangCaoId, 10) : null;
+	}
 
 	try {
 		const BaoCao = {
@@ -107,7 +119,8 @@ controller.guiBaoCao = async (req, res) => {
             laDiemDat,
             HinhThucBaoCaoId,
             DiemDatId,
-            BangQuangCaoId
+            BangQuangCaoId,
+			DiaChi
         };
 
 		const createdBaoCao = await models.BaoCao.create(BaoCao);
@@ -125,7 +138,6 @@ controller.guiBaoCao = async (req, res) => {
             httpOnly: true,
             signed: true,
         });
-		// res.redirect('/'); //thay vi render lai
 		res.send("Đã gửi báo cáo!");
 	} catch (error) {
 		res.send("Không thể tạo báo cáo!");

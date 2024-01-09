@@ -67,6 +67,21 @@
 
     geolocationControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(geolocationControlDiv);
+
+    // Add event listener for map click
+    google.maps.event.addListener(map, 'click', function (event) {
+      // Clear existing markers
+      clearMarkers();
+
+      // Get clicked coordinates
+      const clickedLocation = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      };
+
+      // Reverse geocode the clicked location
+      reverseGeocode(clickedLocation, map);
+    });
 	}
 
   function GeolocationControl(controlDiv, map) {
@@ -142,7 +157,7 @@
       }
     });
   }
-  
+
   function showQHMarkers(daQH, map) {
       for (let i=0; i<markers.length; i++) {
           if (markers[i].diemdat.QuyHoach == daQH) {
@@ -306,7 +321,53 @@
 		}
 		markers = [];
 	}
-	window.initMap = initMap;
+	
+  function reverseGeocode(location, map) {
+    // location.lat
+    // location.lng
+    geocoder.geocode({ location: location }, function (results, status) {
+      if (status === "OK" && results[0]) {
+        const formattedAddress = results[0].formatted_address;
+        //alert("Clicked Location: " + formattedAddress);
+
+        let check = 0;
+        for (let i=0; i<diemdatsArray.length; i++) {
+          if (diemdatsArray[i].DiaChi == formattedAddress && check==0) {
+            // huhu
+            check = 1;
+          }
+        }
+
+        if (check==0) {
+          // display none
+          // handle report
+          const offcanvasElement = document.getElementById("randomInfo");
+          if (offcanvasElement) {
+            offcanvasElement.querySelector('#diachi').innerHTML = formattedAddress;
+            var bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+					  bsOffcanvas.show();
+          }
+        }
+
+        /* Khong hien marker -> Hien panel voi thong tin so luoc & dsach bao cao
+        const marker = new google.maps.Marker({
+          position: location,
+          map: map,
+          title: "Clicked Location",
+        });
+        markers.push(marker);*/
+
+        // You can do more with the location information if needed
+        console.log("Clicked Location:", location);
+      } else {
+        alert("Reverse geocode failed for the clicked location.");
+        console.error("Reverse geocode failed for the clicked location. Status:", status);
+        console.error("Error details:", results);
+      }
+    });
+  }
+
+  window.initMap = initMap;
 </script>
 <!--container-->
   <!-- <form action="" method="GET"> -->
@@ -402,6 +463,23 @@
   </div>
 </div>
 
+<div class="offcanvas offcanvas-end" tabindex="-1" id="randomInfo" aria-labelledby="randomInfoLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="randomInfoLabel">Thông tin vị trí</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="card border-0 fs-1" style="background-color: #E8F8EE;">
+			<div class="card-body">
+				<h3 class="bi bi-geo-alt" style="font-size: 16px; font-weight: 700; color: #003220;"> Thông tin địa điểm</h3>
+				<h3 id="diachingaunhien" style="font-size: 15px; font-weight: 700; color: #003220; padding-left: 20px;"></h3>
+				<div>
+					<button type="button" class="btn bg-transparent" data-bs-toggle="modal" data-bs-target="#guiBaoCao" onclick="prepareBaoCaoDiaDiem()"><i class="text-danger bi bi-exclamation-diamond rounded-3 px-2 py-1 fw-bold" style="font-size:15px;  border: 1.5px solid var(--Scarlet, #F42C04); text-decoration: none; float: inline-end;"> Báo cáo vi phạm</i></button>
+				</div>
+      </div>
+    </div>
+  </div>
+</div>
   <!--Modal gui bao cao-->
 <div class="modal fade modal-lg" id="guiBaoCao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -465,9 +543,10 @@
                       </div>
                     </div>
                   </div>
-                  <input type="hidden" id="laDiemDat" name="laDiemDat" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
-                  <input type="hidden" id="DiemDatId" name="DiemDatId" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
-                  <input type="hidden" id="BangQuangCaoId" name="BangQuangCaoId" value="" style="height: 30px; width: 150px; color: white;; background-color: #7F56D9; border-radius: 8px; border-style: none;">
+                  <input type="hidden" id="laDiemDat" name="laDiemDat" value="">
+                  <input type="hidden" id="DiemDatId" name="DiemDatId" value="">
+                  <input type="hidden" id="BangQuangCaoId" name="BangQuangCaoId" value="">
+                  <input type="hidden" id="DiaChiNgauNhien" name="DiaChiNgauNhien" value="">
                 </div>
               </div>
             </div>
@@ -496,6 +575,13 @@
       guiBaoCaoModal.querySelector('#laDiemDat').value = "false";
       guiBaoCaoModal.querySelector('#DiemDatId').value = document.querySelector('#iddiemdat').value;
       guiBaoCaoModal.querySelector('#BangQuangCaoId').value = id;
+    }
+  }
+  function prepareBaoCaoDiaDiem() {
+    const guiBaoCaoModal = document.getElementById("guiBaoCao");
+    if (guiBaoCaoModal) {
+      guiBaoCaoModal.querySelector('#laDiemDat').value = "null";
+      guiBaoCaoModal.querySelector('#DiaChiNgauNhien').value = document.querySelector('#diachingaunhien').value;
     }
   }
 </script>
