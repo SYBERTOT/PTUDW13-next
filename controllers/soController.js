@@ -400,8 +400,97 @@ controller.capnhatPheDuyetCapPhep = async (req, res) => {
 		}
 }
 
-controller.thongke = (req, res) => {
-	res.render('thongke', { title: "Thống kê" , thongke: true , layout: "layoutso"});
+controller.thongke = async (req, res) => {
+	let quan = req.query.quan;
+	let phuong = req.query.phuong;
+	res.locals.quans = await models.Quan.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.phuongs = await models.Phuong.findAll({
+		attributes: [ "id", "Ten", "QuanId"]
+	});
+	res.locals.hinhthucbaocaos = await models.HinhThucBaoCao.findAll({
+		attributes: [ "id", "Ten"]
+	});
+
+	if (quan) {
+		let tenQuan = await models.Quan.findOne({
+			attributes: [ "id", "Ten"],
+			where: {
+				id: quan
+			}
+		});
+		let khuvuc = tenQuan.Ten;
+		if (phuong && phuong !='#') {
+			let tenPhuong = await models.Phuong.findOne({
+				attributes: [ "id", "Ten"],
+				where: {
+					id: phuong
+				}
+			});
+			khuvuc = tenPhuong.Ten + ', ' + tenQuan.Ten;
+		};
+		
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [ "id", "DiaChi", "KhuVuc"],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				}
+			}
+		});
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [ "id", "LoaiBangQuangCaoId", "KichThuoc", "DiemDatId"],
+			include: [
+				{ model: models.LoaiBangQuangCao }
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		res.locals.baocaos = await models.BaoCao.findAll({
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "HinhThucXuLy"],
+			include: [
+				{ model: models.DiemDat },
+				{
+					model: models.BangQuangCao,
+					include: [{
+						model: models.LoaiBangQuangCao,
+						attributes: ["id", "Ten"]
+					}]
+				},
+				{ model: models.HinhThucBaoCao },
+				{ model: models.TaiKhoan}
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		res.render('thongke', { title: "Thống kê" , thongke: true , layout: "layoutso"});
+	}
+	else {
+		res.locals.baocaos = await models.BaoCao.findAll({
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "HinhThucXuLy"],
+			include: [
+				{ model: models.DiemDat },
+				{
+					model: models.BangQuangCao,
+					include: [{
+						model: models.LoaiBangQuangCao,
+						attributes: ["id", "Ten"]
+					}]
+				},
+				{ model: models.HinhThucBaoCao },
+				{ model: models.TaiKhoan}
+			],
+		});
+		res.render('thongke', { title: "Thống kê" , thongke: true , layout: "layoutso"});
+	}
 }
 
 module.exports = controller;

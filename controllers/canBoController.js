@@ -517,7 +517,7 @@ controller.xlbaocao = async (req, res) => {
 			}
 		});
 		res.locals.baocaos = await models.BaoCao.findAll({
-			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId"],
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "HinhThucXuLy"],
 			include: [
 				{ model: models.DiemDat },
 				{
@@ -652,7 +652,8 @@ controller.capnhatCachThucXuLy = async (req, res) => {
 	try {
 		await models.BaoCao.update({
 			XuLy: true,
-			HinhThucXuLy: cachthuc
+			HinhThucXuLy: cachthuc,
+			TaiKhoanId: req.session.taikhoan.id
 		},
 		{
 			where: { id }
