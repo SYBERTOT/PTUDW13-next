@@ -10,8 +10,7 @@ router.get("/dangxuat", controller.dangXuat);
 router.get("/quenmatkhau/:id/:token", controller.xacMinhQuenMatKhau);
 router.get("/resetmatkhau", controller.tokenVerified, controller.showResetMatKhau);
 
-router.use("/phuong", controller.phuongDaDangNhap, require("./quanRouter"));
-router.use("/quan", controller.quanDaDangNhap, require("./quanRouter"));
+router.use("/canbo", controller.canBoDaDangNhap, require("./canBoRouter"));
 router.use("/so", controller.soDaDangNhap, require("./soRouter"));
 router.use("/", controller.daDangNhap, require("./danRouter"));
 

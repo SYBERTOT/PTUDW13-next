@@ -1,5 +1,5 @@
 const express = require("express");
-const controller = require("../controllers/quanController");
+const controller = require("../controllers/canBoController");
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');

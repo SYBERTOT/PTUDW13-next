@@ -50,47 +50,27 @@ controller.daDangNhap = async (req, res, next) => {
         res.locals.taikhoan = taikhoan;
 
         switch (taikhoan.LoaiTaiKhoan.HoTen) {
-            case "Phuong":
-                return res.redirect("/phuong");
-                break;
-            case "Quan":
-                return res.redirect("/quan");
-                break;
-            case "So":
+            case "Phường":
+                return res.redirect("/canbo");
+            case "Quận":
+                return res.redirect("/canbo");
+            case "Sở":
                 return res.redirect("/so");
-                break;
         }
     }
     return next();
 };
 
-controller.phuongDaDangNhap = async (req, res, next) => {
+controller.canBoDaDangNhap = async (req, res, next) => {
     if (req.session.taikhoan) {
         const taikhoan = req.session.taikhoan;
         res.locals.taikhoan = taikhoan;
 
-        if (taikhoan.LoaiTaiKhoan.HoTen == "Phuong") {
+        if (taikhoan.LoaiTaiKhoan.HoTen == "Quận" || taikhoan.LoaiTaiKhoan.HoTen == "Phường") {
             return next();
         }
 
-        let phanhe = taikhoan.LoaiTaiKhoan.HoTen.toLowerCase();
-        return res.redirect("/"+phanhe);
-    }
-
-    return res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`);
-};
-
-controller.quanDaDangNhap = async (req, res, next) => {
-    if (req.session.taikhoan) {
-        const taikhoan = req.session.taikhoan;
-        res.locals.taikhoan = taikhoan;
-
-        if (taikhoan.LoaiTaiKhoan.HoTen == "Quan") {
-            return next();
-        }
-
-        let phanhe = taikhoan.LoaiTaiKhoan.HoTen.toLowerCase();
-        return res.redirect("/"+phanhe);
+        return res.redirect("/");
     }
 
     return res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`);
@@ -101,15 +81,13 @@ controller.soDaDangNhap = async (req, res, next) => {
         const taikhoan = req.session.taikhoan;
         res.locals.taikhoan = taikhoan;
 
-        if (taikhoan.LoaiTaiKhoan.HoTen == "So") {
+        if (taikhoan.LoaiTaiKhoan.HoTen == "Sở") {
             return next();
         }
 
-        let phanhe = taikhoan.LoaiTaiKhoan.HoTen.toLowerCase();
-        return res.redirect("/"+phanhe);
+        return res.redirect("/");
     }
 
-    console.log("mo cua di roi vao");
     return res.redirect(`/dangnhap?reqUrl=${req.originalUrl}`);
 };
 

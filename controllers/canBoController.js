@@ -53,7 +53,7 @@ controller.show = async (req, res) => {
 		diemdatsArray.push(diemdat);
 	});
 	res.locals.diemdats = diemdatsArray;
-	res.render('index', { title: "Trang chủ" , trangchu: true , layout: "layoutquan"});
+	res.render('index', { title: "Trang chủ" , trangchu: true , layout: "layoutcanbo"});
 }
 
 controller.qldiemdat = async (req, res) => {
@@ -112,7 +112,7 @@ controller.qldiemdat = async (req, res) => {
 				}
 			}
 		});
-		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	}
 	else if (phuong) {
 		let phuongArray = [];
@@ -159,7 +159,7 @@ controller.qldiemdat = async (req, res) => {
 			}
 		});
 		req.session.checkedPhuongs = phuongArray;
-		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutquan", checkedPhuongs: req.session.checkedPhuongs});
+		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutcanbo", checkedPhuongs: req.session.checkedPhuongs});
 	}
 	else {	
 		res.locals.diemdats = await models.DiemDat.findAll({
@@ -183,7 +183,7 @@ controller.qldiemdat = async (req, res) => {
 				}
 			}
 		});
-		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('canbo_qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	}
 }
 
@@ -290,7 +290,7 @@ controller.qlbangqc = async (req, res) => {
 
 			}
 		});
-		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	} 
 	else if (phuong) {
 		let phuongArray = [];
@@ -359,7 +359,7 @@ controller.qlbangqc = async (req, res) => {
 			}
 		});
 		req.session.checkedPhuongs = phuongArray;
-		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan", checkedPhuongs: req.session.checkedPhuongs});
+		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutcanbo", checkedPhuongs: req.session.checkedPhuongs});
 	}
 	else if (diemdat) {
 		res.locals.diemdats = await models.DiemDat.findAll({
@@ -397,7 +397,7 @@ controller.qlbangqc = async (req, res) => {
 				DiemDatId: diemdat
 			}
 		});
-		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	}
 	else {
 		res.locals.diemdats = await models.DiemDat.findAll({
@@ -440,7 +440,7 @@ controller.qlbangqc = async (req, res) => {
 				}
 			}
 		});
-		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('canbo_qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	}
 
 }
@@ -535,7 +535,7 @@ controller.xlbaocao = async (req, res) => {
 				},
 			}
 		});
-		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	}
 	else if (phuong) {
 		let phuongArray = [];
@@ -600,7 +600,7 @@ controller.xlbaocao = async (req, res) => {
 			}
 		});
 		req.session.checkedPhuongs = phuongArray;
-		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutquan", checkedPhuongs: req.session.checkedPhuongs});
+		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutcanbo", checkedPhuongs: req.session.checkedPhuongs});
 	}
 	else {
 		res.locals.diemdats = await models.DiemDat.findAll({
@@ -642,7 +642,7 @@ controller.xlbaocao = async (req, res) => {
 				},
 			}
 		});
-		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	}
 	
 }
@@ -775,7 +775,7 @@ controller.xlcapphep = async (req, res) => {
 				},
 			}
 		});
-		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	}
 	else if (phuong) {
 		let phuongArray = [];
@@ -839,7 +839,7 @@ controller.xlcapphep = async (req, res) => {
 				},
 			}
 		});
-		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan", checkedPhuongs: req.session.checkedPhuongs});
+		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutcanbo", checkedPhuongs: req.session.checkedPhuongs});
 	}
 	else {
 		res.locals.diemdats = await models.DiemDat.findAll({
@@ -880,7 +880,7 @@ controller.xlcapphep = async (req, res) => {
 				},
 			}
 		});
-		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutquan", checkedPhuongs: []});
+		res.render('xlcapphep', { title: "Xử lý cấp phép" , xuly: true , layout: "layoutcanbo", checkedPhuongs: []});
 	}
 
 }
@@ -926,7 +926,7 @@ controller.thongTin = async (req, res) => {
         attributes: [ "id", "HoTen", "TenTaiKhoan", "Email", "MatKhau", "KhuVuc", "DienThoai"],
         where: { id: res.locals.taikhoan.id },
     });
-    res.render("thongtin", {layout: "layoutquan", taikhoan});
+    res.render("thongtin", {layout: "layoutcanbo", taikhoan});
 };
 
 
