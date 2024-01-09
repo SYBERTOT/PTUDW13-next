@@ -243,7 +243,7 @@
 
 					for (let j = 0; j < diemdat.BangQuangCaos.length; j++) {
 						offcanvasElement.querySelector('#adsInfo').innerHTML +=
-						`<div class="card-body mb-3">
+						`<div class="card-body mb-2">
                     		<h3 style="font-size: 18px; font-weight: 700; color: black;">${loaibangquangcaosArray[diemdat.BangQuangCaos[j].LoaiBangQuangCaoId].Ten}</h3>
                     		<h3 style="font-size: 15px; font-weight: 600; color: black;">${diemdat.DiaChi}</h3>
                     		<p style="font-size: 15px;">Kích thước: ${diemdat.BangQuangCaos[j].KichThuoc}</br> Số lượng: 1 trụ/bảng </br> Hình thức: ${diemdat.HinhThucDiemDat.Ten} </br> Phân loại: ${diemdat.LoaiDiemDat.Ten}</p>
@@ -403,7 +403,7 @@
 </div>
 
   <!--Modal gui bao cao-->
-<div class="modal fade" id="guiBaoCao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="guiBaoCao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
     <form action="/guiBaoCao" method="POST" onsubmit="return validateRecaptcha()">
       <div class="modal-content">
@@ -413,14 +413,14 @@
         </div>
         <div class="modal-body">
           <div class="container-fluid">
-            <div class="row">
-              <p class="fw-bold m-0">Thông tin báo cáo</p>
+            <div class="row m-1">
+              <p class="fw-bold mb-2">Thông tin báo cáo</p>
 
               <div class="row">
                 <div class="col-md-12">
-                  <div class="row">
+                  <div class="row mb-2">
                     <div>
-                      <label for="HinhThucBaoCaoId" class="form-label">Hình thức báo cáo</label>
+                      <label for="HinhThucBaoCaoId" class="form-label mb-0">Hình thức báo cáo</label>
                       <select id="HinhThucBaoCaoId" name="HinhThucBaoCaoId" class="form-select" aria-label="Default select example">
                         <option value=1 selected>Tố giác sai phạm</option>
                         <option value=2>Đăng ký nội dung</option>
@@ -430,37 +430,37 @@
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row mb-2">
                     <div>
-                      <label for="HoTen" class="form-label">Họ tên người gửi báo cáo</label>
+                      <label for="HoTen" class="form-label mb-0">Họ tên người gửi báo cáo</label>
                       <input type="text" class="form-control" id="HoTen" name="HoTen" placeholder="Họ tên">
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row mb-2">
                     <div>
-                      <label for="Email" class="form-label">Email</label>
+                      <label for="Email" class="form-label mb-0">Email</label>
                       <input type="email" class="form-control" id="Email" name="Email" placeholder="Email">
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row mb-2">
                     <div>
-                      <label for="DienThoai" class="form-label">Điện thoại liên lạc</label>
+                      <label for="DienThoai" class="form-label mb-0">Điện thoại liên lạc</label>
                       <input type="text" class="form-control" id="DienThoai" name="DienThoai" placeholder="">
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row mb-2">
                     <div>
-                      <label for="NoiDung">Nội dung báo cáo</label>
+                      <label for="NoiDung" class="form-label mb-0">Nội dung báo cáo (Chỉ được gửi tối đa 2 ảnh minh họa)</label>
                       <textarea id="editor" class="rounded-2 border-secondary" name="NoiDung"></textarea>
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row mb-2">
                     <div>
-                      <div class="mb-3">
+                      <div class="mb-0">
                           <div class="g-recaptcha" data-sitekey="6Le4ZC8pAAAAABPs7kETfO2SWfFyf7PnXsl7TyiH"></div>
                       </div>
                     </div>
@@ -475,7 +475,7 @@
         </div>
         <div class="modal-footer mt-2">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-          <button type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+          <button type="submit" class="btn btn-primary" id="guiyeucau" onclick="return checkMaxImage()">Gửi yêu cầu</button>
         </div>
       </div>
     </form>
@@ -503,84 +503,84 @@
 {{!-- tinymce --}}
 <script src="https://cdn.tiny.cloud/1/vqxvddp1yo9we3090oejpm5byq3f9taeds999743y9ra4yk6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-  function filehandling(cb, value, meta) {
-        var input = document.createElement('input');
-        input.setAttribute('type', 'file'); 
-        input.setAttribute('accept', 'image/*');
-        input.onchange = function() {
-        var file = this.files[0];
-        var reader = new FileReader();
-        reader.onload = function () {
-          var id = 'blobid' + (new Date()).getTime();
-          var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-          var base64 = reader.result.split(',')[1];
-          var blobInfo = blobCache.create(id, file, base64); 
-          blobCache.add(blobInfo);
-          // call the callback and populate the Title field with the file name
-          cb(blobInfo.blobUri(), { title: file.name });
-        };
-        reader.readAsDataURL(file);
-        };
-        input.click();         
+function checkMaxImage(){
+  var editor = tinymce.get("editor");
+  if (editor) {
+    var ndbaocao = editor.getContent();
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(ndbaocao, 'text/html');
+    // Get all img elements in the parsed document
+    var imgTag = doc.getElementsByTagName("img");
+    if(imgTag.length <=2)
+    {
+      return true;
+    }
+    else{
+      alert("Một báo cáo chỉ được gửi tối đa 2 hình");
+      return false;
+    }
   }
-  // Prevent Bootstrap dialog from blocking focusin
-       document.addEventListener('focusin', (e) => 
-       {
-          if (e.target.closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) 
-          {
-            e.stopImmediatePropagation();
-          }
+}
+function filehandling(cb, value, meta) {
+  var input = document.createElement('input');
+  input.setAttribute('type', 'file'); 
+  input.setAttribute('accept', 'image/*');
+  input.onchange = function() {
+  var file = this.files[0];
+  var reader = new FileReader();
+  reader.onload = function () {
+    var id = 'blobid' + (new Date()).getTime();
+    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+    var base64 = reader.result.split(',')[1];
+    var blobInfo = blobCache.create(id, file, base64); 
+    blobCache.add(blobInfo);
+    // call the callback and populate the Title field with the file name
+    cb(blobInfo.blobUri(), { title: file.name });
+  };
+  reader.readAsDataURL(file);
+  };
+  input.click();         
+}
+// Prevent Bootstrap dialog from blocking focusin
+document.addEventListener('focusin', (e) => 
+  {
+    if (e.target.closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) 
+    {
+      e.stopImmediatePropagation();
+    }
+});
+tinymce.init({
+  selector:'#editor',
+  menubar: false,
+  statusbar: false,
+  //plugins: 'autoresize anchor autolink charmap code codesample directionality fullpage help hr image imagetools insertdatetime link lists media nonbreaking pagebreak preview print searchreplace table template textpattern toc visualblocks visualchars',
+  plugins: [ "image", "link"],
+  paste_block_drop: false,
+  toolbar: 'undo redo | link image',
+  skin: 'bootstrap',
+  //toolbar_drawer: 'floating',
+  //min_width: 5000,
+  min_height: 200,           
+  autoresize_bottom_margin: 16,
+  add_form_submit_trigger : true,
+  image_title: true,
+  // enable automatic uploads of images represented by blob or data URIS
+  automatic_uploads: true, // add custom filepicker only to Image dialog
+  file_picker_types: 'image',
+  file_picker_callback: filehandling,
+  setup: (editor) => {
+      editor.on('init', () => {
+          editor.getContainer().style.transition="border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out"
       });
-    //let ndbaocao = document.getElementById('tinymce');
-    tinymce.init({
-        selector:'#editor',
-        menubar: false,
-        statusbar: false,
-        //plugins: 'autoresize anchor autolink charmap code codesample directionality fullpage help hr image imagetools insertdatetime link lists media nonbreaking pagebreak preview print searchreplace table template textpattern toc visualblocks visualchars',
-        plugins: [ "image", "link"],
-        paste_block_drop: false,
-        toolbar: 'undo redo | link image',
-        skin: 'bootstrap',
-        //toolbar_drawer: 'floating',
-        //min_width: 5000,
-        min_height: 200,           
-        autoresize_bottom_margin: 16,
-        add_form_submit_trigger : true,
-        image_title: true,
-        // enable automatic uploads of images represented by blob or data URIS
-        automatic_uploads: true, // add custom filepicker only to Image dialog
-        file_picker_types: 'image',
-        file_picker_callback: filehandling,
-        setup: (editor) => {
-            editor.on('init', () => {
-                editor.getContainer().style.transition="border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out"
-            });
-            editor.on('focus', () => {
-                editor.getContainer().style.boxShadow="0 0 0 .2rem rgba(0, 123, 255, .25)",
-                editor.getContainer().style.borderColor="#80bdff"
-            });
-            editor.on('blur', () => {
-                editor.getContainer().style.boxShadow="",
-                editor.getContainer().style.borderColor=""
-            });
-        }
-    });
+      editor.on('focus', () => {
+          editor.getContainer().style.boxShadow="0 0 0 .2rem rgba(0, 123, 255, .25)",
+          editor.getContainer().style.borderColor="#80bdff"
+      });
+      editor.on('blur', () => {
+          editor.getContainer().style.boxShadow="",
+          editor.getContainer().style.borderColor=""
+      });
+  }
+});
 
 </script>
-{{!-- tinymce.init({
-  selector: 'textarea#local-upload',
-  plugins: 'image code',
-  toolbar: 'undo redo | image code',
-
-  /* without images_upload_url set, Upload tab won't show up*/
-  images_upload_url: 'postAcceptor.php',
-
-  /* we override default upload handler to simulate successful upload*/
-  images_upload_handler: function (blobInfo, success, failure) {
-    setTimeout(function () {
-      /* no matter what you upload, we will turn it into TinyMCE logo :)*/
-      success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
-    }, 2000);
-  },
-  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-}); --}}
