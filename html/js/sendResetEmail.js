@@ -13,7 +13,7 @@ const sendResetEmail = async (email, resetToken, id) => {
         from: 'ptudw13@gmail.com',
         to: email,
         subject: 'Password Reset',
-        text: `Click the following link to reset your password: http://localhost:4000/quenmatkhau/${id}/${resetToken}`,
+        text: `Click the following link to reset your password: https://ptudw13.onrender.com/quenmatkhau/${id}/${resetToken}`,
     };
 
     try {

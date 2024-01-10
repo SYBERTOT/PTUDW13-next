@@ -328,22 +328,19 @@
     geocoder.geocode({ location: location }, function (results, status) {
       if (status === "OK" && results[0]) {
         const formattedAddress = results[0].formatted_address;
-        //alert("Clicked Location: " + formattedAddress);
+        console.log("Clicked Location:", location);
 
         let check = 0;
         for (let i=0; i<diemdatsArray.length; i++) {
           if (diemdatsArray[i].DiaChi == formattedAddress && check==0) {
-            // huhu
             check = 1;
           }
         }
 
         if (check==0) {
-          // display none
-          // handle report
           const offcanvasElement = document.getElementById("randomInfo");
           if (offcanvasElement) {
-            offcanvasElement.querySelector('#diachi').innerHTML = formattedAddress;
+            offcanvasElement.querySelector('#diachingaunhien').innerHTML = formattedAddress;
             var bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
 					  bsOffcanvas.show();
           }
@@ -356,9 +353,6 @@
           title: "Clicked Location",
         });
         markers.push(marker);*/
-
-        // You can do more with the location information if needed
-        console.log("Clicked Location:", location);
       } else {
         alert("Reverse geocode failed for the clicked location.");
         console.error("Reverse geocode failed for the clicked location. Status:", status);
