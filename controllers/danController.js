@@ -99,7 +99,7 @@ controller.guiBaoCao = async (req, res) => {
 	let DiaChi = DiaChiNgauNhien;
 	if (laDiemDat == 'null') {
 		laDiemDat = null;
-		HinhThucBaoCaoId = null;
+		HinhThucBaoCaoId = parseInt(HinhThucBaoCaoId, 10);
     	DiemDatId = null;
     	BangQuangCaoId = null;
 	} else {
@@ -122,6 +122,7 @@ controller.guiBaoCao = async (req, res) => {
             BangQuangCaoId,
 			DiaChi
         };
+		console.log(BaoCao);
 
 		const createdBaoCao = await models.BaoCao.create(BaoCao);
         const createdBaoCaoId = createdBaoCao.id;
