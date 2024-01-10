@@ -25,6 +25,7 @@ router.post("/qldiemdat", controller.taoYCCSdiemdat);
 
 router.get("/qlbangqc", controller.qlbangqc);
 router.post("/qlbangqc", controller.taoYCCSbangqc);
+router.post("/taocappheptubangqc", upload.single('hinhanh'), controller.taoCapPhepTuBangQC);
 
 router.get("/xlbaocao", controller.xlbaocao);
 router.put("/xlbaocao", controller.capnhatCachThucXuLy);

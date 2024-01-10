@@ -914,7 +914,31 @@ controller.taoCapPhep = async(req, res) => {
 			DiemDatId: diemdat,
 			DiaChiAnh: hinhanh
 		});
-		res.redirect("/quan/xlcapphep");
+		res.redirect("/canbo/xlcapphep");
+	}	catch(error)
+	{
+		res.send("Không thể tạo cấp phép!");
+		console.error(error);
+	}
+};
+
+controller.taoCapPhepTuBangQC = async(req, res) => {
+	let { bangqcid, diemdatid, noidung, tencongty, diachicongty, email, dienthoai, ngaybatdau, ngayketthuc } = req.body;
+	let hinhanh = req.file.path;
+	try{
+		await models.CapPhepQuangCao.create({
+			NoiDung: noidung,
+			TenCongTy: tencongty,
+			Email: email,
+			DienThoai: dienthoai,
+			DiaChiCongTy: diachicongty,
+			NgayBatDau: ngaybatdau,
+			NgayKetThuc: ngayketthuc,
+			BangQuangCaoId: bangqcid,
+			DiemDatId: diemdatid,
+			DiaChiAnh: hinhanh
+		});
+		res.redirect("/canbo/qlbangqc");
 	}	catch(error)
 	{
 		res.send("Không thể tạo cấp phép!");

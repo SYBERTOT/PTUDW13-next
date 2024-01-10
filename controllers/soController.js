@@ -475,7 +475,7 @@ controller.thongke = async (req, res) => {
 	}
 	else {
 		res.locals.baocaos = await models.BaoCao.findAll({
-			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "HinhThucXuLy"],
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "HinhThucXuLy", "DiaChi"],
 			include: [
 				{ model: models.DiemDat },
 				{

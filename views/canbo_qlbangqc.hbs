@@ -73,6 +73,9 @@
 												data-bs-target="#editBangQCModal" onclick="showEditBangQCModal(this)" 
 												data-id="{{id}}" data-diemdat="{{DiemDatId}}" data-ploai="{{LoaiBangQuangCaoId}}" data-kichthuoc="{{KichThuoc}}"
 												data-ngayhethan="{{showDate NgayHetHan}}"></i>
+											<i role="button" class="bi bi-send-plus-fill" data-bs-toggle="modal"
+												data-bs-target="#taoCapPhepModal" onclick="showCapPhepModal(this)" 
+												data-bangqcid="{{id}}" data-diemdatid="{{DiemDatId}}" data-diemdat="{{DiemDat.DiaChi}}" data-bangqc="{{LoaiBangQuangCao.Ten}} {{KichThuoc}}"></i>
 										</div>
 									</div>
 							</div>
@@ -102,7 +105,7 @@
 					<p class="fw-bold m-0">Thông tin chỉnh sửa</p>
 					<div class="row">
 						<div>
-							<label for="diemdatEdit" class="form-label">Địa chỉ</label>
+							<label for="diemdatEdit" class="form-label">Điểm đặt</label>
 							<select id="diemdatEdit" name="diemdat" class="form-control form-select">
 								{{#each diemdats}}
             						<option value="{{id}}">{{DiaChi}}</option>
@@ -171,6 +174,100 @@
     </div>
   </div>
 
+	<!--Modal tạo cấp phép-->
+<div class="modal fade" id="taoCapPhepModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+	<form action="/canbo/taocappheptubangqc" id="taoCapPhepForm" method="POST" enctype="multipart/form-data">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="userModalTitle">
+				Tạo cấp phép
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col">
+						<p class="fw-bold m-0">Thông tin quảng cáo</p>
+						<div class="row">
+							<div>
+								<label for="diemdat" class="form-label">Điểm đặt</label>
+								<input type="text" id="diemdat" name="diemdat" class="form-control" disabled> 
+			
+							</div>
+						</div>
+						<div class="row">
+							<div>
+								<label for="bangqc" class="form-label">Bảng quảng cáo</label>
+								<input type="text" id="bangqc" name="bangqc" class="form-control" disabled>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<label for="hinhanh" class="form-label">Hình ảnh minh họa</label>
+								<img class="d-block w-100" id="preview">
+    							<input type="file" accept="image/*" class="form-control form-control-sm" id="hinhanh" name="hinhanh" onchange="(previewFile(event))">
+							</div>
+							<div class="col-6">
+								<label for="noidung" class="form-label">Nội dung quảng cáo</label>
+								<textarea class="form-control" name="noidung" id="noidung" rows="4"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<p class="fw-bold m-0">Thông tin công ty</p>
+						<div class="row">
+							<div>
+								<label for="tencongty" class="form-label">Tên công ty</label>
+								<input type="text" class="form-control" id="tencongty" name="tencongty" placeholder="">
+							</div>
+						</div>
+						<div class="row">
+							<div>
+								<label for="diachicongty" class="form-label">Địa chỉ công ty</label>
+								<input type="text" class="form-control" id="diachicongty" name="diachicongty" placeholder="">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-7">
+								<label for="email" class="form-label">Email</label>
+								<input type="text" class="form-control" id="email" name="email" placeholder="">
+							</div>
+							<div class="col-5">
+								<label for="dienthoai" class="form-label">Điện thoại</label>
+								<input type="text" class="form-control" id="dienthoai" name="dienthoai" placeholder="">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<label for="ngaybatdau" class="form-label">Từ ngày</label>
+								<input type="date" class="form-control" name="ngaybatdau" placeholder="dd/mm/yyyy" required>
+							</div>
+							<div class="col-6">
+								<label for="ngayketthuc" class="form-label">Đến ngày</label>
+								<input type="date" class="form-control" name="ngayketthuc" placeholder="dd/mm/yyyy" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<input type="hidden" name="bangqcid" id="bangqcid" value="" />
+			<input type="hidden" name="diemdatid" id="diemdatid" value="" />
+			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+			Hủy
+			</button>
+			<button type="submit" class="btn btn-primary">
+			Gửi
+			</button>
+		</div>
+		</div>
+	</form>
+	</div>
+</div>
+
 <script>
     function showEditBangQCModal(btn){
 		document.querySelector("#id").value = btn.dataset.id;
@@ -186,6 +283,24 @@
 		let formattedDate = `${year}-${month}-${day}`;
 
 		document.querySelector("#ngayhethanEdit").value = formattedDate;
+	}
+
+	function showCapPhepModal(btn){
+		document.querySelector("#bangqcid").value = btn.dataset.bangqcid;
+		document.querySelector("#diemdatid").value = btn.dataset.diemdatid;
+		document.querySelector("#diemdat").value = btn.dataset.diemdat;
+		document.querySelector("#bangqc").value = btn.dataset.bangqc;
+	}
+	var previewFile = function (event) {
+		var input = event.target;
+
+    	var reader = new FileReader();
+    	reader.onload = function(){
+			var dataURL = reader.result;
+			var output = document.getElementById('preview');
+			output.src = dataURL;
+    	};
+    	reader.readAsDataURL(input.files[0]);
 	}
 
     const chBoxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]'); 
