@@ -15,12 +15,27 @@
 					</button>
 				</div>
 				<div class="me-3">
-					<button type="button" class="btn btn-white border">View all</button>
+					<div class="d-flex flex-row">
+						<form method="get" action="/so/qlbangqc" class="d-flex flex-row">
+							<select id="quan" name="quan" class="form-control form-select me-3">
+								<option value="#">Chọn Quận</option>
+								{{#each quans}}
+									<option value="{{id}}">{{Ten}}</option>
+								{{/each}}
+							</select>
+							<select id="phuong" name="phuong" class="form-control form-select" disabled>
+								<option value="#">Chọn Phường</option>
+								{{#each phuongs}}
+									<option data-value="{{QuanId}}" value="{{id}}">{{Ten}}</option>
+								{{/each}}
+							</select>
+							<button type="submit" class="btn border"><i class="bi bi-search"></i></button>
+						</form>
+					</div>
 				</div>
-				<div class="input-group">
-					<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
-					<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
-				  </div>
+				<div class="me-3">
+					<a href="/so/qlbangqc" type="button" class="btn btn-white border">View all</a>
+				</div>
 			</div>
 		</div>
 
@@ -290,6 +305,29 @@
 				myModal.hide();
 			});
 		});
+	});
+
+	document.getElementById('quan').addEventListener('change', function() {
+		var selectedQuan = this.value;
+		var phuongSelect = document.getElementById('phuong');
+		if (selectedQuan === "#") {
+			phuongSelect.value = "#";
+			phuongSelect.disabled = true;
+			return;
+		}
+		phuongSelect.disabled = false;
+		phuongSelect.value = "#";
+		var phuongOptions = document.getElementById('phuong').options;
+
+		for (var i = 0; i < phuongOptions.length; i++) {
+			var option = phuongOptions[i];
+			var optionDataValue = option.getAttribute('data-value');
+			if (parseInt(optionDataValue) === parseInt(selectedQuan)) {
+			option.style.display = '';
+			} else {
+			option.style.display = 'none';
+			}
+		}
 	});
 
 </script>

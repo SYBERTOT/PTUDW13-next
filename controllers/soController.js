@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10; // Number of salt rounds for bcrypt hashing
 
 controller.qldiemdat = async (req, res) => {
+	let quan = req.query.quan;
+	let phuong = req.query.phuong;
 	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
 		attributes: [ "id", "Ten"]
 	});
@@ -19,6 +21,48 @@ controller.qldiemdat = async (req, res) => {
 	res.locals.phuongs = await models.Phuong.findAll({
 		attributes: [ "id", "Ten", "QuanId"]
 	});
+	if(quan)
+	{
+		let tenQuan = await models.Quan.findOne({
+			attributes: [ "id", "Ten"],
+			where: {
+				id: quan
+			}
+		});
+		let khuvuc = tenQuan.Ten;
+		if (phuong && phuong !='#') {
+			let tenPhuong = await models.Phuong.findOne({
+				attributes: [ "id", "Ten"],
+				where: {
+					id: phuong
+				}
+			});
+			khuvuc = tenPhuong.Ten + ', ' + tenQuan.Ten;
+		};
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			order: [["createdAt", "DESC"]],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				}
+			}
+		  });
+		res.render('qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutso"});
+	}
+	else{
 	res.locals.diemdats = await models.DiemDat.findAll({
 		attributes: [
 		  "id",
@@ -35,7 +79,7 @@ controller.qldiemdat = async (req, res) => {
 			{ model: models.HinhThucDiemDat}
 		],
 	  });
-	res.render('qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutso"});
+	res.render('qldiemdat', { title: "Quản lý điểm đặt" , quanly: true , layout: "layoutso"});}
 }
 controller.taoDiemDat = async(req, res) => {
 	let { diachi, khuvuc, ploai, hthuc } = req.body;
@@ -97,11 +141,19 @@ controller.xoaDiemDat  = async(req,res) => {
 
 controller.qlbangqc = async (req, res) => {
 	let diemdat = req.query.diemdat;
+	let quan = req.query.quan;
+	let phuong = req.query.phuong;
 	res.locals.loaidiemdats = await models.LoaiDiemDat.findAll({
 		attributes: [ "id", "Ten"]
 	});
 	res.locals.hinhthucdiemdats = await models.HinhThucDiemDat.findAll({
 		attributes: [ "id", "Ten"]
+	});
+	res.locals.quans = await models.Quan.findAll({
+		attributes: [ "id", "Ten"]
+	});
+	res.locals.phuongs = await models.Phuong.findAll({
+		attributes: [ "id", "Ten", "QuanId"]
 	});
 	if (diemdat) {
 		res.locals.diemdats = await models.DiemDat.findAll({
@@ -144,6 +196,67 @@ controller.qlbangqc = async (req, res) => {
 		});
 		res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});
 	}
+	else if(quan)
+	{
+		let tenQuan = await models.Quan.findOne({
+			attributes: [ "id", "Ten"],
+			where: {
+				id: quan
+			}
+		});
+		let khuvuc = tenQuan.Ten;
+		if (phuong && phuong !='#') {
+			let tenPhuong = await models.Phuong.findOne({
+				attributes: [ "id", "Ten"],
+				where: {
+					id: phuong
+				}
+			});
+			khuvuc = tenPhuong.Ten + ', ' + tenQuan.Ten;
+		};
+
+		res.locals.diemdats = await models.DiemDat.findAll({
+			attributes: [
+			  "id",
+			  "DiaChi",
+			  "KhuVuc",
+			  "DiaChiAnh",
+			  "QuyHoach",
+			  "HinhThucDiemDatId",
+			  "LoaiDiemDatId",
+			],
+			include: [
+				{ model: models.LoaiDiemDat },
+				{ model: models.HinhThucDiemDat}
+			],
+			where: {
+				KhuVuc: {
+					[Op.endsWith]: khuvuc
+				}
+			}
+		  });
+		
+		var diemdatIds = res.locals.diemdats.map(diemdat => diemdat.id);
+		res.locals.bangquangcaos = await models.BangQuangCao.findAll({
+			attributes: [ 
+				"id",
+				"KichThuoc",
+				"DiaChiAnh",
+				"NgayHetHan",
+				"DiemDatId",
+				"LoaiBangQuangCaoId"],
+			include: [
+				{model : models.DiemDat},
+				{ model: models.LoaiBangQuangCao }
+			],
+			where: {
+				DiemDatId: {
+					[Op.in]: diemdatIds
+				}
+			}
+		});
+		res.render('qlbangqc', { title: "Quản lý bảng quảng cáo" , quanly: true , layout: "layoutso"});
+	} 
 	else {
 		res.locals.diemdats = await models.DiemDat.findAll({
 			attributes: [
@@ -230,6 +343,9 @@ controller.xoaBangQC  = async(req,res) => {
 };
 
 controller.qltaikhoan = async (req, res) => {
+	let quan = req.query.quanSearch;
+	let phuong = req.query.phuongSearch;
+	
 	res.locals.loaitaikhoans = await models.LoaiTaiKhoan.findAll({
 		attributes: [ "id", "HoTen"],
 		where: {
@@ -244,7 +360,54 @@ controller.qltaikhoan = async (req, res) => {
 	res.locals.phuongs = await models.Phuong.findAll({
 		attributes: [ "id", "Ten", "QuanId"]
 	});
-	res.locals.taikhoans = await models.TaiKhoan.findAll({
+	
+	if(quan)
+	{
+		let tenQuan = await models.Quan.findOne({
+			attributes: [ "id", "Ten"],
+			where: {
+				id: quan
+			}
+		});
+		let khuvuc = tenQuan.Ten;
+		if (phuong && phuong !='#') {
+			let tenPhuong = await models.Phuong.findOne({
+				attributes: [ "id", "Ten"],
+				where: {
+					id: phuong
+				}
+			});
+			khuvuc = tenPhuong.Ten + ', ' + tenQuan.Ten;
+		};
+		res.locals.taikhoans = await models.TaiKhoan.findAll({
+			attributes: [
+			  "id",
+			  "HoTen",
+			  "NgaySinh",
+			  "Email",
+			  "DienThoai",
+			  "KhuVuc",
+			  "TenTaiKhoan",
+			  "LoaiTaiKhoanId",
+			],
+			order: [["createdAt", "DESC"]],
+			include: [
+				{ model: models.LoaiTaiKhoan}
+			],
+			where: {
+				LoaiTaiKhoanId: {
+					[Op.ne]: 3
+				},
+				KhuVuc:{
+				[Op.endsWith]: khuvuc
+			}
+			}
+		  });
+		res.render('qltaikhoan', { title: "Quản lý tài khoản" , quanly: true , layout: "layoutso"});
+	}
+	else 
+	{
+		res.locals.taikhoans = await models.TaiKhoan.findAll({
 		attributes: [
 		  "id",
 		  "HoTen",
@@ -265,7 +428,7 @@ controller.qltaikhoan = async (req, res) => {
 			}
 		}
 	  });
-	res.render('qltaikhoan', { title: "Quản lý tài khoản" , quanly: true , layout: "layoutso", checkedPhuongs: []});
+	res.render('qltaikhoan', { title: "Quản lý tài khoản" , quanly: true , layout: "layoutso"});}
 }
 controller.taoTaiKhoan = async(req, res) => {
 	let { username, loaitk, phuong, quan } = req.body;
@@ -499,7 +662,7 @@ controller.thongTin = async (req, res) => {
         where: { id: res.locals.taikhoan.id },
     });
 	taikhoan.NgaySinh.value = new Date(taikhoan.NgaySinh).toISOString().split('T')[0];
-    res.render("thongtin_so", {layout: "layoutcanbo", taikhoan});
+    res.render("thongtin_so", {layout: "layoutso", taikhoan});
 };
 
 controller.CapNhatThongTin = async (req, res) =>{

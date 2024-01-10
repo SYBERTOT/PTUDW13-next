@@ -12,46 +12,33 @@
 					<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themTaiKhoanModal">
 						<i class="bi bi-plus"></i> Tạo tài khoản cán bộ</button>
 				</div>
-				<!--
+				
 				<div class="me-3">
-					<form method = "get" action ="/canbo/xlbaocao">
-						<div class="dropdown"> 
-							<button class="btn btn-primary dropdown-toggle"
-									type="button" 
-									id="multiSelectDropdown"
-									data-bs-toggle="dropdown" 
-									aria-expanded="false"> 
-								Chọn Phường 
-							</button> 
-							<ul class="dropdown-menu" 
-								aria-labelledby="multiSelectDropdown"> 
-								{{#each phuongs}}
-								<li> 
-									<label> 
-										<input type="checkbox" 
-											value="{{id}}" name="phuong" {{#if (isInArray id (json ../checkedPhuongs))}}checked{{/if}}> 
-										{{Ten}} 
-									</label> 
-								</li> 
+					<div class="d-flex flex-row">
+						<form method="get" action="/so/qltaikhoan" class="d-flex flex-row">
+							<select id="quanSearch" name="quanSearch" class="form-control form-select me-3">
+								<option value="#">Chọn Quận</option>
+								{{#each quans}}
+									<option value="{{id}}">{{Ten}}</option>
 								{{/each}}
-								<button type="submit" class="btn btn-sm btn-primary float-end">Áp dụng</button>
-							</ul> 
-						</div> 
-					</form>
-				</div>-->
-				<div class="me-3">
-					<a href="/canbo/xlbaocao" type="button" class="btn btn-white border">View all</a>
+							</select>
+							<select id="phuongSearch" name="phuongSearch" class="form-control form-select" disabled>
+								<option value="#">Chọn Phường</option>
+								{{#each phuongs}}
+									<option data-value="{{QuanId}}" value="{{id}}">{{Ten}}</option>
+								{{/each}}
+							</select>
+							<button type="submit" class="btn border"><i class="bi bi-search"></i></button>
+						</form>
+					</div>
 				</div>
 				<div class="me-3">
-					<form method = "get" action ="/canbo/xlbaocao">
-						<div class="input-group">
-							<input type="text" name="search" class="form-control" placeholder="Tìm kiếm" aria-label="search">
-							<button type="submit" class="btn border"><i class="bi bi-search"></i></button>
-						</div>
-					</form>
+					<a href="/so/qltaikhoan" type="button" class="btn btn-white border">View all</a>
 				</div>
 			</div>
 		</div>
+
+
 		<div class="table-responsive mt-3">
 			<table class="table table-hover container-fluid w-100">
 				<thead>
@@ -407,35 +394,7 @@
 		}
 	});
 
-	const chBoxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]'); 
-    const dpBtn = document.getElementById('multiSelectDropdown'); 
-    let mySelectedListItems = [];
-
-    function handleCB() { 
-        mySelectedListItems = []; 
-        let mySelectedListItemsText = ''; 
-  
-        chBoxes.forEach((checkbox) => { 
-            if (checkbox.checked) { 
-                mySelectedListItems.push(checkbox.value); 
-                let labelText = checkbox.parentNode.textContent.trim();
-            	mySelectedListItemsText += labelText + ', '; 
-            } 
-        }); 
-  
-		if (mySelectedListItems.length > 3) {
-			dpBtn.innerText = 'Đã chọn (' + mySelectedListItems.length + ')';
-		} else {
-			dpBtn.innerText = 
-			mySelectedListItems.length > 0 
-			? mySelectedListItemsText.slice(0, -2) : 'Chọn Phường'; 
-		} 
-	} 
-  
-	chBoxes.forEach((checkbox) => { 
-		checkbox.addEventListener('change', handleCB); 
-	}); 
-	handleCB();
+	
 
 	document.getElementById('quan').addEventListener('change', function() {
 		var selectedQuan = this.value;
@@ -470,4 +429,28 @@
 			phuongList.value = "#";
 		}
 	});
+
+	document.getElementById('quanSearch').addEventListener('change', function() {
+		var selectedQuan = this.value;
+		var phuongSelect = document.getElementById('phuongSearch');
+		if (selectedQuan === "#") {
+			phuongSelect.value = "#";
+			phuongSelect.disabled = true;
+			return;
+		}
+		phuongSelect.disabled = false;
+		phuongSelect.value = "#";
+		var phuongOptions = document.getElementById('phuongSearch').options;
+
+		for (var i = 0; i < phuongOptions.length; i++) {
+			var option = phuongOptions[i];
+			var optionDataValue = option.getAttribute('data-value');
+			if (parseInt(optionDataValue) === parseInt(selectedQuan)) {
+			option.style.display = '';
+			} else {
+			option.style.display = 'none';
+			}
+		}
+	});
+
 </script>
