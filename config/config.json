@@ -11,5 +11,33 @@
         "rejectUnauthorized": false 
       }
     }
+  },
+  "test": {
+    "username": "lttrung",
+    "password": "bnlF5Sp5fzurqCaPMB0YizAHZjJkB7dE",
+    "database": "ptudw13",
+    "host": "dpg-clo1d4f5felc73a0vaa0-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions":{
+      "ssl": {
+        "require":true,
+        "rejectUnauthorized": false 
+      }
+    }
+  },
+  "production": {
+    "username": "lttrung",
+    "password": "bnlF5Sp5fzurqCaPMB0YizAHZjJkB7dE",
+    "database": "ptudw13",
+    "host": "dpg-clo1d4f5felc73a0vaa0-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions":{
+      "ssl": {
+        "require":true,
+        "rejectUnauthorized": false 
+      }
+    }
   }
 }
+
+
