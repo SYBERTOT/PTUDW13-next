@@ -23,4 +23,9 @@ router.delete("/qltaikhoan/:id", controller.xoaTaiKhoan);
 
 router.get("/pheduyet", controller.pheduyet);
 router.put("/pheduyet", controller.capnhatPheDuyetCapPhep);
+
+router.post("/capnhat",controller.CapNhatThongTin);
+router.post("/doimatkhau", controller.doiMatKhau);
+router.get('/thongtin', controller.thongTin);
+
 module.exports = router;

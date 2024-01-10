@@ -16,7 +16,7 @@
 				</button>
 			</div>
 			<div class="me-3">
-					<form method = "get" action ="/quan/xlcapphep">
+					<form method = "get" action ="/canbo/xlcapphep">
 						<div class="dropdown"> 
 							<button class="btn btn-primary dropdown-toggle"
 									type="button" 
@@ -42,10 +42,10 @@
 					</form>
 				</div>
 				<div class="me-3">
-					<a href="/quan/xlcapphep" type="button" class="btn btn-white border">View all</a>
+					<a href="/canbo/xlcapphep" type="button" class="btn btn-white border">View all</a>
 				</div>
 				<div class="me-3">
-					<form method = "get" action ="/quan/xlcapphep">
+					<form method = "get" action ="/canbo/xlcapphep">
 						<div class="input-group">
 							<input type="text" name="search" class="form-control" placeholder="Tìm kiếm" aria-label="search">
 							<button type="submit" class="btn border"><i class="bi bi-search"></i></button>
@@ -167,7 +167,7 @@
 <!--Modal tạo cấp phép-->
 <div class="modal fade" id="taoCapPhepModal" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-	<form action="/quan/xlcapphep" id="taoCapPhepForm" method="POST" enctype="multipart/form-data">
+	<form action="/canbo/xlcapphep" id="taoCapPhepForm" method="POST" enctype="multipart/form-data">
 		<div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title" id="userModalTitle">
@@ -279,7 +279,7 @@
 	}
 
 	async function xoaCapPhep(id){
-	let res= await fetch(`/quan/xlcapphep/${id}`, {
+	let res= await fetch(`/canbo/xlcapphep/${id}`, {
 	  method: "DELETE",
 	});
 	location.reload();

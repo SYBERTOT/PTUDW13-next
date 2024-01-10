@@ -8,7 +8,7 @@
         <h5 class="card-header">Thông tin tài khoản</h5>
         <!-- Account -->
         <div class="card-body">
-          <form action="/canbo/capnhat" method="POST" onsubmit="return checkTT()">
+          <form action="/so/capnhat" method="POST" onsubmit="return checkTT()">
             <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="firstName" class="form-label">Họ tên</label>
@@ -51,7 +51,7 @@
         <h5 class="card-header">Đổi mật khẩu</h5>
         <div class="card-body">
 
-          <form action="/canbo/doimatkhau" method="POST" onsubmit="return checkPsw()">
+          <form action="/so/doimatkhau" method="POST" onsubmit="return checkPsw()">
             <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="MkCu" class="form-label">Mật khẩu cũ</label>
@@ -88,7 +88,7 @@ function checkTT(){
     const DienThoai = document.getElementById('DienThoai').value;
     const NgaySinh = document.getElementById('NgaySinh').value;
     // Make an AJAX request to the server using fetch
-    fetch('/canbo/capnhat', {
+    fetch('/so/capnhat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ function checkPsw(){
         //alert('Oke hết gòi');
         console.log(id, MkCu, MkMoi, MkXacNhan);
         // Make an AJAX request to the server using fetch
-        fetch('/canbo/doimatkhau', {
+        fetch('/so/doimatkhau', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 const controller = {};
 const models = require("../models");
 const { Op } = require('sequelize');
-
+const bcrypt = require('bcrypt');
 const sendAnnouncementEmail = require('../html/js/sendAnnouncementEmail');
 
 controller.show = async (req, res) => {
@@ -924,23 +924,21 @@ controller.taoCapPhep = async(req, res) => {
 
 controller.thongTin = async (req, res) => {
     let taikhoan = await models.TaiKhoan.findOne({
-        attributes: [ "id", "HoTen", "TenTaiKhoan", "Email", "MatKhau", "KhuVuc", "DienThoai"],
+        attributes: [ "id", "HoTen", "TenTaiKhoan", "Email", "MatKhau", "KhuVuc", "DienThoai", "NgaySinh"],
         where: { id: res.locals.taikhoan.id },
     });
+	taikhoan.NgaySinh.value = new Date(taikhoan.NgaySinh).toISOString().split('T')[0];
     res.render("thongtin", {layout: "layoutcanbo", taikhoan});
 };
 
-
-
-
 controller.CapNhatThongTin = async (req, res) =>{
-	let{id, HoTen, Email, DienThoai} = req.body;
-	console.log(req.body);
+	let{id, HoTen, Email, DienThoai, NgaySinh} = req.body;
 	try {
 		await models.TaiKhoan.update({
 			HoTen,
 			Email,
-			DienThoai
+			DienThoai,
+			NgaySinh
 		}, {where:{id: id}});
 		res.json({msg: 'true'});
 	} 	catch(error)
