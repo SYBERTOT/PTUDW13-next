@@ -517,7 +517,7 @@ controller.xlbaocao = async (req, res) => {
 			}
 		});
 		res.locals.baocaos = await models.BaoCao.findAll({
-			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "HinhThucXuLy"],
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "HinhThucXuLy", "DiaChi"],
 			include: [
 				{ model: models.DiemDat },
 				{
@@ -530,9 +530,14 @@ controller.xlbaocao = async (req, res) => {
 				{ model: models.HinhThucBaoCao },
 			],
 			where: {
-				DiemDatId: {
-					[Op.in]: diemdatIds
-				},
+				[Op.or]: {
+					DiemDatId: {
+						[Op.in]: diemdatIds
+					},
+					DiaChi: {
+						[Op.like]: `%${search}%`
+					}
+				  }
 			}
 		});
 		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutcanbo", checkedPhuongs: []});
@@ -560,6 +565,11 @@ controller.xlbaocao = async (req, res) => {
 		else {
 			phuongTens.push(getPhuongs.Ten);
 		}
+		const parseDiaChi = phuongTens.map(phuongTen => {
+			return {
+			  [Op.like]: `%${phuongTen}%`
+			};
+		});
 		res.locals.diemdats = await models.DiemDat.findAll({
 			attributes: [ "id", "DiaChi", "KhuVuc"],
 			where: {
@@ -577,11 +587,11 @@ controller.xlbaocao = async (req, res) => {
 			where: {
 				DiemDatId: {
 					[Op.in]: diemdatIds
-				}
+				},
 			}
 		});
 		res.locals.baocaos = await models.BaoCao.findAll({
-			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId"],
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "DiaChi"],
 			include: [
 				{ model: models.DiemDat },
 				{
@@ -594,9 +604,14 @@ controller.xlbaocao = async (req, res) => {
 				{ model: models.HinhThucBaoCao },
 			],
 			where: {
-				DiemDatId: {
-					[Op.in]: diemdatIds
-				},
+				[Op.or]: {
+					DiemDatId: {
+						[Op.in]: diemdatIds
+					},
+					DiaChi: {
+						[Op.or]: parseDiaChi
+					}
+				}
 			}
 		});
 		req.session.checkedPhuongs = phuongArray;
@@ -624,7 +639,7 @@ controller.xlbaocao = async (req, res) => {
 			}
 		});
 		res.locals.baocaos = await models.BaoCao.findAll({
-			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId"],
+			attributes: [ "id", "createdAt", "NoiDung", "HoTen", "Email", "DienThoai", "laDiemDat", "HinhThucBaoCaoId", "DiemDatId", "BangQuangCaoId", "XuLy", "TaiKhoanId", "DiaChi"],
 			include: [
 				{ model: models.DiemDat },
 				{
@@ -637,9 +652,14 @@ controller.xlbaocao = async (req, res) => {
 				{ model: models.HinhThucBaoCao },
 			],
 			where: {
-				DiemDatId: {
-					[Op.in]: diemdatIds
-				},
+				[Op.or]: {
+					DiemDatId: {
+						[Op.in]: diemdatIds
+					},
+					DiaChi: {
+						[Op.like]: `%${khuvuc}%`
+					}
+				  }
 			}
 		});
 		res.render('xlbaocao', { title: "Xử lý báo cáo" , xuly: true , layout: "layoutcanbo", checkedPhuongs: []});

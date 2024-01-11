@@ -58,9 +58,12 @@ app.engine(
 			},
 			isInArray: (value, array) => {
 				return array.includes(value);
-			}
 			},   
-		}),
+			isDefined: (value) => {
+				return value !== null;
+			}
+		}
+	}),
 );
 app.set("view engine","hbs");
 
