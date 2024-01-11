@@ -293,12 +293,6 @@
 	location.reload();
   	}
   
-	async function deleteBangQC(id){
-	let res= await fetch(`/so/qlbangqc/${id}`, {
-	  method: "DELETE",
-	});
-	location.reload();
-  }
     function showEditHTDDModal(btn){
 		document.querySelector("#idHTDDEdit").value = btn.dataset.id;
 		document.querySelector("#tenHTDiemDatEdit").value = btn.dataset.ten;
@@ -328,7 +322,7 @@
 			});
 			document.querySelector("#confirmXoaHTDD").innerHTML = `Bạn chắc muốn xóa hình thức điểm đặt ${e.target.dataset.ten} chứ? Hành động này không thể hoàn tác.`;
 			myModal.show();
-			document.getElementById('xoaQuanButton').addEventListener('click', function() {
+			document.getElementById('xoaHTDDButton').addEventListener('click', function() {
 				xoaHTDD(id);
 				myModal.hide();
 			});

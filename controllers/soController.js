@@ -808,5 +808,92 @@ controller.capnhatPhuong = async(req,res) => {
 		}
 }
 
+controller.themHTDD = async(req, res) => {
+	let { tenHTDiemDat } = req.body;
+
+	try{
+		await models.HinhThucDiemDat.create({
+			Ten: tenHTDiemDat,
+		});
+		res.redirect("/so/qldanhsach");
+	}	catch(error)
+	{
+		res.send("Không thể tạo!");
+		console.error(error);
+	}
+}
+
+controller.themHTBC = async(req, res) => {
+	let { tenHTBaoCao } = req.body;
+
+	try{
+		await models.HinhThucBaoCao.create({
+			Ten: tenHTBaoCao,
+		});
+		res.redirect("/so/qldanhsach");
+	}	catch(error)
+	{
+		res.send("Không thể tạo!");
+		console.error(error);
+	}
+}
+
+controller.xoaHTDD = async(req,res) => {
+	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
+	try
+	{
+		await models.HinhThucDiemDat.destroy({where: {id}});
+		res.send("Hình thức quảng cáo đã bị xóa");
+	}	catch(error){
+		res.send("Không thể xóa");
+		console.error(error);
+	}
+}
+
+controller.xoaHTBC = async(req,res) => {
+	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
+	try
+	{
+		await models.HinhThucBaoCao.destroy({where: {id}});
+		res.send("Hình thức báo cáo đã bị xóa");
+	}	catch(error){
+		res.send("Không thể xóa");
+		console.error(error);
+	}
+}
+
+controller.capnhatHTDD = async(req,res) => {
+	let { id, tenHTDiemDat } = req.body;
+	try {
+		await models.HinhThucDiemDat.update({
+			Ten: tenHTDiemDat
+		},
+		{
+			where: { id: id }
+		});
+		res.send("Tên hình thức quảng cáo đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+}
+
+controller.capnhatHTBC = async(req,res) => {
+	let { id, tenHTBaoCao } = req.body;
+	try {
+		await models.HinhThucBaoCao.update({
+			Ten: tenHTBaoCao
+		},
+		{
+			where: { id: id }
+		});
+		res.send("Tên hình thức báo cáo đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+}
 
 module.exports = controller;

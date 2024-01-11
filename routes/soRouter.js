@@ -36,4 +36,11 @@ router.delete("/xoaphuong/:id", controller.xoaPhuong);
 router.put("/editQuan", controller.capnhatQuan);
 router.put("/editPhuong", controller.capnhatPhuong);
 
+router.post("/themHTDiemDat", controller.themHTDD);
+router.post("/themHTBaoCao", controller.themHTBC);
+router.delete("/xoaHTDD/:id", controller.xoaHTDD);
+router.delete("/xoaHTBC/:id", controller.xoaHTBC);
+router.put("/capnhatHTDD", controller.capnhatHTDD);
+router.put("/capnhatHTBC", controller.capnhatHTBC)
+
 module.exports = router;
