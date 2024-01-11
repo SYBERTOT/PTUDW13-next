@@ -88,7 +88,7 @@ controller.taoDiemDat = async(req, res) => {
 		let response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
 			params: {
 				address: diachi,
-				key: 'AIzaSyDt120eTlsyh12W98U99SiSpaSfSs4XOvE' 
+				key: 'AIzaSyDMClFFRi9fjEqedH3P6jIueg6DYzQnB_g' 
 			}
 		});
 		let location = response.data.results[0].geometry.location;
@@ -97,8 +97,8 @@ controller.taoDiemDat = async(req, res) => {
 			KhuVuc: khuvuc,
 			LoaiDiemDatId: ploai,
 			HinhThucDiemDatId: hthuc,
-			KinhDo: toString(location.lng),
-			ViDo: toString(location.lat)
+			KinhDo: location.lat.toString(),
+			ViDo: location.lng.toString(),
 		});
 		res.redirect("/so/qldiemdat");
 	}	catch(error)
