@@ -75,6 +75,11 @@ controller.dsBaoCao = async (req, res) => {
 					BaoCaoDaGuis[i].TenBangQC = "Bảng QC: " + loaiBangQC.Ten;
 				}
 			}
+
+			console.log(BaoCaoDaGuis[i].TenDiemDat);
+			console.log(BaoCaoDaGuis[i].TenBangQC);
+			console.log(BaoCaoDaGuis[i].DiaChi);
+
 			const hinhthucInfo = await models.HinhThucBaoCao.findByPk(baoCao.HinhThucBaoCaoId);
 			BaoCaoDaGuis[i].HinhThucBaoCao = hinhthucInfo.Ten;
 
