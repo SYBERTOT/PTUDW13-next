@@ -11,36 +11,49 @@
 		<div class="row">
 			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
 				<div class="me-3">
-					<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themBangQCModal">
-							<i class="bi bi-plus"></i> Thêm bảng quảng cáo
+					<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themQuanModal">
+							<i class="bi bi-plus"></i> Thêm quận
 					</button>
 				</div>
-				<div class="me-3">
-					<button type="button" class="btn btn-white border">View all</button>
-				</div>
-				<div class="input-group">
-					<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
-					<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
-				  </div>
 			</div>
 		</div>
 
 		<!--card set-->
 		<div class="row mx-3">
-			<div class="accordion" id="accordionExample">
+			<div class="accordion accordion-flush" id="accordionExample">
 				{{#each quans}}
 					<div class="accordion-item">
-						<h2 class="accordion-header" id="heading{{id}}">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{id}}" aria-expanded="true" aria-controls="collapse{{id}}">
-								{{Ten}}
-							</button>
-						</h2>
+						<div class="d-flex justify-content-between">
+							<h2 class="accordion-header" id="heading{{id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{id}}" aria-expanded="true" aria-controls="collapse{{id}}">
+									{{Ten}}
+								</button>
+							</h2>
+							<div class="justify-content-end mt-3 me-3">
+								<i role="button" class="bi bi-plus-square-fill me-3" data-bs-toggle="modal" data-bs-target="#themPhuongModal" onclick="showThemPhuongModal(this)"
+								data-idquan="{{id}}" data-tenquan="{{Ten}}"></i>
+								<i role="button" class="bi bi-pen-fill me-3" data-bs-toggle="modal" data-bs-target="#editQuanModal" onclick="showEditQuanModal(this)" 
+								data-idquan="{{id}}" data-tenquan="{{Ten}}"></i>
+								<i role="button" class="bi bi-trash-fill xoaQuan-btn" 
+								data-idquan="{{id}}" data-tenquan="{{Ten}}"></i>
+							</div>
+						</div>
 						<div id="collapse{{id}}" class="accordion-collapse collapse" aria-labelledby="heading{{id}}" data-bs-parent="#accordionExample">
 							<div class="accordion-body">
 								<ul class="list-group">
 								{{#each ../phuongs}}
 									{{#eq QuanId ../id}}
-										<li class="list-group-item">{{../Ten}}</li>
+										<li class="list-group-item">
+										<div class="d-flex justify-content-between">
+											{{../Ten}}
+										<div class="justify-content-end me-3">
+											<i role="button" class="bi bi-pen-fill me-3" data-bs-toggle="modal" data-bs-target="#editPhuongModal" onclick="showEditPhuongModal(this)"
+											data-idphuong="{{../id}}" data-tenphuong="{{../Ten}}"></i>
+											<i role="button" class="bi bi-trash-fill xoaPhuong-btn" 
+											data-idphuong="{{../id}}" data-tenphuong="{{../Ten}}"></i>
+										</div>
+										</div>
+										</li>
 									{{/eq}}
 								{{/each}}
 								</ul>
@@ -55,72 +68,137 @@
 
   </main>
 
-  <!--Modal chinh sua-->
-  <div class="modal fade" id="editBangQCModal" tabindex="-1" aria-hidden="true">
+ 
+
+<!--Modal confirm xóa quận-->
+<div class="modal fade" tabindex="-1" id="xoaQuanModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+		<div class="modal-header">
+        <h5 class="modal-title">Xóa Quận </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmXoaQuan">Bạn chắc muốn xóa Quận này chứ? Hành động này không thể hoàn tác.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" id="xoaQuanButton">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="xoaPhuongModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+		<div class="modal-header">
+        <h5 class="modal-title">Xóa Phường</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmXoaPhuong">Bạn chắc muốn xóa Phường này chứ? Hành động này không thể hoàn tác.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" id="xoaPhuongButton">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal thêm quận-->
+<div class="modal fade" id="themQuanModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<form action="/so/themquan" id="themQuan" method="POST">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="userModalTitle">
+				Thêm Quận
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div>
+					<label for="tenquan" class="form-label">Tên Quận</label>
+					<input type="text" class="form-control" id="tenquan" name="tenquan" placeholder="Quận 1">
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+			Hủy
+			</button>
+			<button type="submit" class="btn btn-primary">
+			Lưu
+			</button>
+		</div>
+		</div>
+	</form>
+	</div>
+</div>
+
+<!--Modal thêm phường từ quận -->
+<div class="modal fade" id="themPhuongModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<form action="/so/themphuong" id="themQuan" method="POST">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="themPhuongTitle">
+				Thêm Phường
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div>
+					<label for="tenphuong" class="form-label">Tên Phường</label>
+					<input type="text" class="form-control" id="tenphuong" name="tenphuong" placeholder="Phường 1">
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal-footer">
+			<input type="hidden" name="idquan" id="idquanAdd" value="" />
+			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+			Hủy
+			</button>
+			<button type="submit" class="btn btn-primary">
+			Lưu
+			</button>
+		</div>
+		</div>
+	</form>
+	</div>
+</div>
+
+ <!--Modal chỉnh quận-->
+  <div class="modal fade" id="editQuanModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <form action="" id="editBangQCForm" onsubmit="editBangQC(event)">
+      <form action="" id="editQuanForm" onsubmit="editQuan(event)">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Chỉnh sửa thông tin điểm đặt quảng cáo
+              Chỉnh sửa thông tin quận
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           	<div class="modal-body">
-			<div class="container-fluid">
+				<div class="container-fluid">
 				<div class="row">
-					<p class="fw-bold m-0">Thông tin chỉnh sửa</p>
-					<div class="row">
-						<div>
-							<label for="diemdatEdit" class="form-label">Địa chỉ</label>
-							<select id="diemdatEdit" name="diemdat" class="form-control form-select">
-								{{#each diemdats}}
-            						<option value="{{id}}">{{DiaChi}}</option>
-								{{/each}}
-        					</select>
-							</datalist>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="row">
-								<div>
-									<label for="ploaiEdit" class="form-label">Loại bảng quảng cáo</label>
-									<select id="ploaiEdit" name="ploai" class="form-control form-select">
-										{{#each loaibangquangcaos}}
-            								<option value="{{id}}">{{Ten}}</option>
-										{{/each}}
-        							</select>
-								</div>
-							</div>
-							<div class="row">
-								<div>
-									<label for="kichthuocEdit" class="form-label">Kích thước</label>
-									<input type="text" class="form-control" id="kichthuocEdit" name="kichthuoc" placeholder="1mx2m">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div>
-								<label for="img">Hình ảnh</label>
-								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-								<div class="text-end pt-4">
-									<button class="btn btn-primary btn-sm" >Sửa</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div>
-							<label for="ngayhethanEdit" class="form-label">Ngày hết hạn hợp đồng</label>
-							<input type="date" class="form-control" id="ngayhethanEdit" name="ngayhethan" placeholder="dd/mm/yyyy">
-						</div>
-					</div>
+				<div>
+					<label for="tenquanEdit" class="form-label">Tên Quận</label>
+					<input type="text" class="form-control" id="tenquanEdit" name="tenquan" placeholder="Quận 1">
 				</div>
-  			</div>
+				</div>
+			</div>
 			</div>
           <div class="modal-footer">
-            <input type="hidden" name="id" id="id" value="" />
+            <input type="hidden" name="idquan" id="idquanEdit" value="" />
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
               Hủy
             </button>
@@ -133,154 +211,127 @@
     </div>
   </div>
 
-<!--Modal confirm xóa-->
-<div class="modal fade" tabindex="-1" id="confirmModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Xóa bảng quảng cáo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Bạn chắc chứ?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-        <button type="button" class="btn btn-primary" id="confirmButton">Xóa</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Modal thêm điểm đặt-->
-<div class="modal fade" id="themBangQCModal" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	<form action="/so/qlbangqc" id="themBangQCForm" method="POST">
-		<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="userModalTitle">
-				Thêm bảng quảng cáo
-			</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-		<div class="container-fluid">
-			<div class="row">
+<!--Modal chỉnh phường-->
+  <div class="modal fade" id="editPhuongModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="" id="editPhuongForm" onsubmit="editPhuong(event)">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Chỉnh sửa thông tin phường
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          	<div class="modal-body">
+				<div class="container-fluid">
 				<div class="row">
-					<div>
-						<label for="diemdat" class="form-label">Địa chỉ</label>
-						<select id="diemdat" name="diemdat" class="form-control form-select">
-							{{#each diemdats}}
-            					<option value="{{id}}">{{DiaChi}}</option>
-							{{/each}}
-        				</select>
-					</div>
+				<div>
+					<label for="tenphuongEdit" class="form-label">Tên Phường</label>
+					<input type="text" class="form-control" id="tenphuongEdit" name="tenphuong" placeholder="Phường 1">
 				</div>
-				<div class="row">
-					<div class="col-md-8">
-						<div class="row">
-							<div>
-								<label for="ploai" class="form-label">Loại bảng quảng cáo</label>
-								<select id="ploai" name="ploai" class="form-control form-select">
-									{{#each loaibangquangcaos}}
-										<option value="{{id}}">{{Ten}}</option>
-									{{/each}}
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div>
-								<label for="kichthuoc" class="form-label">Kích thước</label>
-								<input type="text" class="form-control" id="kichthuoc" name="kichthuoc" placeholder="1mx2m">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div>
-							<label for="img">Hình ảnh</label>
-							<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-							<div class="text-end pt-4">
-								<button class="btn btn-primary btn-sm" >Sửa</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div>
-						<label for="ngayhethan" class="form-label">Ngày hết hạn hợp đồng</label>
-						<input type="date" class="form-control" id="ngayhethan" name="ngayhethan" placeholder="dd/mm/yyyy">
-					</div>
 				</div>
 			</div>
-		</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
-			Close
-			</button>
-			<button type="submit" class="btn btn-primary">
-			Save
-			</button>
-		</div>
-		</div>
-	</form>
-	</div>
-</div>
+			</div>
+          <div class="modal-footer">
+            <input type="hidden" name="idphuong" id="idphuongEdit" value="" />
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Chỉnh sửa
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
 <script>
-	async function editBangQC(e) {
-	e.preventDefault();
-  
-	const formData = new FormData(document.getElementById("editBangQCForm"));
-	let data = Object.fromEntries(formData.entries());
-  
-	let res = await fetch("/so/qlbangqc", {
-	  method: 'PUT',
-	  headers:{
-		"Content-Type":"application/json",
-	  },
-	  body: JSON.stringify(data),
+	async function editQuan(e) {
+		e.preventDefault();
+	
+		const formData = new FormData(document.getElementById("editQuanForm"));
+		let data = Object.fromEntries(formData.entries());
+	
+		let res = await fetch("/so/editQuan", {
+		method: 'PUT',
+		headers:{
+			"Content-Type":"application/json",
+		},
+		body: JSON.stringify(data),
 	});
   
-	location.reload();
-  }
-  
-	async function deleteBangQC(id){
-	let res= await fetch(`/so/qlbangqc/${id}`, {
-	  method: "DELETE",
+		location.reload();
+  	}
+
+	async function editPhuong(e) {
+		e.preventDefault();
+	
+		const formData = new FormData(document.getElementById("editPhuongForm"));
+		let data = Object.fromEntries(formData.entries());
+	
+		let res = await fetch("/so/editPhuong", {
+		method: 'PUT',
+		headers:{
+			"Content-Type":"application/json",
+		},
+		body: JSON.stringify(data),
 	});
-	location.reload();
-  }
-    function showEditBangQCModal(btn){
-		document.querySelector("#id").value = btn.dataset.id;
-		document.querySelector("#diemdatEdit").value = btn.dataset.diemdat;
-		document.querySelector("#ploaiEdit").value = btn.dataset.ploai;
-		document.querySelector("#kichthuocEdit").value = btn.dataset.kichthuoc;
-		let dateFromData = btn.dataset.ngayhethan; 
-		let dateParts = dateFromData.replace(',','').split(' ');
-		let day = dateParts[0].padStart(2, '0');
-		let month = dateParts[2].padStart(2, '0');
-		let year = dateParts[3];
+  
+		location.reload();
+  	}
+  
+	async function xoaQuan(id){
+		let res= await fetch(`/so/xoaquan/${id}`, {
+		method: "DELETE",
+		});
+		location.reload();
+  	}
+	async function xoaPhuong(id){
+		let res= await fetch(`/so/xoaphuong/${id}`, {
+		method: "DELETE",
+		});
+		location.reload();
+  	}
+    function showEditQuanModal(btn){
+		document.querySelector("#idquanEdit").value = btn.dataset.idquan;
+		document.querySelector("#tenquanEdit").value = btn.dataset.tenquan;
+  	}
+	function showEditPhuongModal(btn){
+		document.querySelector("#idphuongEdit").value = btn.dataset.idphuong;
+		console.log(btn.dataset.idphuong);
+		document.querySelector("#tenphuongEdit").value = btn.dataset.tenphuong;
+  	}
+	function showThemPhuongModal(btn){
+		document.querySelector("#themPhuongTitle").innerHTML = `Thêm Phường cho ${btn.dataset.tenquan}`;
+		document.querySelector("#idquanAdd").value = btn.dataset.idquan;
+ 	 }
 
-		let formattedDate = `${year}-${month}-${day}`;
-
-		document.querySelector("#ngayhethanEdit").value = formattedDate;
-
-  }
-
-	document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
+	document.querySelectorAll(".xoaQuan-btn").forEach((btnConfirm) => {
 		btnConfirm.addEventListener("click", (e) => {
-			let id = e.target.dataset.id;
-
-			// Show the modal
-			var myModal = new bootstrap.Modal(document.getElementById('confirmModal'), {
+			let id = e.target.dataset.idquan;
+			var myModal = new bootstrap.Modal(document.getElementById('xoaQuanModal'), {
 				keyboard: false
 			});
+			document.querySelector("#confirmXoaQuan").innerHTML = `Bạn chắc muốn xóa ${e.target.dataset.tenquan} chứ? Hành động này không thể hoàn tác.`;
 			myModal.show();
+			document.getElementById('xoaQuanButton').addEventListener('click', function() {
+				xoaQuan(id);
+				myModal.hide();
+			});
+		});
+	});
 
-			// Add an event listener to the "Yes" button
-			document.getElementById('confirmButton').addEventListener('click', function() {
-				deleteBangQC(id);
+	document.querySelectorAll(".xoaPhuong-btn").forEach((btnConfirm) => {
+		btnConfirm.addEventListener("click", (e) => {
+			let id = e.target.dataset.idphuong;
+			var myModal = new bootstrap.Modal(document.getElementById('xoaPhuongModal'), {
+				keyboard: false
+			});
+			document.querySelector("#confirmXoaPhuong").innerHTML = `Bạn chắc muốn xóa ${e.target.dataset.tenphuong} chứ? Hành động này không thể hoàn tác.`;
+			myModal.show();
+			document.getElementById('xoaPhuongButton').addEventListener('click', function() {
+				xoaPhuong(id);
 				myModal.hide();
 			});
 		});
