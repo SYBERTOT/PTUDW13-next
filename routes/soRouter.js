@@ -5,6 +5,7 @@ const router = express.Router();
 router.get("/", controller.thongke);
 router.get("/thongke", controller.thongke);
 router.get("/qlquanphuong", controller.qlquanphuong);
+router.get("/qldanhsach", controller.qldanhsach);
 
 router.get("/qldiemdat", controller.qldiemdat);
 router.post("/qldiemdat", controller.taoDiemDat);

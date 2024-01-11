@@ -709,4 +709,14 @@ controller.doiMatKhau = async (req, res) => {
 	} else res.json({msg: 'false'});
 };
 
+controller.qldanhsach = async(req,res) => {
+	res.locals.hinhthucdiemdats = await models.HinhThucDiemDat.findAll({
+		attributes: ["id", "Ten"]
+	});
+	res.locals.hinhthucbaocaos = await models.HinhThucBaoCao.findAll({
+		attributes: ["id", "Ten"]
+	});
+	res.render('qldanhsach', {title:"Quản lý danh sách", quanly: true, layout: "layoutso"})
+}
+
 module.exports = controller;
