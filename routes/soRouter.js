@@ -29,4 +29,11 @@ router.post("/capnhat",controller.CapNhatThongTin);
 router.post("/doimatkhau", controller.doiMatKhau);
 router.get('/thongtin', controller.thongTin);
 
+router.post("/themquan", controller.themQuan);
+router.post("/themphuong", controller.themPhuong);
+router.delete("/xoaquan/:id", controller.xoaQuan);
+router.delete("/xoaphuong/:id", controller.xoaPhuong);
+router.put("/editQuan", controller.capnhatQuan);
+router.put("/editPhuong", controller.capnhatPhuong);
+
 module.exports = router;

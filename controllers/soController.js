@@ -134,7 +134,7 @@ controller.xoaDiemDat  = async(req,res) => {
 		await models.DiemDat.destroy({where: {id}});
 		res.send("Điểm đặt đã bị xóa");
 	}	catch(error){
-		res.send("Không thể xóa tài khoản");
+		res.send("Không thể xóa điểm đặt");
 		console.error(error);
 	}
 };
@@ -718,5 +718,95 @@ controller.qldanhsach = async(req,res) => {
 	});
 	res.render('qldanhsach', {title:"Quản lý danh sách", quanly: true, layout: "layoutso"})
 }
+
+controller.themQuan = async(req,res) => {
+	let { tenquan } = req.body;
+
+	try{
+		await models.Quan.create({
+			Ten: tenquan
+		});
+		res.redirect("/so/qlquanphuong");
+	}	catch(error)
+	{
+		res.send("Không thể tạo quận!");
+		console.error(error);
+	}
+}
+
+controller.themPhuong = async(req,res) => {
+	let { tenphuong, idquan } = req.body;
+
+	try{
+		await models.Phuong.create({
+			Ten: tenphuong,
+			QuanId: idquan
+		});
+		res.redirect("/so/qlquanphuong");
+	}	catch(error)
+	{
+		res.send("Không thể tạo phường!");
+		console.error(error);
+	}
+}
+
+controller.xoaQuan = async(req,res) => {
+	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
+	try
+	{
+		await models.Quan.destroy({where: {id}});
+		res.send("Điểm đặt đã bị xóa");
+	}	catch(error){
+		res.send("Không thể xóa điểm đặt");
+		console.error(error);
+	}
+}
+
+controller.xoaPhuong = async(req,res) => {
+	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
+	try
+	{
+		await models.Phuong.destroy({where: {id}});
+		res.send("Điểm đặt đã bị xóa");
+	}	catch(error){
+		res.send("Không thể xóa điểm đặt");
+		console.error(error);
+	}
+}
+
+controller.capnhatQuan = async(req,res) => {
+	let { idquan, tenquan } = req.body;
+	try {
+		await models.Quan.update({
+			Ten: tenquan
+		},
+		{
+			where: { id: idquan }
+		});
+		res.send("Tên quận đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+}
+
+controller.capnhatPhuong = async(req,res) => {
+	let { idphuong, tenphuong } = req.body;
+	try {
+		await models.Phuong.update({
+			Ten: tenphuong
+		},
+		{
+			where: { id: idphuong }
+		});
+		res.send("Tên phường đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+}
+
 
 module.exports = controller;
