@@ -201,13 +201,16 @@ nav {
 
 
 .page-title {
-	padding-top: 10px;
-	font-size: 18px;
+	padding-top: 1em;
+	padding-left: 1em;
+	font-size: 25px;
 	font-weight: bold;
+	text-transform: uppercase;
 }
 
+
 .btn-primary {
-	background-color: #7F56D9!important;
+	background-color: #7f56d9!important;
 	border-color: #7F56D9!important;
 }
 

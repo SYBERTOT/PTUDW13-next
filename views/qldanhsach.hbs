@@ -3,113 +3,147 @@
 		<!--title-->
 		<div class="row mb-3">
 			<div class="page-title">
-				Quản lý danh sách loại hình
+				Quản lý danh sách các loại hình
 			</div>
 		</div>
 		
-		<!--button bar-->
-		<div class="row">
-			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
-				<div class="me-3">
-					<button type="button" class="btn btn-secondary indigo" data-bs-toggle="modal" data-bs-target="#themBangQCModal">
-							<i class="bi bi-plus"></i> Thêm bảng quảng cáo
-					</button>
-				</div>
-				<div class="me-3">
-					<button type="button" class="btn btn-white border">View all</button>
-				</div>
-				<div class="input-group">
-					<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
-					<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
-				  </div>
-			</div>
-		</div>
-
-		<!--card set-->
+		<!--table-->
 		<div class="row mx-3">
-			<div class="accordion" id="accordionExample">
-				{{#each hinhthucdiemdats}}
-					<h6 class="accordion-header" id="heading{{id}}">
-						{{Ten}}
-					</h6>
-				{{/each}}
-				{{#each hinhthucbaocaos}}
-					<h6>
-						{{Ten}}
-					</h6>
-				{{/each}}
-		</div>
-
+			<div class="col-lg-6 col-md-6 col-sm-12 table-responsive">
+				<table class="table align-middle table-striped table-bordered table-hover">
+					<h3><strong>Hình thức điểm đặt</strong>
+					<button type="button" class="btn btn-secondary btn-sm indigo" data-bs-toggle="modal" data-bs-target="#themHTDiemDatModal">
+							<i class="bi bi-plus"></i> Thêm
+					</button>
+					</h3>
+					<colgroup>
+						<col style="width:3%">
+						<col style="width:50%">
+						<col style="width:5%">
+					</colgroup>
+					<thead>
+						<tr>
+						<th scope="col">STT</th>
+						<th scope="col">Tên</th>
+						<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each hinhthucdiemdats}}
+						<tr>
+							<th scope="row">{{inc @index}}</th>
+							<td>
+								{{Ten}}
+							</td>
+							<td>
+								<i role="button" class="bi bi-pen-fill me-3" data-bs-toggle="modal" data-bs-target="#editHTDDModal" onclick="showEditHTDDModal(this)" 
+								data-id="{{id}}" data-ten="{{Ten}}"></i>
+								<i role="button" class="bi bi-trash-fill xoaHTDD-btn" 
+								data-id="{{id}}" data-ten="{{Ten}}"></i>
+							</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12 table-responsive">
+				<table class="table align-middle table-striped table-bordered table-hover">
+					<h3><strong>Hình thức báo cáo</strong>
+					<button type="button" class="btn btn-secondary btn-sm indigo" data-bs-toggle="modal" data-bs-target="#themHTBaoCaoModal">
+							<i class="bi bi-plus"></i> Thêm
+					</button>
+					</h3>
+					<colgroup>
+						<col style="width:3%">
+						<col style="width:50%">
+						<col style="width:5%">
+					</colgroup>
+					<thead>
+						<tr>
+						<th scope="col">STT</th>
+						<th scope="col">Tên</th>
+						<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each hinhthucbaocaos}}
+						<tr>
+							<th scope="row">{{inc @index}}</th>
+							<td>
+								{{Ten}}
+							</td>
+							<td>
+								<i role="button" class="bi bi-pen-fill me-3" data-bs-toggle="modal" data-bs-target="#editHTBCModal" onclick="showEditHTBCModal(this)" 
+								data-id="{{id}}" data-ten="{{Ten}}"></i>
+								<i role="button" class="bi bi-trash-fill xoaHTBC-btn" 
+								data-id="{{id}}" data-ten="{{Ten}}"></i>
+							</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
 	</div>
 
   </main>
 
   <!--Modal chinh sua-->
-  <div class="modal fade" id="editBangQCModal" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="editHTDDModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <form action="" id="editBangQCForm" onsubmit="editBangQC(event)">
+      <form action="" id="editHTDDForm" onsubmit="editHTDD(event)">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Chỉnh sửa thông tin điểm đặt quảng cáo
+              Chỉnh sửa hình thức điểm đặt
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           	<div class="modal-body">
-			<div class="container-fluid">
+				<div class="container-fluid">
 				<div class="row">
-					<p class="fw-bold m-0">Thông tin chỉnh sửa</p>
-					<div class="row">
-						<div>
-							<label for="diemdatEdit" class="form-label">Địa chỉ</label>
-							<select id="diemdatEdit" name="diemdat" class="form-control form-select">
-								{{#each diemdats}}
-            						<option value="{{id}}">{{DiaChi}}</option>
-								{{/each}}
-        					</select>
-							</datalist>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="row">
-								<div>
-									<label for="ploaiEdit" class="form-label">Loại bảng quảng cáo</label>
-									<select id="ploaiEdit" name="ploai" class="form-control form-select">
-										{{#each loaibangquangcaos}}
-            								<option value="{{id}}">{{Ten}}</option>
-										{{/each}}
-        							</select>
-								</div>
-							</div>
-							<div class="row">
-								<div>
-									<label for="kichthuocEdit" class="form-label">Kích thước</label>
-									<input type="text" class="form-control" id="kichthuocEdit" name="kichthuoc" placeholder="1mx2m">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div>
-								<label for="img">Hình ảnh</label>
-								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-								<div class="text-end pt-4">
-									<button class="btn btn-primary btn-sm" >Sửa</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div>
-							<label for="ngayhethanEdit" class="form-label">Ngày hết hạn hợp đồng</label>
-							<input type="date" class="form-control" id="ngayhethanEdit" name="ngayhethan" placeholder="dd/mm/yyyy">
-						</div>
-					</div>
+				<div>
+					<label for="tenHTDiemDatEdit" class="form-label">Hình thức điểm đặt</label>
+					<input type="text" class="form-control" id="tenHTDiemDatEdit" name="tenHTDiemDat" placeholder="Xã hội hóa">
 				</div>
-  			</div>
+				</div>
+			</div>
 			</div>
           <div class="modal-footer">
-            <input type="hidden" name="id" id="id" value="" />
+            <input type="hidden" name="id" id="idHTDDEdit" value="" />
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Chỉnh sửa
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+   <div class="modal fade" id="editHTBCModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="" id="editHTBCForm" onsubmit="editHTBC(event)">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Chỉnh sửa hình thức báo cáo
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          	<div class="modal-body">
+				<div class="container-fluid">
+				<div class="row">
+				<div>
+					<label for="tenHTBaoCaoEdit" class="form-label">Hình thức báo cáo</label>
+					<input type="text" class="form-control" id="tenHTBaoCaoEdit" name="tenHTBaoCao" placeholder="Đóng góp ý kiến">
+				</div>
+				</div>
+			</div>
+			</div>
+          <div class="modal-footer">
+            <input type="hidden" name="id" id="idHTBCEdit" value="" />
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
               Hủy
             </button>
@@ -123,92 +157,101 @@
   </div>
 
 <!--Modal confirm xóa-->
-<div class="modal fade" tabindex="-1" id="confirmModal">
+<div class="modal fade" tabindex="-1" id="xoaHTDDModal">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Xóa bảng quảng cáo</h5>
+		<div class="modal-header">
+        <h5 class="modal-title">Xóa hình thức điểm đặt </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Bạn chắc chứ?</p>
+        <p id="confirmXoaHTDD">Bạn chắc muốn xóa chứ? Hành động này không thể hoàn tác.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-        <button type="button" class="btn btn-primary" id="confirmButton">Xóa</button>
+        <button type="button" class="btn btn-primary" id="xoaHTDDButton">Xóa</button>
       </div>
     </div>
   </div>
 </div>
 
-<!--Modal thêm điểm đặt-->
-<div class="modal fade" id="themBangQCModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" tabindex="-1" id="xoaHTBCModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+		<div class="modal-header">
+        <h5 class="modal-title">Xóa hình thức điểm đặt </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmXoaHTBC">Bạn chắc muốn xóa chứ? Hành động này không thể hoàn tác.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" id="xoaHTBCButton">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal thêm-->
+<div class="modal fade" id="themHTDiemDatModal" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" role="document">
-	<form action="/so/qlbangqc" id="themBangQCForm" method="POST">
+	<form action="/so/themHTDiemDat" id="themHTDiemDatForm" method="POST">
 		<div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title" id="userModalTitle">
-				Thêm bảng quảng cáo
+				Thêm hình thức điểm đặt
 			</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="row">
-					<div>
-						<label for="diemdat" class="form-label">Địa chỉ</label>
-						<select id="diemdat" name="diemdat" class="form-control form-select">
-							{{#each diemdats}}
-            					<option value="{{id}}">{{DiaChi}}</option>
-							{{/each}}
-        				</select>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-8">
-						<div class="row">
-							<div>
-								<label for="ploai" class="form-label">Loại bảng quảng cáo</label>
-								<select id="ploai" name="ploai" class="form-control form-select">
-									{{#each loaibangquangcaos}}
-										<option value="{{id}}">{{Ten}}</option>
-									{{/each}}
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div>
-								<label for="kichthuoc" class="form-label">Kích thước</label>
-								<input type="text" class="form-control" id="kichthuoc" name="kichthuoc" placeholder="1mx2m">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div>
-							<label for="img">Hình ảnh</label>
-							<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-							<div class="text-end pt-4">
-								<button class="btn btn-primary btn-sm" >Sửa</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div>
-						<label for="ngayhethan" class="form-label">Ngày hết hạn hợp đồng</label>
-						<input type="date" class="form-control" id="ngayhethan" name="ngayhethan" placeholder="dd/mm/yyyy">
-					</div>
+				<div>
+					<label for="tenHTDiemDat" class="form-label">Hình thức điểm đặt</label>
+					<input type="text" class="form-control" id="tenHTDiemDat" name="tenHTDiemDat" placeholder="Xã hội hóa" required>
 				</div>
 			</div>
 		</div>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
-			Close
+			Hủy
 			</button>
 			<button type="submit" class="btn btn-primary">
-			Save
+			Thêm
+			</button>
+		</div>
+		</div>
+	</form>
+	</div>
+</div>
+<div class="modal fade" id="themHTBaoCaoModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	<form action="/so/themHTBaoCao" id="themHTBaoCaoForm" method="POST">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="userModalTitle">
+				Thêm hình thức báo cáo
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div>
+					<label for="tenHTBaoCao" class="form-label">Hình thức điểm đặt</label>
+					<input type="text" class="form-control" id="tenHTBaoCao" name="tenHTBaoCao" placeholder="Đóng góp ý kiến" required>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+			Hủy
+			</button>
+			<button type="submit" class="btn btn-primary">
+			Thêm
 			</button>
 		</div>
 		</div>
@@ -217,13 +260,13 @@
 </div>
 
 <script>
-	async function editBangQC(e) {
+	async function editHTDD(e) {
 	e.preventDefault();
   
-	const formData = new FormData(document.getElementById("editBangQCForm"));
+	const formData = new FormData(document.getElementById("editHTDDForm"));
 	let data = Object.fromEntries(formData.entries());
   
-	let res = await fetch("/so/qlbangqc", {
+	let res = await fetch("/so/capnhatHTDD", {
 	  method: 'PUT',
 	  headers:{
 		"Content-Type":"application/json",
@@ -232,7 +275,23 @@
 	});
   
 	location.reload();
-  }
+  	}
+	async function editHTBC(e) {
+	e.preventDefault();
+  
+	const formData = new FormData(document.getElementById("editHTBCForm"));
+	let data = Object.fromEntries(formData.entries());
+  
+	let res = await fetch("/so/capnhatHTBC", {
+	  method: 'PUT',
+	  headers:{
+		"Content-Type":"application/json",
+	  },
+	  body: JSON.stringify(data),
+	});
+  
+	location.reload();
+  	}
   
 	async function deleteBangQC(id){
 	let res= await fetch(`/so/qlbangqc/${id}`, {
@@ -240,39 +299,56 @@
 	});
 	location.reload();
   }
-    function showEditBangQCModal(btn){
-		document.querySelector("#id").value = btn.dataset.id;
-		document.querySelector("#diemdatEdit").value = btn.dataset.diemdat;
-		document.querySelector("#ploaiEdit").value = btn.dataset.ploai;
-		document.querySelector("#kichthuocEdit").value = btn.dataset.kichthuoc;
-		let dateFromData = btn.dataset.ngayhethan; 
-		let dateParts = dateFromData.replace(',','').split(' ');
-		let day = dateParts[0].padStart(2, '0');
-		let month = dateParts[2].padStart(2, '0');
-		let year = dateParts[3];
+    function showEditHTDDModal(btn){
+		document.querySelector("#idHTDDEdit").value = btn.dataset.id;
+		document.querySelector("#tenHTDiemDatEdit").value = btn.dataset.ten;
+  	}
+	function showEditHTBCModal(btn){
+		document.querySelector("#idHTBCEdit").value = btn.dataset.id;
+		document.querySelector("#tenHTBaoCaoEdit").value = btn.dataset.ten;
+  	}
 
-		let formattedDate = `${year}-${month}-${day}`;
-
-		document.querySelector("#ngayhethanEdit").value = formattedDate;
-
-  }
-
-	document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
+	async function xoaHTDD(id){
+		let res= await fetch(`/so/xoaHTDD/${id}`, {
+		method: "DELETE",
+		});
+		location.reload();
+  	}
+	async function xoaHTBC(id){
+		let res= await fetch(`/so/xoaHTBC/${id}`, {
+		method: "DELETE",
+		});
+		location.reload();
+  	}
+	document.querySelectorAll(".xoaHTDD-btn").forEach((btnConfirm) => {
 		btnConfirm.addEventListener("click", (e) => {
 			let id = e.target.dataset.id;
-
-			// Show the modal
-			var myModal = new bootstrap.Modal(document.getElementById('confirmModal'), {
+			var myModal = new bootstrap.Modal(document.getElementById('xoaHTDDModal'), {
 				keyboard: false
 			});
+			document.querySelector("#confirmXoaHTDD").innerHTML = `Bạn chắc muốn xóa hình thức điểm đặt ${e.target.dataset.ten} chứ? Hành động này không thể hoàn tác.`;
 			myModal.show();
-
-			// Add an event listener to the "Yes" button
-			document.getElementById('confirmButton').addEventListener('click', function() {
-				deleteBangQC(id);
+			document.getElementById('xoaQuanButton').addEventListener('click', function() {
+				xoaHTDD(id);
 				myModal.hide();
 			});
 		});
 	});
+
+	document.querySelectorAll(".xoaHTBC-btn").forEach((btnConfirm) => {
+		btnConfirm.addEventListener("click", (e) => {
+			let id = e.target.dataset.id;
+			var myModal = new bootstrap.Modal(document.getElementById('xoaHTBCModal'), {
+				keyboard: false
+			});
+			document.querySelector("#confirmXoaHTBC").innerHTML = `Bạn chắc muốn xóa hình thức báo cáo ${e.target.dataset.ten} chứ? Hành động này không thể hoàn tác.`;
+			myModal.show();
+			document.getElementById('xoaHTBCButton').addEventListener('click', function() {
+				xoaHTBC(id);
+				myModal.hide();
+			});
+		});
+	});
+
 
 </script>
