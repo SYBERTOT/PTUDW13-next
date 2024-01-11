@@ -81,13 +81,13 @@
 
 <script>
 function checkTT(){
-    // Get the email value
+    
     const id = document.getElementById('ID').value;
     const HoTen = document.getElementById('HoTen').value;
     const Email = document.getElementById('Email').value;
     const DienThoai = document.getElementById('DienThoai').value;
     const NgaySinh = document.getElementById('NgaySinh').value;
-    // Make an AJAX request to the server using fetch
+    
     fetch('/canbo/capnhat', {
         method: 'POST',
         headers: {
@@ -99,10 +99,9 @@ function checkTT(){
     .then(data => {
         // Handle the response from the server
         //otpVal = data.otpVal;
-        console.log(data);
         if(data.msg == 'true')
-            alert('Cập nhật thông tin THÀNH CÔNG');
-        else alert('Cập nhật thông tin KHÔNG THÀNH CÔNG');
+            PopUp('Cập nhật thông tin THÀNH CÔNG');
+        else PopUp('Cập nhật thông tin KHÔNG THÀNH CÔNG');
     })
     .catch(error => console.error('Error:', error));
   return false;
@@ -110,22 +109,20 @@ function checkTT(){
 
 function checkPsw(){
     //event.preventDefault();
-    // Get the email value
+    
     const id = document.getElementById('IDmk').value;
     const MkCu = document.getElementById('MkCu').value;
     const MkMoi = document.getElementById('MkMoi').value;
     const MkXacNhan = document.getElementById('MkXacNhan').value;
     if(MkMoi != MkXacNhan){
-        alert("Mật khẩu mới không trùng với xác nhận");
+        PopUp('Mật khẩu mới không trùng với mật khẩu xác nhận');
     }else if (MkMoi.trim() == "" || MkMoi == null){
-        alert("Mật khẩu mới không hợp lệ");
+        PopUp('Mật khẩu mới không hợp lệ');
     }else if (MkMoi === MkCu){
-        alert("Mật khẩu mới không được nhập trùng với mật khẩu cũ");
+        PopUp('Mật khẩu mới không được nhập trùng với mật khẩu cũ');
     }
     else{
-        //alert('Oke hết gòi');
-        console.log(id, MkCu, MkMoi, MkXacNhan);
-        // Make an AJAX request to the server using fetch
+        
         fetch('/canbo/doimatkhau', {
             method: 'POST',
             headers: {
@@ -137,12 +134,11 @@ function checkPsw(){
         .then(data => {
             // Handle the response from the server
             //otpVal = data.otpVal;
-            console.log(data);
             if(data.msg == 'true')
-                 alert('Cập nhật mật khẩu THÀNH CÔNG');
+                 PopUp('Cập nhật mật khẩu THÀNH CÔNG');
             else if(data.msg == 'oldpsw')
-                 alert('Sai mật khẩu cũ');
-            else alert('Cập nhật khẩu KHÔNG THÀNH CÔNG');
+                 PopUp('Sai mật khẩu cũ');
+            else PopUp('Cập nhật khẩu KHÔNG THÀNH CÔNG');
         })
         .catch(error => console.error('Error:', error));
     }

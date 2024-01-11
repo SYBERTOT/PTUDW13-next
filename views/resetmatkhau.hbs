@@ -8,8 +8,8 @@
                     
                     <p class="text-success text-center mb-3">Bạn đã đăng nhập. Bạn có thể thay đổi mật khẩu ngay bây giờ hoặc không.</p>
 
-                    <form action="/resetmatkhau" method="POST">
-                        <input type="hidden" name="id" value="{{id}}" class="form-control" style="display: none;">
+                    <form action="/resetmatkhau" method="POST" onsubmit="return QuenMk()">
+                        <input type="hidden" name="id" id="ID" value="{{id}}" class="form-control" style="display: none;">
 
                         <div class="mb-3">
                             <label for="NewPassword" class="form-label">Mật khẩu mới</label>
@@ -20,15 +20,16 @@
                             <label for="ConfirmPassword" class="form-label">Xác nhận mật khẩu mới</label>
                             <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" required">
                         </div> --}}
-
-                        <div class="d-grid gap-2 mb-3">
-                            <button class="btn btn-primary" type="submit">Đặt lại mật khẩu</button>
+                        <div class="row">
+                            <div class="col d-grid gap-2 mb-3">
+                                <button class="btn btn-primary" type="submit" onsubmit="return QuenMk()">Đặt lại mật khẩu</button>
+                            </div>
+                            <div class="col text-center d-grid gap-2 mb-3">
+                                <a href="/" class="btn btn-primary">Quay lại trang chủ</a>
+                            </div>
                         </div>
                     </form>
 
-                    <div class="text-center mt-3">
-                        <a href="/" class="btn btn-primary">Quay lại trang chủ</a>
-                    </div>
 
                 </div>
             </div>
@@ -36,16 +37,27 @@
     </div>
 </div>
 <!-- /container -->
-{{!-- <script>
-    function validatePasswords() {
-        let password = document.querySelector('#NewPassword');
-        let confirm = document.querySelector('#ConfirmPassword');
-
-        if (password.value != confirm.value) {
-            confirm.setCustomValidity('Password must match!');
-            confirm.reportValidity();
-        } else {
-            confirm.setCustomValidity('');
-        }
+<script>
+function QuenMk(){
+    const id = document.getElementById('ID').value;
+    const NewPassword = document.getElementById('NewPassword').value;
+    if (NewPassword.trim() == "" || NewPassword == null){
+        PopUp('Mật khẩu mới không hợp lệ');
+    }else {
+        fetch('/resetmatkhau', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: id, NewPassword: NewPassword}),
+        })
+        .then(response => response.json())
+        .then(data => {
+                PopUp(data);
+        })
+        .catch(error => console.error('Error:', error));
     }
-</script> --}}
+    return false;
+}
+
+</script>

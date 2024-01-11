@@ -114,8 +114,8 @@ controller.xlQuenMatKhau = async (req, res) => {
                     // return res.status(500).send("Failed to send reset email");
                 // } else {
                     // Send a success message to the client
-                    return res.send({
-                        message: "Check your mailbox!",  // Email sent successfully
+                    return res.json({
+                        message: "Hãy kiểm tra hòm thư của bạn",  // Email sent successfully
                         redirectTo: "/dangnhap",  // Redirect to the login page
                     });
                 // }
@@ -124,8 +124,10 @@ controller.xlQuenMatKhau = async (req, res) => {
             return res.status(500).send("Failed to send reset email");
         }
     } else {
-        // Redirect to the login page with an error message
-        return res.redirect('/dangnhap?message=Email not found');
+        return res.json({
+            message: "Không tìm thấy email trong hệ thống",  // Email sent successfully
+            redirectTo: "/dangnhap?message=Email not found",  // Redirect to the login page
+        });
     }
 };
 
@@ -177,10 +179,10 @@ controller.capNhatMatKhau = async (req, res) => {
 			{ MatKhau: MatKhau},
 			{ where: { id: id} 
 		});
-		return res.send("Cập nhật mật khẩu thành công!");
+		return res.json("Cập nhật mật khẩu thành công!");
 	  } catch (error) {
 		console.error(error);
-		return res.send("Cập nhật mật khẩu không thành công");
+		return res.json("Cập nhật mật khẩu không thành công");
 	  }
 };
 

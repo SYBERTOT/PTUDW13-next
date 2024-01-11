@@ -10,6 +10,18 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 		<link href="/css/mainstyles.css" type="text/css" rel="stylesheet"/>
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+			function PopUp(content) {
+				document.getElementById('notipop').textContent = content;
+				document.getElementById("Popup").style.display = "block";
+				//document.getElementById("overlay").style.display = "block";
+			}
+			function PopDown() {
+				document.getElementById("Popup").style.display = "none";
+				//document.getElementById("overlay").style.display = "none";
+			}
+    </script>
 	</head>
 	
     <body>
@@ -59,6 +71,24 @@
         <!--/header-->
 		
 		{{{body}}}  
+		<div class="card form-popup" id="Popup">
+			<div class="row">
+				<div class=" m-2 "><i class="bi bi-exclamation-circle pretty-indigo rounded rounded-circle"></i></div>
+			</div>
+			<div class="row">
+				<div class="m-2">
+					<label id="notipop">Cái này là thông báo á</label> <br>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col"></div> 
+				<div class="col"></div>      
+				<div class="col">
+					<button type="submit" class="btn btn-block indigo btn-secondary w-100" onclick="PopDown()">OK</button>
+				</div>   
+			</div>   
+		</div>
+
 		<footer>
 	<!-- place footer here -->
   </footer>

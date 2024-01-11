@@ -8,14 +8,24 @@
 		<link href="/css/mainstyles.css" type="text/css" rel="stylesheet"/>
 		<script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 		<style>
 		#map {
 			height: 100%;
   				}
 		</style>
 		<script>
+			function PopUp(content) {
+				document.getElementById('notipop').textContent = content;
+				document.getElementById("Popup").style.display = "block";
+				//document.getElementById("overlay").style.display = "block";
+			}
+			function PopDown() {
+				document.getElementById("Popup").style.display = "none";
+				//document.getElementById("overlay").style.display = "none";
+			}
 			function validateRecaptcha() {
-				var response = grecaptcha.getResponse();
+				var response = recaptcha.getResponse();
 
 				if (response.length === 0) {
 					alert('Vui lòng xác nhận bạn không phải là robot.');
@@ -70,6 +80,24 @@
         </nav>
         <!--/header-->	
 		{{{body}}}  
+		<div class="card form-popup" id="Popup">
+			<div class="row">
+				<div class=" m-2 "><i class="bi bi-exclamation-circle pretty-indigo rounded rounded-circle"></i></div>
+			</div>
+			<div class="row">
+				<div class="m-2">
+					<label id="notipop">Cái này là thông báo á</label> <br>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col"></div> 
+				<div class="col"></div>      
+				<div class="col">
+					<button type="submit" class="btn btn-block indigo btn-secondary w-100" onclick="PopDown()">OK</button>
+				</div>   
+			</div>   
+		</div>
+
 		<footer>
 	<!-- place footer here -->
   </footer>

@@ -259,11 +259,27 @@ small.text-muted {
 .indigo{
     background-color: rgb(147, 55, 212);
 }
+.pretty-indigo {
+    color: rgb(147, 55, 212);
+    background-color: rgba(147, 55, 212, 0.25);
+}
 .border-indigo {
     background-color: white;
     color: rgb(147, 55, 212);
     border-style: solid;
     border-color: rgb(147, 55, 212);
+}
+#Popup {
+    display: none;
+    padding: 15px;
+    position: fixed;
+    width: 300px;
+    height: 170px;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+    justify-content: center;
+    z-index: 99999;
 }
 /* .card-img {
     width: 100%;

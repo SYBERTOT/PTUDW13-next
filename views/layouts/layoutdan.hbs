@@ -10,7 +10,7 @@
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://cdn.tiny.cloud/1/vqxvddp1yo9we3090oejpm5byq3f9taeds999743y9ra4yk6/tinymce/6.8.2-45/tinymce.min.js" referrerpolicy="origin"></script>
-
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 		<style>
 		#map {
 			height: 100%;
@@ -25,8 +25,17 @@
 
 		</style>
 		<script>
+			function PopUp(content) {
+				document.getElementById('notipop').textContent = content;
+				document.getElementById("Popup").style.display = "block";
+				//document.getElementById("overlay").style.display = "block";
+			}
+			function PopDown() {
+				document.getElementById("Popup").style.display = "none";
+				//document.getElementById("overlay").style.display = "none";
+			}
 			function validateRecaptcha() {
-				var response = grecaptcha.getResponse();
+				var response = recaptcha.getResponse();
 
 				if (response.length === 0) {
 					alert('Vui lòng xác nhận bạn không phải là robot.');
@@ -66,5 +75,23 @@
         <!--/header-->
 		
 		{{{body}}}  
-    </body>
+		<div class="card form-popup" id="Popup">
+			<div class="row">
+				<div class=" m-2 "><i class="bi bi-exclamation-circle pretty-indigo rounded rounded-circle"></i></div>
+			</div>
+			<div class="row">
+				<div class="m-2">
+					<label id="notipop">Cái này là thông báo á</label> <br>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col"></div> 
+				<div class="col"></div>      
+				<div class="col">
+					<button type="submit" class="btn btn-block indigo btn-secondary w-100" onclick="PopDown()">OK</button>
+				</div>   
+			</div>   
+		</div>
+	</body>
+
 </html>
