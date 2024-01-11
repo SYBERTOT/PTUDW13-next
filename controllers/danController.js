@@ -77,6 +77,9 @@ controller.dsBaoCao = async (req, res) => {
 			}
 			const hinhthucInfo = await models.HinhThucBaoCao.findByPk(baoCao.HinhThucBaoCaoId);
 			BaoCaoDaGuis[i].HinhThucBaoCao = hinhthucInfo.Ten;
+
+			const tinhtrangInfo = await models.BaoCao.findByPk(baoCao.id, {attributes: ['XuLy', ],});
+			BaoCaoDaGuis[i].XuLy = tinhtrangInfo.XuLy;
         }
     } catch (error) {
         console.error(error);

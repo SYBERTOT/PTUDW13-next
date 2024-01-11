@@ -102,14 +102,14 @@ controller.xlQuenMatKhau = async (req, res) => {
     let { email } = req.body;
     const taikhoan = await TaiKhoan.findOne({ where: { Email: email } });
     if (taikhoan) {
-        taikhoan.HetHan = Date.now() + 3600000; // Token expires in 1 hour
+        taikhoan.HetHan = Date.now() + 900000; // milisec Token expires in 15 mins
         const resetToken = generateRandomToken();
         taikhoan.Tokenstring = resetToken;
 
         try {
             await taikhoan.save();
             // Send email with reset link
-            await sendResetEmail(taikhoan.Email, resetToken, taikhoan.id);//, (error) => {
+            await sendResetEmail(taikhoan.Email, resetToken, taikhoan.id, taikhoan);//, (error) => {
                 // if (error) {
                     // return res.status(500).send("Failed to send reset email");
                 // } else {
