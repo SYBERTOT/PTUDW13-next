@@ -72,13 +72,9 @@ controller.dsBaoCao = async (req, res) => {
 				if (baoCao.BangQuangCaoId != null) {
 					const bangQCInfo = await models.BangQuangCao.findByPk(baoCao.BangQuangCaoId);
 					const loaiBangQC = await models.LoaiBangQuangCao.findByPk(bangQCInfo.LoaiBangQuangCaoId);
-					BaoCaoDaGuis[i].TenBangQC = "Bảng QC: " + loaiBangQC.Ten;
+					BaoCaoDaGuis[i].TenBangQC = loaiBangQC.Ten;
 				}
 			}
-
-			console.log(BaoCaoDaGuis[i].TenDiemDat);
-			console.log(BaoCaoDaGuis[i].TenBangQC);
-			console.log(BaoCaoDaGuis[i].DiaChi);
 
 			const hinhthucInfo = await models.HinhThucBaoCao.findByPk(baoCao.HinhThucBaoCaoId);
 			BaoCaoDaGuis[i].HinhThucBaoCao = hinhthucInfo.Ten;
