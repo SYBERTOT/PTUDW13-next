@@ -9,6 +9,7 @@
 		<!--button bar-->
 		<div class="row">
 			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+				{{#if laQuan}}
 				<div class="me-3">
 					<form method = "get" action ="/canbo/qlbangqc">
 						<div class="dropdown"> 
@@ -35,6 +36,7 @@
 						</div> 
 					</form>
 				</div>
+				{{/if}}
 				<div class="me-3">
 					<a href="/canbo/qlbangqc" type="button" class="btn btn-white border">View all</a>
 				</div>
@@ -90,7 +92,7 @@
 
   <!--Modal chinh sua-->
   <div class="modal fade" id="editBangQCModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <form action="/canbo/qlbangqc" id="editBangQCForm" method="POST">
         <div class="modal-content">
           <div class="modal-header">
@@ -115,8 +117,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
-							<div class="row">
+							<div class="col-6">
 								<div>
 									<label for="ploaiEdit" class="form-label">Loại bảng quảng cáo</label>
 									<select id="ploaiEdit" name="ploai" class="form-control form-select">
@@ -126,22 +127,12 @@
         							</select>
 								</div>
 							</div>
-							<div class="row">
+							<div class="col-6">
 								<div>
 									<label for="kichthuocEdit" class="form-label">Kích thước</label>
 									<input type="text" class="form-control" id="kichthuocEdit" name="kichthuoc" placeholder="1mx2m">
 								</div>
 							</div>
-						</div>
-						<div class="col-md-4">
-							<div>
-								<label for="img">Hình ảnh</label>
-								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-								<div class="text-end pt-4">
-									<button class="btn btn-primary btn-sm" >Sửa</button>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 				<div class="row mt-2">

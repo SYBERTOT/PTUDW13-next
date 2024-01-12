@@ -7,6 +7,7 @@
 	</div>
 	
 	<!--button bar-->
+	<!--
 	<div class="row">
 		<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
 			<div class="me-3">
@@ -17,16 +18,15 @@
 				<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
 				</div>
 		</div>
-	</div>
+	</div>-->
 
 	<!--card set-->
-	<div class="row justify-content-center">
-		{{#each capphepquangcaos}}
-			<div class="col-lg-10 col-md-10 col-sm-12">
-				<div class="card mb-3" >
+	<div class="row mx-5">	
+		{{#each capphepquangcaos}}		
+				<div class="card mb-3 h-auto" >
 					<div class="row g-0">
 						<div class="col-md-3">
-							<img class="img-fluid rounded-start h-100" src="{{toUrl DiaChiAnh}}" alt="">
+							<img class="rounded-start img-fluid" src="{{toUrl DiaChiAnh}}" alt="">
 						</div>
 						<div class="col-md-9">
 							<div class="card-body ms-2">
@@ -54,7 +54,8 @@
 								</div>
 								<div class="text-end">
 									<div class="btn-group" role="group">
-										<button class="btn btn-secondary indigo dongy-btn" data-id="{{id}}"><i class="bi bi-check-lg"></i> Đồng ý</button>
+										<button class="btn btn-secondary indigo dongy-btn" data-id="{{id}}" data-bangqcid="{{BangQuangCaoId}}"
+										data-ngayhethan="{{NgayKetThuc}}" data-diachianh="{{DiaChiAnh}}"><i class="bi bi-check-lg"></i> Đồng ý</button>
 										<button class="btn btn-secondary border-indigo tuchoi-btn" data-id="{{id}}"><i class="bi bi-x"></i> Từ chối</button>
 									</div>
 								</div>
@@ -62,8 +63,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			
 		{{/each}}
+		
 	</div>
 
 </div>
@@ -73,6 +75,10 @@
 		button.addEventListener('click', function() {
 			var id = this.getAttribute('data-id');
 			pheduyetCapPhep(id, true);
+			var bangqcid = this.getAttribute('data-bangqcid');
+			var ngayhethan = this.getAttribute('data-ngayhethan');
+			var diachianh = this.getAttribute('data-diachianh');
+			dongyCapPhep(bangqcid, ngayhethan, diachianh);
 		});
 	});
 
@@ -83,7 +89,7 @@
 		});
 	});
 	async function pheduyetCapPhep(id, tinhtrang) {
-		let res = await fetch("/so/pheduyet", {
+		let res = await fetch("/so/pheduyetcapphep", {
 			method: 'PUT',
 			headers:{
 				"Content-Type":"application/json",
@@ -93,4 +99,16 @@
 	
 		location.reload();
 	}
+	async function dongyCapPhep(bangqcid, ngayhethan, diachianh) {
+		
+	let res = await fetch("/so/dongycapphep", {
+	  method: 'PUT',
+	  headers:{
+		"Content-Type":"application/json",
+	  },
+	  body: JSON.stringify({ id: bangqcid , ngayhethan: ngayhethan, diachianh: diachianh}),
+	});
+  
+	location.reload();
+  }
 </script>

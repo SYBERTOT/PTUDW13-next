@@ -59,10 +59,13 @@
 				<tr>
 					<th scope="row">{{inc @index}}</th>
 					<td>
-						{{#if laDiemDat}}
-						<p class="fw-bold m-0 p-0">Điểm đặt: <small class="text-muted">{{DiemDat.DiaChi}}</small></p> 
-						{{#unless laDiemDat}}<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">{{this.BangQuangCao.LoaiBangQuangCao.Ten}} {{BangQuangCao.KichThuoc}}</small></p> {{/unless}}
-						{{else}} <p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">{{DiaChi}}</small></p>
+						{{#if (isDefined laDiemDat)}}
+							{{#if laDiemDat}}<p class="fw-bold m-0 p-0">Điểm đặt: <small class="text-muted">{{DiemDat.DiaChi}}</small></p>
+							{{else}}
+							<p class="fw-bold m-0 p-0">Điểm đặt: <small class="text-muted">{{DiemDat.DiaChi}}</small></p>
+							<p class="fw-bold m-0 p-0">Bảng quảng cáo: <small class="text-muted">{{this.BangQuangCao.LoaiBangQuangCao.Ten}} {{BangQuangCao.KichThuoc}}</small></p>
+							{{/if}}
+							{{else}}<p class="fw-bold m-0 p-0">Địa chỉ: <small class="text-muted">{{DiaChi}}</small></p>
 						{{/if}}
 					</td>
 					<td><span class="badge rounded-pill 

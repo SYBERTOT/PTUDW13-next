@@ -83,7 +83,7 @@ controller.qldiemdat = async (req, res) => {
 }
 controller.taoDiemDat = async(req, res) => {
 	let { diachi, khuvuc, ploai, hthuc } = req.body;
-
+	let hinhanh = req.file.path;
 	try{
 		let response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
 			params: {
@@ -97,6 +97,7 @@ controller.taoDiemDat = async(req, res) => {
 			KhuVuc: khuvuc,
 			LoaiDiemDatId: ploai,
 			HinhThucDiemDatId: hthuc,
+			DiaChiAnh: hinhanh,
 			KinhDo: location.lat.toString(),
 			ViDo: location.lng.toString(),
 		});
@@ -295,14 +296,15 @@ controller.qlbangqc = async (req, res) => {
 	
 }
 controller.taoBangQC = async(req, res) => {
-	let { diemdat, ploai, kichthuoc, ngayhethan } = req.body;
-
+	let { diemdat, ploai, kichthuoc, ngayhethan} = req.body;
+	let hinhanh = req.file.path;
 	try{
 		await models.BangQuangCao.create({
 			KichThuoc: kichthuoc,
+			DiaChiAnh: hinhanh,
 			LoaiBangQuangCaoId: ploai,
-			NgayHetHan: ngayhethan,
-			DiemDatId: diemdat
+			DiemDatId: diemdat,
+			NgayHetHan: ngayhethan
 		});
 		res.redirect("/so/qlbangqc");
 	}	catch(error)
@@ -516,7 +518,7 @@ controller.qlquanphuong = async (req, res) => {
 	res.render('qlquanphuong', { title: "Quản lý quận, phường" , quanly: true , layout: "layoutso"});
 }
 
-controller.pheduyet = async (req, res) => {
+controller.pheduyetCapPhep = async (req, res) => {
 	res.locals.diemdats = await models.DiemDat.findAll({
 		attributes: [ "id", "DiaChi", "KhuVuc"],
 	});
@@ -543,9 +545,8 @@ controller.pheduyet = async (req, res) => {
 			TinhTrang: null
 		}
 	});
-	res.render('pheduyet', { title: "Phê duyệt" , pheduyet: true , layout: "layoutso"});
+	res.render('pheduyetcapphep', { title: "Phê duyệt cấp phép quảng cáp" , pheduyet: true , layout: "layoutso"});
 }
-
 controller.capnhatPheDuyetCapPhep = async (req, res) => {
 	let { id, tinhtrang } = req.body;
 	try {
@@ -562,6 +563,23 @@ controller.capnhatPheDuyetCapPhep = async (req, res) => {
 			console.error(error);
 		}
 }
+controller.dongyCapPhep = async (req, res) => {
+	let { id, ngayhethan, diachianh } = req.body;
+	try {
+		await models.BangQuangCao.update({
+			NgayHetHan: ngayhethan,
+			DiaChiAnh: diachianh,
+		},
+		{
+			where: { id }
+		});
+		res.send("Đã đồng ý cấp phép!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+};
 
 controller.thongke = async (req, res) => {
 	let quan = req.query.quan;
@@ -576,7 +594,7 @@ controller.thongke = async (req, res) => {
 		attributes: [ "id", "Ten"]
 	});
 
-	if (quan) {
+	if (quan && quan !='#') {
 		let tenQuan = await models.Quan.findOne({
 			attributes: [ "id", "Ten"],
 			where: {
@@ -895,5 +913,120 @@ controller.capnhatHTBC = async(req,res) => {
 			console.error(error);
 		}
 }
+
+controller.dongyCapPhep = async (req, res) => {
+	let { id, ngayhethan, diachianh } = req.body;
+	try {
+		await models.BangQuangCao.update({
+			NgayHetHan: ngayhethan,
+			DiaChiAnh: diachianh,
+		},
+		{
+			where: { id }
+		});
+		res.send("Đã đồng ý cấp phép!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+};
+
+controller.pheduyetDiemDat = async (req, res) => {
+	res.locals.diemdats = await models.DiemDat.findAll({
+		attributes: [ "id", "DiaChi", "KhuVuc",	"DiaChiAnh","QuyHoach",	"HinhThucDiemDatId","LoaiDiemDatId"]
+	});
+	
+	res.locals.yeucauchinhsuathongtins = await models.YeuCauChinhSuaThongTin.findAll({
+		attributes: [ "id", "LoaiChinhSua", "LyDo", "DiaChi", "DiaChiAnh", "KhuVuc", "QuyHoach", "DiemDatId", "HinhThucDiemDatId", "LoaiDiemDatId"],
+		include: [
+			{ 
+				model: models.DiemDat,
+				include: [{
+					model: models.HinhThucDiemDat,
+					attributes: ["id", "Ten"]
+				},
+				{
+					model: models.LoaiDiemDat,
+					attributes: ["id", "Ten"]
+				}] 
+			},
+			{
+				model: models.HinhThucDiemDat
+			},
+			{
+				model: models.LoaiDiemDat
+			}
+		],
+		where: {
+			LoaiChinhSua: false
+		}
+	});
+	res.render('pheduyetdiemdat', { title: "Phê duyệt yêu cầu chỉnh sửa điểm đặt" , pheduyet: true , layout: "layoutso"});
+}
+controller.xoaYCCS = async(req,res) => {
+	let id = isNaN(req.params.id) ? 0 :parseInt(req.params.id);
+	try
+	{
+		await models.YeuCauChinhSuaThongTin.destroy({where: {id}});
+		res.send("Yêu cầu đã bị xóa");
+	}	catch(error){
+		res.send("Không thể xóa");
+		console.error(error);
+	}
+};
+
+controller.pheduyetBangQC = async(req,res) => {
+	res.locals.diemdats = await models.DiemDat.findAll({
+		attributes: [ "id", "DiaChi", "KhuVuc",	"DiaChiAnh","QuyHoach",	"HinhThucDiemDatId","LoaiDiemDatId"]
+	});
+	
+	res.locals.yeucauchinhsuathongtins = await models.YeuCauChinhSuaThongTin.findAll({
+		attributes: [ "id", "LoaiChinhSua", "LyDo", "KichThuoc", "DiemDatId", "LoaiBangQuangCaoId", "BangQuangCaoId"],
+		include: [
+			{ 
+				model: models.BangQuangCao,
+				include: [{
+					model: models.LoaiBangQuangCao,
+					attributes: ["id", "Ten"]
+				},
+				{
+					model: models.DiemDat,
+					attributes: ["id", "DiaChi"]
+				}] 
+			},
+			{
+				model: models.LoaiBangQuangCao
+			},
+			{
+				model: models.DiemDat
+			}
+
+		],
+		where: {
+			LoaiChinhSua: true
+		}
+	});
+	res.render('pheduyetbangqc', { title: "Phê duyệt yêu cầu chỉnh sửa bảng quảng cáo" , pheduyet: true , layout: "layoutso"});
+};
+
+controller.dongyBangQC = async (req, res) => {
+	let { id, diemdat, ploai, kichthuoc } = req.body;
+	try {
+		await models.BangQuangCao.update({
+			KichThuoc: kichthuoc,
+			LoaiBangQuangCaoId: ploai,
+			DiemDatId: diemdat
+		},
+		{
+			where: { id }
+		});
+		res.send("Bảng quảng cáo đã được cập nhật!");
+	}
+		catch (error) {
+			res.send("Không thể cập nhật!");
+			console.error(error);
+		}
+};
 
 module.exports = controller;

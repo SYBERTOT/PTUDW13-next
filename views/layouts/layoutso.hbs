@@ -38,23 +38,30 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown mx-2">
-						<a class="nav-link {{#if quanly}}active{{/if}} dropdown-toggle" href="" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quản lý</a>
-						<div class="dropdown-menu" aria-labelledby="dropdownId">
-							<a class="dropdown-item" href="/so/qltaikhoan">Tài khoản</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="/so/qlquanphuong">Quận, phường</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="/so/qldiemdat">Điểm đặt quảng cáo</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="/so/qlbangqc">Bảng quảng cáo</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/so/qldanhsach">Danh sách loại hình</a>
-						</div>
-					</li>
-					<li class="nav-item mx-2">
-                      <a class="nav-link {{#if pheduyet}}active{{/if}}" aria-current="page" href="/so/pheduyet">Phê duyệt</a>
+                      <a class="nav-link {{#if quanly}}active{{/if}} dropdown-toggle" href="" id="listquanly" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quản lý</a>
+                      <div class="dropdown-menu" aria-labelledby="listquanly">
+                        <a class="dropdown-item" href="/so/qltaikhoan">Tài khoản</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/so/qlquanphuong">Quận, phường</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/so/qldiemdat">Điểm đặt quảng cáo</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/so/qlbangqc">Bảng quảng cáo</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/so/qldanhsach">Danh sách loại hình</a>
+                      </div>
                     </li>
-					<li class="nav-item mx-2">
+                    <li class="nav-item dropdown mx-2">
+                      <a class="nav-link {{#if pheduyet}}active{{/if}} dropdown-toggle" href="" id="listpheduyet" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Phê duyệt</a>
+                      <div class="dropdown-menu" aria-labelledby="listpheduyet">
+                        <a class="dropdown-item" href="/so/pheduyetcapphep">Cấp phép quảng cáo</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/so/pheduyetdiemdat">Chỉnh sửa điểm đặt</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/so/pheduyetbangqc">Chỉnh sửa bảng quảng cáo</a>
+                      </div>
+                    </li>
+                    <li class="nav-item mx-2">
                       <a class="nav-link {{#if thongke}}active{{/if}}" aria-current="page" href="/so/thongke">Thống kê</a>
                     </li>
 

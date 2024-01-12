@@ -10,6 +10,7 @@
 		<!--button bar-->
 		<div class="row">
 			<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+				{{#if laQuan}}
 				<div class="me-3">
 					<form method = "get" action ="/canbo/qldiemdat">
 						<div class="dropdown"> 
@@ -36,6 +37,7 @@
 						</div> 
 					</form>
 				</div>
+				{{/if}}
 				<div class="me-3">
 					<a href="/canbo/qldiemdat" type="button" class="btn btn-white border">View all</a>
 				</div>
@@ -57,7 +59,7 @@
 					<div class="card mb-3">
 						<div class="row g-0">
 							<div class="col-md-4">
-								<img src="{{DiaChiAnh}}" class="img-fluid rounded-start h-100" alt = "{{DiaChi}}">
+								<img src="{{toUrl DiaChiAnh}}" class="img-fluid rounded-start h-100" alt = "{{DiaChi}}">
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
@@ -103,7 +105,7 @@
 
   <!--Modal chinh sua-->
   <div class="modal fade" id="editDiemDatModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <form action="/canbo/qldiemdat" id="editDiemDatForm" method="POST">
         <div class="modal-content">
           <div class="modal-header">
@@ -127,37 +129,27 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
-							<div class="row">
-								<div>
-									<label for="ploaiEdit" class="form-label">Loại vị trí</label>
-									<select id="ploaiEdit" name="ploai" class="form-control form-select">
-										{{#each loaidiemdats}}
-            								<option value="{{id}}">{{Ten}}</option>
-										{{/each}}
-        							</select>
-								</div>
-							</div>
-							<div class="row">
-								<div>
-									<label for="hthucEdit" class="form-label">Hình thức quảng cáo</label>
-									<select id="hthucEdit" name="hthuc" class="form-control form-select">
-										{{#each hinhthucdiemdats}}
-            								<option value="{{id}}">{{Ten}}</option>
-										{{/each}}
-        							</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
+						<div class="col-6">
 							<div>
-								<label for="img">Hình ảnh</label>
-								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-								<div class="text-end pt-4">
-									<button class="btn btn-primary btn-sm" >Sửa</button>
-								</div>
+								<label for="ploaiEdit" class="form-label">Loại vị trí</label>
+								<select id="ploaiEdit" name="ploai" class="form-control form-select">
+									{{#each loaidiemdats}}
+										<option value="{{id}}">{{Ten}}</option>
+									{{/each}}
+								</select>
 							</div>
 						</div>
+						<div class="col-6">
+							<div>
+								<label for="hthucEdit" class="form-label">Hình thức quảng cáo</label>
+								<select id="hthucEdit" name="hthuc" class="form-control form-select">
+									{{#each hinhthucdiemdats}}
+										<option value="{{id}}">{{Ten}}</option>
+									{{/each}}
+								</select>
+							</div>
+						</div>
+
 					</div>
 					<div class="row">
 						<div class="form-check form-check-inline">
@@ -170,7 +162,7 @@
 					<p class="fw-bold m-0">Thời điểm chỉnh sửa</p>
 					<div class="col-md-6">
 						<label for="startdate" class="form-label">Từ ngày</label>
-						<input type="date" class="form-control" name="ngaychinhsua" placeholder="dd/mm/yyyy" required>
+						<input type="datetime-local" class="form-control" name="ngaychinhsua" placeholder="dd/mm/yyyy" required>
 					</div>
 
 				</div>
@@ -227,9 +219,7 @@
 		if (mySelectedListItems.length > 3) {
 			dpBtn.innerText = 'Đã chọn (' + mySelectedListItems.length + ')';
 		} else {
-			dpBtn.innerText = 
-			mySelectedListItems.length > 0 
-			? mySelectedListItemsText.slice(0, -2) : 'Chọn Phường'; 
+			dpBtn.innerText = mySelectedListItems.length > 0 ? mySelectedListItemsText.slice(0, -2) : 'Chọn Phường'; 
 		} 
 	} 
   

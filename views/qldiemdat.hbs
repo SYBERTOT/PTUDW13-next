@@ -47,7 +47,7 @@
 					<div class="card mb-3">
 						<div class="row g-0">
 							<div class="col-md-4">
-								<img src="{{DiaChiAnh}}" class="img-fluid rounded-start h-100" alt = "{{DiaChi}}">
+								<img src="{{toUrl DiaChiAnh}}" class="img-fluid rounded-start h-100" alt = "{{DiaChi}}">
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
@@ -94,7 +94,7 @@
 
   <!--Modal chinh sua-->
   <div class="modal fade" id="editDiemDatModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <form action="" id="editDiemDatForm" onsubmit="editDiemDat(event)">
         <div class="modal-content">
           <div class="modal-header">
@@ -118,7 +118,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-7">
 							<div class="row">
 								<div>
 									<label for="ploaiEdit" class="form-label">Loại vị trí</label>
@@ -140,7 +140,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<div>
 								<label for="img">Hình ảnh</label>
 								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
@@ -211,8 +211,8 @@
 
 <!--Modal thêm điểm đặt-->
 <div class="modal fade" id="themDiemDatModal" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	<form action="/so/qldiemdat" id="themDiemDatForm" method="POST">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+	<form action="/so/qldiemdat" id="themDiemDatForm" method="POST" enctype="multipart/form-data">
 		<div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title" id="userModalTitle">
@@ -226,15 +226,15 @@
 					<div class="row">
 						<div>
 							<label for="diachi" class="form-label">Địa chỉ</label>
-							<input type="text" class="form-control" id="diachi" name="diachi" placeholder="227 Nguyễn Văn Cừ, phường 4, quận 5">
+							<input type="text" class="form-control" id="diachi" name="diachi" placeholder="227 Nguyễn Văn Cừ, Phường 4, Quận 5">
 						</div>
 						<div>
 							<label for="khuvuc" class="form-label">Khu vực</label>
-							<input type="text" class="form-control" id="khuvuc" name="khuvuc" placeholder="227 Nguyễn Văn Cừ, phường 4, quận 5">
+							<input type="text" class="form-control" id="khuvuc" name="khuvuc" placeholder="Phường 4, Quận 5">
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-7">
 							<div class="row">
 								<div>
 									<label for="ploai" class="form-label">Loại vị trí</label>
@@ -256,13 +256,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<div>
-								<label for="img">Hình ảnh</label>
-								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-								<div class="text-end pt-4">
-									<button class="btn btn-primary btn-sm" >Sửa</button>
-								</div>
+								<label for="hinhanh" class="form-label">Hình ảnh minh họa</label>
+								<img class="d-block w-100" id="preview">
+    							<input type="file" accept="image/*" class="form-control form-control-sm" id="hinhanh" name="hinhanh" onchange="(previewFile(event))">
 							</div>
 						</div>
 					</div>
@@ -277,10 +275,10 @@
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
-			Close
+			Hủy
 			</button>
 			<button type="submit" class="btn btn-primary">
-			Save
+			Lưu
 			</button>
 		</div>
 		</div>
@@ -363,4 +361,15 @@
 		}
 	});
 	
+	var previewFile = function (event) {
+		var input = event.target;
+
+    	var reader = new FileReader();
+    	reader.onload = function(){
+			var dataURL = reader.result;
+			var output = document.getElementById('preview');
+			output.src = dataURL;
+    	};
+    	reader.readAsDataURL(input.files[0]);
+	}
 </script>

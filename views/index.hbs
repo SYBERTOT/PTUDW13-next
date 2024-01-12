@@ -252,7 +252,7 @@
           } else {
             offcanvasElement.querySelector('#quyhoach').innerHTML = "CHƯA QUY HOẠCH";
           }
-          offcanvasElement.querySelector('#diachianh').src = diemdat.DiaChiAnh;
+          offcanvasElement.querySelector('#diachianh').src = toUrl(diemdat.DiaChiAnh);
           offcanvasElement.querySelector('#iddiemdat').value = diemdat.id;
 
 
@@ -282,10 +282,11 @@
 	function showdetails(i, j) {
 		var diemdat = diemdatsArray[i];
 		const offcanvasElement = document.getElementById("detailsInfo");
+    var imgPath = toUrl(diemdat.BangQuangCaos[j].DiaChiAnh);
 		if (offcanvasElement) {
 				offcanvasElement.querySelector('#adsDetails').innerHTML = 
 				`
-				<img src="${diemdat.BangQuangCaos[j].DiaChiAnh}" class="pb-1 w-100" alt="${diemdat.DiaChi}">
+				<img src="${imgPath}" class="pb-1 w-100" alt="${diemdat.DiaChi}">
 				<div class="col-md-12">
 					<div class="card border-0 fs-1" style="background-color: #E8F8EE;">
 						<div class="card-body">
@@ -299,7 +300,6 @@
 						<div class="card-body fw-bold">
 							<p>Ngày hết hạn hợp đồng: ${diemdat.BangQuangCaos[j].NgayHetHan}</p>
 							<p>Kích thước: ${diemdat.BangQuangCaos[j].KichThuoc}</p>
-							<p>Số lượng:</p>
 							<p>Hình thức: ${diemdat.HinhThucDiemDat.Ten}</p>
 							<p>Phân loại: ${diemdat.LoaiDiemDat.Ten}</p>
 						</div>
@@ -582,6 +582,14 @@
       console.log(guiBaoCaoModal.querySelector('#DiaChiNgauNhien').value);
     }
   }
+  function toUrl(value) {
+  if (value) {
+    return '../' + value.replace(/html\\/g, '/');
+  } else {
+    return '../img/1.png';
+  }
+}
+
 </script>
         <!--/container-->
 {{!-- tinymce --}}

@@ -46,7 +46,7 @@
 				<div class="card mb-3">
 					<div class="row g-0">
 						<div class="col-md-4">
-							<img src="{{DiaChiAnh}}" class="img-fluid rounded-start h-100" alt = "{{DiemDat.DiaChi}}">
+							<img src="{{toUrl DiaChiAnh}}" class="img-fluid rounded-start h-100" alt = "{{DiemDat.DiaChi}}">
 						</div>
 						<div class="col-md-8">
 							<div class="card-body ms-2">
@@ -78,7 +78,7 @@
 
   <!--Modal chinh sua-->
   <div class="modal fade" id="editBangQCModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <form action="" id="editBangQCForm" onsubmit="editBangQC(event)">
         <div class="modal-content">
           <div class="modal-header">
@@ -103,7 +103,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-6">
 							<div class="row">
 								<div>
 									<label for="ploaiEdit" class="form-label">Loại bảng quảng cáo</label>
@@ -121,21 +121,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div>
-								<label for="img">Hình ảnh</label>
-								<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-								<div class="text-end pt-4">
-									<button class="btn btn-primary btn-sm" >Sửa</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
+						<div class="col-md-6">
 						<div>
 							<label for="ngayhethanEdit" class="form-label">Ngày hết hạn hợp đồng</label>
 							<input type="date" class="form-control" id="ngayhethanEdit" name="ngayhethan" placeholder="dd/mm/yyyy">
 						</div>
+					</div>
 					</div>
 				</div>
   			</div>
@@ -175,8 +166,8 @@
 
 <!--Modal thêm điểm đặt-->
 <div class="modal fade" id="themBangQCModal" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	<form action="/so/qlbangqc" id="themBangQCForm" method="POST">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+	<form action="/so/qlbangqc" id="themBangQCForm" method="POST" enctype="multipart/form-data">
 		<div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title" id="userModalTitle">
@@ -198,7 +189,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<div class="row">
 							<div>
 								<label for="ploai" class="form-label">Loại bảng quảng cáo</label>
@@ -216,14 +207,12 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<div>
-							<label for="img">Hình ảnh</label>
-							<img src="/img/1.png" class="img-fluid" alt="Hình ảnh">
-							<div class="text-end pt-4">
-								<button class="btn btn-primary btn-sm" >Sửa</button>
+								<label for="hinhanh" class="form-label">Hình ảnh minh họa</label>
+								<img class="d-block w-100" id="preview">
+    							<input type="file" accept="image/*" class="form-control form-control-sm" id="hinhanh" name="hinhanh" onchange="(previewFile(event))">
 							</div>
-						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -237,10 +226,10 @@
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
-			Close
+			Hủy
 			</button>
 			<button type="submit" class="btn btn-primary">
-			Save
+			Lưu
 			</button>
 		</div>
 		</div>
@@ -286,7 +275,6 @@
 		let formattedDate = `${year}-${month}-${day}`;
 
 		document.querySelector("#ngayhethanEdit").value = formattedDate;
-
   }
 
 	document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
@@ -330,4 +318,15 @@
 		}
 	});
 
+	var previewFile = function (event) {
+		var input = event.target;
+
+    	var reader = new FileReader();
+    	reader.onload = function(){
+			var dataURL = reader.result;
+			var output = document.getElementById('preview');
+			output.src = dataURL;
+    	};
+    	reader.readAsDataURL(input.files[0]);
+	}
 </script>

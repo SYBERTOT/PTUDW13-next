@@ -1,0 +1,141 @@
+<div class="container-fluid pt-5">
+	<!--title-->
+	<div class="row mb-3">
+		<div class="page-title">
+			Phê duyệt yêu cầu chỉnh sửa điểm đặt
+		</div>
+	</div>
+	
+	<!--button bar-->
+	<!--
+	<div class="row">
+		<div class="btn-toolbar mb-3 justify-content-end" role="toolbar" aria-label="Toolbar">
+			<div class="me-3">
+				<button type="button" class="btn btn-white border">View all</button>
+			</div>
+			<div class="input-group">
+				<button type="button" class="btn border border-end-0"><i class="bi bi-search"></i></button>
+				<input type="text" class="form-control border-start-0" placeholder="Tìm kiếm" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+		</div>
+	</div>-->
+
+	<!--card set-->
+	<div class="row mx-3 table-responsive">
+		<table class="table align-middle table-striped table-bordered table-hover">
+			<colgroup>
+				<col style="width:3%">
+				<col style="width:10%">
+				<col style="width:32%">
+				<col style="width:32%">
+				<col style="width:16%">
+				<col style="width:7%">
+			</colgroup>
+			<thead>
+				<tr>
+				<th scope="col">STT</th>
+				<th scope="col"></th>
+				<th scope="col">Thông tin hiện tại</th>
+				<th scope="col">Thông tin chỉnh sửa</th>
+				<th scope="col">Yêu cầu chỉnh sửa</th>
+				<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each yeucauchinhsuathongtins}}
+				<tr>
+					<th scope="row" rowspan="6">{{inc @index}}</th>
+					<tr>
+						<th>Địa chỉ</th>
+						<td>{{DiemDat.DiaChi}}</td>		
+						<td>{{DiaChi}}</td>		
+						<td rowspan="5">
+							<strong>Thời điểm xin chỉnh sửa: <small class="text-muted">{{showDate ThoiDiemXin}}</small></strong>
+							<br>
+							<strong>Lý do: <small class="text-muted">{{LyDo}}</small></strong>
+						</td>
+						<td rowspan="5">
+							<button class="btn btn-secondary indigo dongy-btn" 
+							data-id="{{id}}" data-diachi="{{DiaChi}}" data-khuvuc="{{KhuVuc}}" data-diemdatid="{{DiemDatId}}" data-hthuc="{{HinhThucDiemDatId}}" data-ploai="{{LoaiDiemDatId}}" data-quyhoach="{{QuyHoach}}">
+							<i class="bi bi-check-lg"></i>Đồng ý</button>
+							<button class="btn btn-secondary border-indigo tuchoi-btn" data-id="{{id}}"><i class="bi bi-x"></i>Từ chối</button>
+						</td>
+					</tr>
+					<tr>
+						<th>Khu vực</th>
+						<td>{{DiemDat.KhuVuc}}</td>	
+						<td>{{KhuVuc}}</td>
+					</tr>
+					<tr>
+						<th>Hình thức điểm đặt</th>
+						<td>{{this.DiemDat.HinhThucDiemDat.Ten}}</td>
+						<td>{{HinhThucDiemDat.Ten}}
+						</td>
+					</tr>
+					<tr>
+						<th>Loại điểm đặt</th>
+						<td>{{this.DiemDat.LoaiDiemDat.Ten}}</td>
+						<td>{{LoaiDiemDat.Ten}}
+						</td>
+					</tr>
+					<tr>
+						<th>Quy hoạch</th>
+					<td>
+					{{#if DiemDat.QuyHoach}}ĐÃ QUY HOẠCH
+					{{else}}CHƯA QUY HOẠCH
+					{{/if}}
+					</td>
+					<td>
+					{{#if QuyHoach}}ĐÃ QUY HOẠCH
+					{{else}}CHƯA QUY HOẠCH
+					{{/if}}
+					</td>
+					</tr>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<script>
+	document.querySelectorAll('.dongy-btn').forEach((button) => {
+		button.addEventListener('click', function() {
+			var id = this.getAttribute('data-id');
+			xoaYeuCau(id);
+			var diemdatid = this.getAttribute('data-diemdatid');
+			var diachi = this.getAttribute('data-diachi');
+			var khuvuc = this.getAttribute('data-khuvuc');
+			var hthuc = this.getAttribute('data-hthuc');
+			var ploai = this.getAttribute('data-ploai');
+			var quyhoach = this.getAttribute('data-quyhoach');
+			dongyChinhsua(diemdatid, diachi, khuvuc, hthuc, ploai, quyhoach);
+		});
+	});
+
+	document.querySelectorAll('.tuchoi-btn').forEach((button) => {
+		button.addEventListener('click', function() {
+			var id = this.getAttribute('data-id');
+			xoaYeuCau(id);
+		});
+	});
+	async function xoaYeuCau(id){
+		let res= await fetch(`/so/pheduyetdiemdat/${id}`, {
+		method: "DELETE",
+		});
+		location.reload();
+		}
+	async function dongyChinhsua(diemdatid, diachi, khuvuc, hthuc, ploai, quyhoach) {
+		
+		let res = await fetch("/so/qldiemdat", {
+		method: 'PUT',
+		headers:{
+			"Content-Type":"application/json",
+		},
+		body: JSON.stringify({ id: diemdatid, diachi: diachi, khuvuc: khuvuc, ploai: ploai, hthuc: hthuc, quyhoach: quyhoach }),
+		});
+  
+	location.reload();
+  }
+</script>
